@@ -14,19 +14,23 @@ public class GetWeight extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_weight);
 
+        //Create weight data database
+        final DBManager manager = new DBManager(this);
+
         Button ok_button = (Button) findViewById(R.id.ok_button);
 
         ok_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 EditText inputWeight = (EditText) findViewById(R.id.editTextWeight);
-                String weight = inputWeight.getText().toString();
+                Double weight = Double.parseDouble(String.valueOf(inputWeight.getText()));
 
-                Intent intent = new Intent(GetWeight.this, ViewSummary.class);
+                /*Intent intent = new Intent(GetWeight.this, ViewSummary.class);
                 intent.putExtra("Weight", weight);
-                startActivity(intent);
+                startActivity(intent);*/
+                manager.insert(weight);
+
             }
 
             });

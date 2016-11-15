@@ -16,8 +16,15 @@ public class ViewSummary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_summary);
 
-        Intent intent = getIntent();
-        String weight = intent.getStringExtra("Weight");
+
+    }
+
+
+    @Override
+    public void onNewIntent(Intent newIntent) {
+        super.onNewIntent(newIntent);
+
+        String weight = newIntent.getStringExtra("Weight");
 
         Log.e("ViewSummary","weight " +weight);
 
