@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">POSEIDON</string>
+    <string name="title_activity_view_summary">ViewSummary</string>
 </resources>

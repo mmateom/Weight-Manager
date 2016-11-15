@@ -37,7 +37,6 @@
         android:drawableTop="@drawable/weight1"
         android:paddingTop="10sp"
        android:id="@+id/measure_weight"
-        android:onClick="openGetWeight"
         android:layout_marginBottom="13dp"
         android:layout_above="@+id/preferences"
         android:layout_alignParentLeft="true"
