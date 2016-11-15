@@ -11,32 +11,34 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     tools:context="mikel.poseidon.MainActivity">
-    <include layout="@layout/toolbar"
+
+    <include
+        layout="@layout/toolbar"
         android:id="@+id/include" />
 
     <Button
-               android:text="Preferences"
-               style="@style/ButtonText"
-               android:background="@drawable/round_corner_button"
-               android:layout_width="125dp"
-               android:layout_height="100dp"
-               android:id="@+id/preferences"
-           android:drawableTop="@drawable/preferences"
-               android:paddingTop="10sp"
+        android:text="Preferences"
+        style="@style/ButtonText"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:id="@+id/preferences"
+        android:drawableTop="@drawable/preferences"
+        android:paddingTop="10sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="175dp" />
 
     <Button
-       android:text="Measure Weight"
+        android:text="Measure Weight"
         style="@style/ButtonText"
-       android:background="@drawable/round_corner_button"
-       android:layout_width="125dp"
-       android:layout_height="100dp"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
         android:drawableTop="@drawable/weight1"
         android:paddingTop="10sp"
-       android:id="@+id/measure_weight"
+        android:id="@+id/measure_weight"
         android:layout_marginBottom="13dp"
         android:layout_above="@+id/preferences"
         android:layout_alignParentLeft="true"
@@ -45,14 +47,14 @@
         android:layout_marginStart="46dp" />
 
     <Button
-            android:text="View Summary"
-            style="@style/ButtonText"
-            android:drawableTop="@drawable/table1"
-            android:paddingTop="15sp"
-            android:background="@drawable/round_corner_button"
-            android:layout_width="125dp"
-            android:layout_height="100dp"
-            android:id="@+id/view_summary"
+        android:text="View Summary"
+        style="@style/ButtonText"
+        android:drawableTop="@drawable/table1"
+        android:paddingTop="15sp"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:id="@+id/view_summary"
         android:layout_alignTop="@+id/measure_weight"
         android:layout_toRightOf="@+id/measure_weight"
         android:layout_toEndOf="@+id/measure_weight"
