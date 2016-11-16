@@ -1,4 +1,4 @@
-package mikel.poseidon;
+package com.mikel.poseidon;
 
 import org.junit.Test;
 

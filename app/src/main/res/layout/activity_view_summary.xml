@@ -10,7 +10,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    tools:context="mikel.poseidon.MainActivity">
+    tools:context="com.mikel.poseidon.MainActivity">
 
     <include
         layout="@layout/toolbar"
@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/my_toolbar"
         android:layout_marginTop="50dp"
-        tools:context="mikel.poseidon.ViewSummary">
+        tools:context="com.mikel.poseidon.ViewSummary">
 
 
     </ListView>

@@ -1,4 +1,4 @@
-package mikel.poseidon;
+package com.mikel.poseidon;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
