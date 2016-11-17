@@ -3,6 +3,7 @@ package com.mikel.poseidon;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,20 +19,24 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.R.attr.format;
+import static com.mikel.poseidon.R.id.delete;
 import static com.mikel.poseidon.R.id.ok_button;
 
 public class GetWeight extends AppCompatActivity {
 
 
-    Button okbtn, date_button;
+    Button okbtn, date_button, deletebtn;
     EditText inputWeight;
     DBHelper myDB;
+
+    //DatePicker variables
     static final int DIALOG_ID = 0;
     int year_x, month_x, day_x;
-    String date, year, month, day, newDateStr;
+    String date, year, month, day, date_final, newDate, newWeight;
 
     Date date_f;
-    String date_final;
+
+
 
 
 
@@ -49,6 +54,7 @@ public class GetWeight extends AppCompatActivity {
         //create view objects
         okbtn = (Button) findViewById(ok_button);
         inputWeight = (EditText) findViewById(R.id.editTextWeight_string);
+       // deletebtn = (Button) findViewById(delete);
 
         //set initial date of calendar picker
         final Calendar cal = Calendar.getInstance();
@@ -56,27 +62,26 @@ public class GetWeight extends AppCompatActivity {
         month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
 
-        //implement methods: add weight data, pick date
-        AddData();
         showDialogOnSelectDateClick();
 
 
-    }
-    public void AddData() {
-
+        //When I press OK button get newWeight and newDate
         okbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                boolean isInserted = myDB.insertData(inputWeight.getText().toString());
+                newWeight = inputWeight.getText().toString();
+                newDate = date_final;
+
+                AddData(newWeight,newDate);
 
                 /*Intent intent = new Intent(GetWeight.this, ViewSummary.class);
                 intent.putExtra("Weight", weight);
                 startActivity(intent);*/
-                if(isInserted == true)
+                /*if(newWeight.length()!= 0)
                     Toast.makeText(GetWeight.this,"Data Inserted",Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(GetWeight.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+                    Toast.makeText(GetWeight.this,"Data not Inserted",Toast.LENGTH_LONG).show();*/
 
 
 
@@ -84,8 +89,42 @@ public class GetWeight extends AppCompatActivity {
             }
 
         });
+
+        //When I press OK button get newWeight and newDate
+       /* deletebtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                myDB.deleteData("Weight_Summary");
+
+                Toast.makeText(GetWeight.this,"Data deleted",Toast.LENGTH_LONG).show();
+
+
+            }
+
+        });*/
+
+
+
+
+
+
     }
 
+
+    public void AddData(String newWeight, String newDate) {
+
+        boolean insertData = myDB.addData(newWeight,newDate);
+
+        if(insertData==true){
+            Toast.makeText(this, "Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Something went wrong :(.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    /////////////////DatePicker////////////
 
     public void showDialogOnSelectDateClick(){
 
@@ -117,9 +156,9 @@ public class GetWeight extends AppCompatActivity {
             month = String.valueOf(month_x);
             day = String.valueOf(day_x);
 
-            date = year + "/" + month + "/"+ day;
+            date = year + "-" + month + "-"+ day;
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 date_f = formatter.parse(date);
                 date_final = formatter.format(date_f);
@@ -127,9 +166,13 @@ public class GetWeight extends AppCompatActivity {
                 System.out.println(date_f);
                 System.out.println(date_final);
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            /*Intent pass_date = new Intent(GetWeight.this, DBHelper.class);
+            pass_date.putExtra("Date", date_final);
+            startActivity(pass_date);*/
+
 
 
 

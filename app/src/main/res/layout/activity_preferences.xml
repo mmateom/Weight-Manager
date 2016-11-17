@@ -13,4 +13,14 @@
     <include layout="@layout/toolbar"
         android:id="@+id/include" />
 
+    <Button
+        android:text="Delete Data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:id="@+id/delete_2" />
+
+
 </RelativeLayout>
