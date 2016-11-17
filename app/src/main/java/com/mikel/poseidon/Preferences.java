@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import static com.mikel.poseidon.R.id.delete;
 import static com.mikel.poseidon.R.id.delete_2;
 
 public class Preferences extends AppCompatActivity {

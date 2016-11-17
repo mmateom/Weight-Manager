@@ -19,13 +19,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.R.attr.format;
-import static com.mikel.poseidon.R.id.delete;
 import static com.mikel.poseidon.R.id.ok_button;
 
 public class GetWeight extends AppCompatActivity {
 
 
-    Button okbtn, date_button, deletebtn;
+    Button okbtn, date_button;
     EditText inputWeight;
     DBHelper myDB;
 
@@ -54,7 +53,6 @@ public class GetWeight extends AppCompatActivity {
         //create view objects
         okbtn = (Button) findViewById(ok_button);
         inputWeight = (EditText) findViewById(R.id.editTextWeight_string);
-       // deletebtn = (Button) findViewById(delete);
 
         //set initial date of calendar picker
         final Calendar cal = Calendar.getInstance();
@@ -90,19 +88,6 @@ public class GetWeight extends AppCompatActivity {
 
         });
 
-        //When I press OK button get newWeight and newDate
-       /* deletebtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                myDB.deleteData("Weight_Summary");
-
-                Toast.makeText(GetWeight.this,"Data deleted",Toast.LENGTH_LONG).show();
-
-
-            }
-
-        });*/
 
 
 
