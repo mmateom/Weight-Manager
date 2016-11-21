@@ -8,9 +8,12 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.R.attr.data;
 
 
 public class ViewSummary extends AppCompatActivity {
@@ -22,13 +25,12 @@ public class ViewSummary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_summary);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
         myDB = new DBHelper(this);
 
         //populate an ArrayList<String> from the database and then view it
-        ArrayList<String> theList = new ArrayList<>();
+        //ArrayList<String> theList = new ArrayList<>();
         Cursor data = myDB.getListContents();
-        if(data.getCount() == 0){
+        /*if(data.getCount() == 0){
             Toast.makeText(this, "There are no contents in this list!",Toast.LENGTH_SHORT).show();
         }else{
             while(data.moveToNext()){
@@ -36,10 +38,34 @@ public class ViewSummary extends AppCompatActivity {
                 ListAdapter listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
                 listView.setAdapter(listAdapter);
             }
-        }
+        }*/
 
+        startManagingCursor(data);
+
+        String[] fromFieldNames = new String[]
+                {DBHelper.DATE, DBHelper.WEIGHT};
+        int[] toViewIDs = new int[]
+                {R.id.date_item, R.id.weight_item};
+
+        SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(
+
+                this,                           //Context
+                R.layout.item_layout, //Row layout template
+                data,                           //Cursor named 'data' gets all the content on DB
+                fromFieldNames,                 //DB column names
+                toViewIDs);                     //view IDs to put information in
+
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(myCursorAdapter);
 
     }
+
+
+
+
+
+
 
 
     /*@Override

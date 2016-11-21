@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
-
-import static android.os.Build.VERSION_CODES.M;
 
 
 /**
@@ -17,17 +14,17 @@ import static android.os.Build.VERSION_CODES.M;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "WeightDatabase";
-    private static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "WeightDatabase_2";
+    public static final int DATABASE_VERSION = 1;
 
     Intent intent;
     String date;
 
     //Table parameters
     public static final String TABLE_NAME = "Weight_Summary";
-    private static final String WEIGHT_ID = "id";
-    private static final String DATE = "Date";
-    private static final String WEIGHT = "Weight";
+    public static final String WEIGHT_ID = "_id";
+    public static final String DATE = "Date";
+    public static final String WEIGHT = "Weight";
 
     //parameters of the table
     public static final String CREATE_TABLE = "CREATE TABLE "
@@ -103,5 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return data;
     }
+
+
 }
 
