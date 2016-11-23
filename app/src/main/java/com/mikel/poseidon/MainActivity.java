@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 
-        // Find the View that shows the numbers category
+        // Find the View that shows get weight
         TextView measure_weight = (TextView) findViewById(R.id.measure_weight);
 
         // Set a click listener on that View
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Find the View that shows the numbers category
+        // Find the View that shows the summary
         TextView view_summary = (TextView) findViewById(R.id.view_summary);
 
         // Set a click listener on that View
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Find the View that shows the numbers category
+        // Find the View that shows preferences
         TextView preferences = (TextView) findViewById(R.id.preferences);
 
         // Set a click listener on that View
@@ -67,6 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
                 // Start the new activity
                 startActivity(preferencesIntent);
+            }
+        });
+
+        // Find the View that shows graph
+        TextView graph = (TextView) findViewById(R.id.graph);
+
+        // Set a click listener on that View
+        graph.setOnClickListener(new View.OnClickListener() {
+
+            // The code in this method will be executed when the preferences button is clicked on.
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to open the {@link graph}
+                Intent graphIntent = new Intent(MainActivity.this, Graph.class);
+
+                // Start the new activity
+                startActivity(graphIntent);
             }
         });
 

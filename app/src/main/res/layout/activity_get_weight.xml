@@ -40,21 +40,9 @@
         android:id="@+id/ok_button"
         android:background="@drawable/enter_weight_header"
         android:textColor="@color/HeaderColor"
-        android:layout_marginTop="138dp"
-        android:layout_below="@+id/enter_manually"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/datebtn"
         android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:inputType="text"
-        android:ems="7"
-        android:hint="  Enter weight"
-        android:id="@+id/editTextWeight_string"
-        android:background="@drawable/enter_weight"
-        android:layout_below="@+id/enter_manually"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp" />
 
     <Button
         android:text="Select Date"
@@ -63,8 +51,8 @@
         android:id="@+id/datebtn"
         android:background="@drawable/enter_weight_header"
         android:textColor="@color/HeaderColor"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/editTextWeight_string"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/enter_manually"
         android:layout_alignLeft="@+id/ok_button"
         android:layout_alignStart="@+id/ok_button" />
 

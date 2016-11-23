@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,7 +33,8 @@ public class GetWeight extends AppCompatActivity {
     //DatePicker variables
     static final int DIALOG_ID = 0;
     int year_x, month_x, day_x;
-    String date, year, month, day, date_final, newDate, newWeight;
+    String date, year, month, day, date_final, newDate;
+    double newWeight;
 
     Date date_f;
 
@@ -53,7 +55,7 @@ public class GetWeight extends AppCompatActivity {
 
         //create view objects
         okbtn = (Button) findViewById(ok_button);
-        inputWeight = (EditText) findViewById(R.id.editTextWeight_string);
+        inputWeight = (EditText) findViewById(R.id.editTextWeight);
 
         //set initial date of calendar picker
         final Calendar cal = Calendar.getInstance();
@@ -69,7 +71,7 @@ public class GetWeight extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                newWeight = inputWeight.getText().toString();
+                newWeight = Double.parseDouble(inputWeight.getText().toString());
                 newDate = date_final;
 
                 AddData(newWeight,newDate);
@@ -96,7 +98,7 @@ public class GetWeight extends AppCompatActivity {
     }
 
 
-    public void AddData(String newWeight, String newDate) {
+    public void AddData(double newWeight, String newDate) {
 
         boolean insertData = myDB.addData(newWeight,newDate);
 

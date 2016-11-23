@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.Editable;
+
+import static java.awt.font.TextAttribute.WEIGHT;
 
 
 /**
@@ -70,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }*/
 
-    public boolean addData(String weight, String date_i){
+    public boolean addData(double weight, String date_i){
         SQLiteDatabase db = this.getWritableDatabase() ;
         ContentValues values = new ContentValues();
 
@@ -100,6 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return data;
     }
+
 
 
 }
