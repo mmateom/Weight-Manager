@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -39,15 +40,23 @@ public class GetWeight extends AppCompatActivity {
     Date date_f;
 
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_weight);
+
+        //callback to home button
+        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
+        home_button.setOnClickListener(new View.OnClickListener() {
+
+            // The code in this method will be executed when the preferences button is clicked on.
+            @Override
+            public void onClick(View view) {
+
+                Intent home_intent = new Intent(GetWeight.this, MainActivity.class);
+                startActivity(home_intent);
+            }
+        });
 
 
         //create db
@@ -142,9 +151,9 @@ public class GetWeight extends AppCompatActivity {
             month = String.valueOf(month_x);
             day = String.valueOf(day_x);
 
-            date = year + "-" + month + "-"+ day;
+            date = day + "-" + month + "-"+ year;
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
             try {
                 date_f = formatter.parse(date);
                 date_final = formatter.format(date_f);

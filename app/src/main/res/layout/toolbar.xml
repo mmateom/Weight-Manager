@@ -11,11 +11,19 @@
     android:layout_height="45dp"
         popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+        <ImageButton
+            android:src="@drawable/homebutton"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:id="@+id/homebutton"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Poseidon"
             style="@style/ToolbarHeader"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title" />
+            android:id="@+id/toolbar_title"/>
+
+
 </android.support.v7.widget.Toolbar>

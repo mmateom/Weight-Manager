@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -24,6 +26,19 @@ public class ViewSummary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_summary);
+
+        //callback to home button
+        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
+        home_button.setOnClickListener(new View.OnClickListener() {
+
+            // The code in this method will be executed when the preferences button is clicked on.
+            @Override
+            public void onClick(View view) {
+
+                Intent home_intent = new Intent(ViewSummary.this, MainActivity.class);
+                startActivity(home_intent);
+            }
+        });
 
         myDB = new DBHelper(this);
 
