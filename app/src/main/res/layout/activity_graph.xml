@@ -13,21 +13,59 @@
         android:id="@+id/linechart"
         android:layout_width="350dp"
         android:layout_height="325dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/text_graph"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text = "@string/Good"
+        android:layout_below="@+id/linechart"
+        android:layout_alignLeft="@+id/linechart"
+        android:layout_alignStart="@+id/linechart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="23dp"
+        android:id="@+id/good"
+        android:background="@drawable/good"
+        android:textColor="@color/HeaderColor"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text ="@string/BeCareful"
+        android:id="@+id/becareful"
+        android:layout_alignTop="@+id/good"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/becareful"
+        android:textColor="@color/HeaderColor"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text = "@string/Risk"
+        android:id="@+id/risk"
+        android:background="@drawable/risk"
+        android:textColor="@color/HeaderColor"
+        android:layout_alignBaseline="@+id/becareful"
+        android:layout_alignBottom="@+id/becareful"
+        android:layout_alignRight="@+id/linechart"
+        android:layout_alignEnd="@+id/linechart"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp" />
 
     <TextView
         android:text="Your weight in kilos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="19dp"
         android:id="@+id/text_graph"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="20dp"
         android:layout_below="@+id/include"
-        android:layout_alignLeft="@+id/linechart"
-        android:layout_alignStart="@+id/linechart" />
+        android:layout_alignLeft="@+id/good"
+        android:layout_alignStart="@+id/good" />
 
 
 </RelativeLayout>

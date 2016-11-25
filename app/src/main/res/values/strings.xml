@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">POSEIDON</string>
     <string name="title_activity_view_summary">ViewSummary</string>
+    <string name="Good"><b>Good!</b></string>
+    <string name="BeCareful"><b>Be careful</b></string>
+    <string name="Risk"><b>Risk</b></string>
 </resources>

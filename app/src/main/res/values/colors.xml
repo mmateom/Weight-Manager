@@ -6,5 +6,8 @@
     <color name="ToolbarBackgroundColor">#ff8f00</color>
     <color name="ToolbarTextColor">#009688</color>
     <color name="HeaderColor">#ffffff</color>
+    <color name="Good">#388e3c</color>
+    <color name="BeCareful">#ffc107</color>
+    <color name="Risk">#c62828</color>
 
 </resources>
