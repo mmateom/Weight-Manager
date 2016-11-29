@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -90,6 +91,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // Find the View that shows step counter
+        TextView step_counter = (TextView) findViewById(R.id.steps);
+
+        // Set a click listener on that View
+        step_counter.setOnClickListener(new View.OnClickListener() {
+
+            // The code in this method will be executed when the preferences button is clicked on.
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to open the {@link stepcounter}
+                Intent stepsIntent = new Intent(MainActivity.this, Steps.class);
+
+                // Start the new activity
+                startActivity(stepsIntent);
+            }
+        });
 
 
 
@@ -98,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
     }
 
 

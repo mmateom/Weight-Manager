@@ -14,13 +14,124 @@
         android:id="@+id/include" />
 
     <Button
-        android:text="Delete Data"
+        android:text="Delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:id="@+id/delete_2"
         android:layout_below="@+id/include"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:id="@+id/delete_2" />
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
 
+    <TextView
+        android:text="Weight limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="32dp"
+        android:id="@+id/textView4"
+        android:textSize="18sp"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="Delete data:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:id="@+id/textView3"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_alignBaseline="@+id/delete_2"
+        android:layout_alignBottom="@+id/delete_2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/risk"
+        android:id="@+id/linearminmax"
+        android:layout_centerHorizontal="true">
+
+
+        <TextView
+            android:text="Min"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/textView9"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/min"
+            android:background="@drawable/enter_weight"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="'85'"/>
+
+        <TextView
+            android:text="Max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            />
+
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/max"
+            android:background="@drawable/enter_weight"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="'90'"/>
+
+    </LinearLayout>
+
+    <Button
+        android:text="Set"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:id="@+id/setbtn"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/linearminmax"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:text = "@string/Risk"
+        android:id="@+id/risk"
+        android:background="@drawable/risk"
+        android:textColor="@color/HeaderColor"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
 
 </RelativeLayout>

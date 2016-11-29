@@ -2,6 +2,7 @@ package com.mikel.poseidon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Canvas;
@@ -40,15 +41,20 @@ import java.util.List;
 import static android.R.attr.data;
 import static android.R.attr.max;
 import static android.R.attr.packageNames;
+import static android.R.attr.value;
 import static android.R.attr.x;
 import static android.R.attr.y;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static com.mikel.poseidon.DBHelper.WEIGHT;
+import static com.mikel.poseidon.Preferences.RISK_MAX;
+import static com.mikel.poseidon.Preferences.RISK_MIN;
+import static java.lang.reflect.Array.getFloat;
 
 
 public class Graph extends AppCompatActivity {
 
     DBHelper myDB;
-    Cursor alldata;
+    Cursor alldata_a;
 
     private LineChart chart;
     ArrayList<String> xVals;
@@ -56,10 +62,16 @@ public class Graph extends AppCompatActivity {
     Date[] date_d;
     double min;
     double max;
+    XAxis xAxis;
+    YAxis yAxis;
+
+    float min_limit_risk, max_limit_risk;
+
+    LineData lineData;
+    LineDataSet dataSet;
+
     //java.sql.Timestamp[] ts;
     //java.sql.Date[] date_sql;
-
-
 
 
     @Override
@@ -82,14 +94,21 @@ public class Graph extends AppCompatActivity {
 
         //full screen mode
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                //WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //instance db
         myDB = new DBHelper(this);
 
         //get all data from db
-        alldata = myDB.getListContents();
+        alldata_a= myDB.getListContents();
 
+        //generate graph
+
+
+
+        }
+
+    private void createGraph(Cursor alldata) {
 
         int count = alldata.getCount();
         double[] weights = new double[count];
@@ -121,7 +140,7 @@ public class Graph extends AppCompatActivity {
             this.finish(); //in case is empty, shut down activity to prevent shutting down whole app
 
 
-        //should fix this somehow -- how to show only one point??
+            //should fix this somehow -- how to show only one point??
 
         }else if(yVals.size() == 1){
             Toast.makeText(this, "Cannot graph one point", Toast.LENGTH_LONG).show();
@@ -147,71 +166,48 @@ public class Graph extends AppCompatActivity {
 
             //create chart
             chart = (LineChart) findViewById(R.id.linechart);
-            LineDataSet dataSet = new LineDataSet(yVals, "Kg");
+            dataSet = new LineDataSet(yVals, "Kg");
 
-            LineData lineData = new LineData(dataSet);
+            lineData = new LineData(dataSet);
 
             //set x axis: year-month-day
-            XAxis xAxis = chart.getXAxis(); //create X axis instance
+            xAxis = chart.getXAxis(); //create X axis instance
             xAxis.setValueFormatter(new MyXAxisValueFormatter(xVals));
+        }
+    }
 
-            //===================================================================
-            //  Chart styling
-            //===================================================================
 
-            //create Y axis instance
-            YAxis yAxis = chart.getAxisLeft();
+    private void setLimitLines() {
 
-            //hide right y axis
-            chart.getAxisRight().setDrawLabels(false);
+        //===================================================================
+        //  Set limit lines
+        //===================================================================
 
-            //set to 0 to only show bars according to each day
-            xAxis.setLabelCount(0);
-            xAxis.setGranularity(0f);
-            dataSet.setValueTextSize(10f);
 
-            //show x axis on the bottom of the chart
-            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        SharedPreferences settings_risk_min = this.getSharedPreferences(RISK_MIN, 0);
+        min_limit_risk=settings_risk_min.getFloat(RISK_MIN, 90);
 
-            //assign max and min value of y axis
-            yAxis.setAxisMaximum((float) max + 5f);//left
-            yAxis.setAxisMinimum((float) min - 5f);
-            yAxis.setLabelCount(12);
 
-            //set text size of y axis
-            float y_text_size = 15;
-            yAxis.setTextSize(y_text_size);
+        SharedPreferences settings_risk_max = this.getSharedPreferences(RISK_MAX, 0);
+        max_limit_risk = settings_risk_max.getFloat(RISK_MAX, 95);
 
-            //set text size of x axis
-            float x_text_size = 15;
-            xAxis.setTextSize(x_text_size);
 
-            //disable scrolling on Y axis, only scrollable con X axis
-            chart.setScaleYEnabled(false);
+        //risk
 
-            //enable LimitLine to be on the background on the chart line
-            yAxis.setDrawLimitLinesBehindData(true);
+        //getResources().getColor(R.color.LightRed, null);
 
-            //===================================================================
-            //  Set limit lines
-            //===================================================================
+        //where is the limit line
+        LimitLine z0 = new LimitLine(min_limit_risk);
+        z0.setLineColor(getResources().getColor(R.color.LightRed, null));
+        z0.setLineWidth(2f);
+        yAxis.addLimitLine(z0);
 
-            //risk
-            float upper_limit_risk = 92; //make this editable by user
-            float bottom_limit_risk = 90;
-            float mean = average(upper_limit_risk,bottom_limit_risk);
-                                        //where is the limit line
-            LimitLine z0 = new LimitLine(mean);
-            z0.setLineColor(Color.RED);
-            z0.setLineWidth(12f);
-            yAxis.addLimitLine(z0);
+        LimitLine z1 = new LimitLine(max_limit_risk);//make this editable by user(+0.5)
+        z1.setLineColor(getResources().getColor(R.color.LightRed, null));
+        z1.setLineWidth(2f);
+        yAxis.addLimitLine(z1);
 
-            LimitLine z1 = new LimitLine(91.5f);//make this editable by user(+0.5)
-            z1.setLineColor(Color.RED);
-            z1.setLineWidth(12f);
-            yAxis.addLimitLine(z1);
-
-            LimitLine z2 = new LimitLine(90.5f);//make this editable by user(-0.5)
+            /*LimitLine z2 = new LimitLine(90.5f);//make this editable by user(-0.5)
             z2.setLineColor(Color.RED);
             z2.setLineWidth(12f);
             yAxis.addLimitLine(z2);
@@ -224,19 +220,68 @@ public class Graph extends AppCompatActivity {
             LimitLine z4 = new LimitLine(91.75f);//make this editable by user(+0.75)
             z4.setLineColor(Color.RED);
             z4.setLineWidth(12f);
-            yAxis.addLimitLine(z4);
+            yAxis.addLimitLine(z4);*/
 
-            //
-
-
-            //===================================================================
-            // Set data
-            //===================================================================
-            chart.setData(lineData);
-            chart.invalidate();
-        }
+        //
 
     }
+
+
+    private void setGraphData(LineData lineData_1) {
+        //===================================================================
+        // Set data
+        //===================================================================
+        chart.setData(lineData_1);
+        chart.invalidate();
+    }
+
+    private void chartStyle() {
+        //===================================================================
+        //  Chart styling
+        //===================================================================
+
+        //create Y axis instance
+        yAxis = chart.getAxisLeft();
+
+        //hide right y axis
+        chart.getAxisRight().setDrawLabels(false);
+
+        //set to 0 to only show bars according to each day
+        xAxis.setLabelCount(0);
+        xAxis.setGranularity(0f);
+        dataSet.setValueTextSize(10f);
+
+        //set line + circle color & width
+        dataSet.setColor(Color.BLUE);
+        dataSet.setLineWidth(6f);
+        dataSet.setCircleColor(Color.BLUE);
+
+        //show x axis on the bottom of the chart
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        //assign max and min value of y axis
+        yAxis.setAxisMaximum((float) max + 5f);//left
+        yAxis.setAxisMinimum((float) min - 5f);
+        yAxis.setLabelCount(12);
+
+        //set text size of y axis
+        float y_text_size = 15;
+        yAxis.setTextSize(y_text_size);
+
+        //set text size of x axis
+        float x_text_size = 15;
+        xAxis.setTextSize(x_text_size);
+
+        //disable scrolling on Y axis, only scrollable con X axis
+        chart.setScaleYEnabled(false);
+
+        //enable limitline to be on the background on the chart line
+        yAxis.setDrawLimitLinesBehindData(true);
+
+
+    }
+
+
 
 
 
@@ -256,10 +301,20 @@ public class Graph extends AppCompatActivity {
 
     }
 
-    public float average (float upper, float bottom){
 
-        return (float) ((upper + bottom) / 2.0);
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        createGraph(alldata_a);
+        chartStyle();
+        setLimitLines();
+        setGraphData(lineData);
+
+
     }
+
+
 
 }
 

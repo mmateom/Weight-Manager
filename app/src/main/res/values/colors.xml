@@ -9,5 +9,6 @@
     <color name="Good">#388e3c</color>
     <color name="BeCareful">#ffc107</color>
     <color name="Risk">#c62828</color>
+    <color name="LightRed">#e53935</color>
 
 </resources>

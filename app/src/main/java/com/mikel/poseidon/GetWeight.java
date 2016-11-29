@@ -9,11 +9,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -22,6 +28,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.R.attr.format;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import static com.mikel.poseidon.R.id.activity_get_weight;
 import static com.mikel.poseidon.R.id.ok_button;
 
 public class GetWeight extends AppCompatActivity {
@@ -38,6 +47,10 @@ public class GetWeight extends AppCompatActivity {
     double newWeight;
 
     Date date_f;
+
+    private PopupWindow popupWindow;
+    private LayoutInflater layoutInflater;
+    private RelativeLayout relativeLayout;
 
 
     @Override
@@ -75,7 +88,7 @@ public class GetWeight extends AppCompatActivity {
         showDialogOnSelectDateClick();
 
 
-        //When I press OK button get newWeight and newDate
+        //When I press OK button get newWeight and newDate + show popup window
         okbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -84,6 +97,23 @@ public class GetWeight extends AppCompatActivity {
                 newDate = date_final;
 
                 AddData(newWeight,newDate);
+
+                //popup window
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup,null);
+                relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+                popupWindow = new PopupWindow(container, 500,500,true); //true allows us to close window by tapping outside
+                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125,300);
+
+                //shut popup outside window
+                container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return false;
+                    }
+                });
 
                 /*Intent intent = new Intent(GetWeight.this, ViewSummary.class);
                 intent.putExtra("Weight", weight);
@@ -157,6 +187,7 @@ public class GetWeight extends AppCompatActivity {
             try {
                 date_f = formatter.parse(date);
                 date_final = formatter.format(date_f);
+
 
                 System.out.println(date_f);
                 System.out.println(date_final);
