@@ -23,18 +23,42 @@ public class DBHelper extends SQLiteOpenHelper {
     Intent intent;
     String date;
 
-    //Table parameters
+
+    //==========================
+    //Create tables
+    //==========================
+
+
+    //WEIGHT table parameters
     public static final String TABLE_NAME = "Weight_Summary";
     public static final String WEIGHT_ID = "_id";
     public static final String DATE = "Date";
     public static final String WEIGHT = "Weight";
 
-    //parameters of the table
+    //parameters of the WEIGHT table
     public static final String CREATE_TABLE = "CREATE TABLE "
             +TABLE_NAME + " ("
             +WEIGHT_ID + " integer primary key autoincrement,"
             +DATE + " TEXT,"
             +WEIGHT + " REAL);";
+
+
+
+    //STEPS parameters
+    public static final String TABLE_NAME_STEPS = "Weight_Summary";
+    public static final String STEPS_ID = "_id";
+    public static final String ACT_START = "Act_Start";
+    public static final String ACT_STOP = "Act_Stop";
+    public static final String STEPS = "Steps";
+
+    //parameters of the STEPS table
+    public static final String CREATE_TABLE_STEPS = "CREATE TABLE "
+            +TABLE_NAME + " ("
+            +STEPS_ID + " integer primary key autoincrement,"
+            +ACT_START + " INT,"
+            +ACT_STOP + " INT,"
+            +STEPS + " INT);";
+
 
 
 
@@ -49,6 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(DBHelper.CREATE_TABLE);
+        db.execSQL(DBHelper.CREATE_TABLE_STEPS);
 
 
     }
@@ -56,6 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS" +TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS" +TABLE_NAME_STEPS);
         onCreate(db);
     }
 
@@ -72,6 +98,44 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     }*/
+
+    //==========================
+    //METHODS FOR STEPS TABLE
+    //==========================
+
+    public boolean addDataSteps(int act_start, int act_stop, int steps){
+        SQLiteDatabase db = this.getWritableDatabase() ;
+        ContentValues values = new ContentValues();
+
+
+        values.put(ACT_START, act_start);
+        values.put(ACT_STOP, act_stop);
+        values.put(STEPS, steps);
+        long result = db.insert(TABLE_NAME_STEPS,null ,values);
+        if(result == -1)
+            return false;
+        else
+            return true;
+
+    }
+
+    public void deleteDataSteps(String TABLE_NAME_STEPS){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NAME_STEPS);
+    }
+
+
+    //method to get contents from the database
+    public Cursor getListContentsSteps(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME_STEPS, null);
+        return data;
+    }
+
+    //==========================
+    //METHODS FOR WEIGHT TABLE
+    //==========================
 
     public boolean addData(double weight, String date_i){
         SQLiteDatabase db = this.getWritableDatabase() ;
