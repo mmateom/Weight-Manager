@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //STEPS parameters
-    public static final String TABLE_NAME_STEPS = "Weight_Summary";
+    public static final String TABLE_NAME_STEPS = "Steps_Summary";
     public static final String STEPS_ID = "_id";
     public static final String ACT_START = "Act_Start";
     public static final String ACT_STOP = "Act_Stop";
@@ -72,16 +72,16 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(DBHelper.CREATE_TABLE);
-        db.execSQL(DBHelper.CREATE_TABLE_STEPS);
+        db.execSQL(CREATE_TABLE);
+//        db.execSQL(CREATE_TABLE_STEPS);
 
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" +TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS" +TABLE_NAME_STEPS);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_NAME_STEPS);
         onCreate(db);
     }
 

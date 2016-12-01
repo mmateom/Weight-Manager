@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,6 +47,10 @@ import static android.R.attr.x;
 import static android.R.attr.y;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.mikel.poseidon.DBHelper.WEIGHT;
+import static com.mikel.poseidon.Preferences.BE_CAREFUL_MAX;
+import static com.mikel.poseidon.Preferences.BE_CAREFUL_MIN;
+import static com.mikel.poseidon.Preferences.GOOD_MAX;
+import static com.mikel.poseidon.Preferences.GOOD_MIN;
 import static com.mikel.poseidon.Preferences.RISK_MAX;
 import static com.mikel.poseidon.Preferences.RISK_MIN;
 import static java.lang.reflect.Array.getFloat;
@@ -66,6 +71,8 @@ public class Graph extends AppCompatActivity {
     YAxis yAxis;
 
     float min_limit_risk, max_limit_risk;
+    float min_limit_becareful, max_limit_becareful;
+    float min_limit_good, max_limit_good;
 
     LineData lineData;
     LineDataSet dataSet;
@@ -103,6 +110,10 @@ public class Graph extends AppCompatActivity {
         alldata_a= myDB.getListContents();
 
         //generate graph
+
+
+
+        createGraph(alldata_a);
 
 
 
@@ -173,6 +184,12 @@ public class Graph extends AppCompatActivity {
             //set x axis: year-month-day
             xAxis = chart.getXAxis(); //create X axis instance
             xAxis.setValueFormatter(new MyXAxisValueFormatter(xVals));
+            chartStyle();
+
+
+            setLimitLines();
+
+            setGraphData(lineData);
         }
     }
 
@@ -191,7 +208,6 @@ public class Graph extends AppCompatActivity {
         SharedPreferences settings_risk_max = this.getSharedPreferences(RISK_MAX, 0);
         max_limit_risk = settings_risk_max.getFloat(RISK_MAX, 95);
 
-
         //risk
 
         //getResources().getColor(R.color.LightRed, null);
@@ -207,24 +223,44 @@ public class Graph extends AppCompatActivity {
         z1.setLineWidth(2f);
         yAxis.addLimitLine(z1);
 
-            /*LimitLine z2 = new LimitLine(90.5f);//make this editable by user(-0.5)
-            z2.setLineColor(Color.RED);
-            z2.setLineWidth(12f);
-            yAxis.addLimitLine(z2);
 
-            LimitLine z3 = new LimitLine(90.25f);//make this editable by user(-0.75)
-            z3.setLineColor(Color.RED);
-            z3.setLineWidth(12f);
-            yAxis.addLimitLine(z3);
 
-            LimitLine z4 = new LimitLine(91.75f);//make this editable by user(+0.75)
-            z4.setLineColor(Color.RED);
-            z4.setLineWidth(12f);
-            yAxis.addLimitLine(z4);*/
+        /*SharedPreferences settings_becareful_min = this.getSharedPreferences(BE_CAREFUL_MIN, 0);
+        min_limit_becareful=settings_becareful_min.getFloat(BE_CAREFUL_MIN, 45);
+        SharedPreferences settings_becareful_max = this.getSharedPreferences(BE_CAREFUL_MAX, 0);
+        max_limit_becareful = settings_becareful_max.getFloat(BE_CAREFUL_MAX, 46);*/
 
-        //
+        LimitLine z2 = new LimitLine(85f);//make this editable by user(-0.5)
+        z2.setLineColor(Color.YELLOW);
+        z2.setLineWidth(2f);
+        yAxis.addLimitLine(z2);
+
+        LimitLine z3 = new LimitLine(90f);//make this editable by user(-0.75)
+        z3.setLineColor(Color.YELLOW);
+        z3.setLineWidth(2f);
+        yAxis.addLimitLine(z3);
+
+
+        /*SharedPreferences settings_good_min = this.getSharedPreferences(GOOD_MIN, 0);
+        min_limit_good=settings_good_min.getFloat(GOOD_MIN, 34);
+        SharedPreferences settings_good_max = this.getSharedPreferences(GOOD_MAX, 0);
+        max_limit_good = settings_good_max.getFloat(GOOD_MAX, 35);*/
+
+        LimitLine z4 = new LimitLine(84.9f);//make this editable by user(+0.75)
+        z4.setLineColor(Color.GREEN);
+        z4.setLineWidth(2f);
+        yAxis.addLimitLine(z4);
+
+        LimitLine z5 = new LimitLine(65f);//make this editable by user(-0.75)
+        z5.setLineColor(Color.GREEN);
+        z5.setLineWidth(2f);
+        yAxis.addLimitLine(z5);
+
+
+
 
     }
+
 
 
     private void setGraphData(LineData lineData_1) {
@@ -306,13 +342,14 @@ public class Graph extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
-        createGraph(alldata_a);
-        chartStyle();
-        setLimitLines();
-        setGraphData(lineData);
+       // chart.setData(lineData);
+
+
 
 
     }
+
+
 
 
 

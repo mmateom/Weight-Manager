@@ -16,7 +16,7 @@
     <Button
         android:text="Delete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginTop="47dp"
         android:id="@+id/delete_2"
         android:layout_below="@+id/include"
@@ -31,39 +31,49 @@
         android:text="Weight limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="17dp"
         android:id="@+id/textView4"
         android:textSize="18sp"
         android:textColor="@color/ToolbarTextColor"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_below="@+id/delete_2"
+        android:layout_alignLeft="@+id/risk"
+        android:layout_alignStart="@+id/risk" />
 
     <TextView
         android:text="Delete data:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
         android:id="@+id/textView3"
         android:textSize="18sp"
         android:gravity="center"
-        android:layout_alignBaseline="@+id/delete_2"
-        android:layout_alignBottom="@+id/delete_2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="@color/ToolbarTextColor"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_above="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:text = "@string/Risk"
+        android:id="@+id/risk"
+        android:background="@drawable/risk"
+        android:textColor="@color/HeaderColor"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/linearminmax"
+        android:layout_alignStart="@+id/linearminmax"
+        android:layout_marginTop="13dp" />
 
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/risk"
         android:id="@+id/linearminmax"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/risk"
+        android:layout_alignLeft="@+id/be_careful"
+        android:layout_alignStart="@+id/be_careful"
+        android:layout_marginTop="16dp">
 
 
         <TextView
@@ -80,7 +90,7 @@
             android:layout_height="40dp"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/min"
+            android:id="@+id/min_risk"
             android:background="@drawable/enter_weight"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
@@ -94,6 +104,53 @@
             android:id="@+id/textView8"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/max_risk"
+            android:background="@drawable/enter_weight"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="'90'"/>
+
+        <Button
+            android:text="Set"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/setbtn_risk"
+            android:background="@drawable/enter_weight_header"
+            android:textColor="@color/HeaderColor"
+            android:layout_below="@+id/textView4"
+            android:layout_alignRight="@+id/linearminmax"
+            android:layout_alignEnd="@+id/linearminmax"
+            android:layout_weight="0.77"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearminmax_becareful"
+        android:layout_below="@+id/be_careful"
+        android:layout_alignLeft="@+id/good_pref"
+        android:layout_alignStart="@+id/good_pref"
+        android:layout_marginTop="20dp">
+
+
+        <TextView
+            android:text="Min"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/text_min_becareful"
+            android:layout_weight="1"
+            android:gravity="center"
             />
 
         <EditText
@@ -101,37 +158,140 @@
             android:layout_height="40dp"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/max"
+            android:id="@+id/min_becareful"
             android:background="@drawable/enter_weight"
-            android:layout_marginStart="27dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="'75'"/>
+
+        <TextView
+            android:text="Max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_max_becareful"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/max_becareful"
+            android:background="@drawable/enter_weight"
+            android:layout_marginStart="1dp"
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'90'"/>
+            android:hint="'84'"/>
+        <Button
+            android:text="Set"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/setbtn_becareful"
+            android:background="@drawable/enter_weight_header"
+            android:textColor="@color/HeaderColor"
+            android:layout_below="@+id/textView4"
+            android:layout_alignRight="@+id/linearminmax"
+            android:layout_alignEnd="@+id/linearminmax"
+            android:layout_weight="0.77"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearminmax_good"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_below="@+id/good_pref"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp">
+
+
+        <TextView
+            android:text="Min"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/text_min_good"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/min_good"
+            android:background="@drawable/enter_weight"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="'65'"/>
+
+        <TextView
+            android:text="Max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_max_good"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/max_good"
+            android:background="@drawable/enter_weight"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="'74'"/>
+
+        <Button
+            android:text="Set"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/setbtn_good"
+            android:background="@drawable/enter_weight_header"
+            android:textColor="@color/HeaderColor"
+            android:layout_below="@+id/textView4"
+            android:layout_alignRight="@+id/linearminmax"
+            android:layout_alignEnd="@+id/linearminmax"
+            android:layout_weight="0.77"/>
 
     </LinearLayout>
 
     <Button
-        android:text="Set"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:id="@+id/setbtn"
-        android:background="@drawable/enter_weight_header"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:text = "@string/Good"
+        android:id="@+id/good_pref"
+        android:background="@drawable/good"
         android:textColor="@color/HeaderColor"
-        android:layout_marginTop="38dp"
-        android:layout_below="@+id/linearminmax"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/linearminmax_becareful"
+        android:layout_alignLeft="@+id/linearminmax_good"
+        android:layout_alignStart="@+id/linearminmax_good"
+        android:layout_marginTop="58dp" />
 
     <Button
         android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:text = "@string/Risk"
-        android:id="@+id/risk"
-        android:background="@drawable/risk"
+        android:layout_height="40dp"
+        android:text = "@string/BeCareful"
+        android:id="@+id/be_careful"
+        android:background="@drawable/becareful"
         android:textColor="@color/HeaderColor"
-        android:layout_marginTop="13dp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_below="@+id/linearminmax"
+        android:layout_alignLeft="@+id/linearminmax_becareful"
+        android:layout_alignStart="@+id/linearminmax_becareful"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>
