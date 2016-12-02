@@ -1,5 +1,7 @@
 package com.mikel.poseidon;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.icu.util.Calendar;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,7 +63,7 @@ public class Steps extends AppCompatActivity {
         // Bind to LocalService
         Intent intent = new Intent(this, StepService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-        //mService.createNotification();
+        createNotification();
         mBound = true;
         Toast.makeText(this, "Service binded successfully", Toast.LENGTH_SHORT).show();
     }
@@ -141,6 +144,27 @@ public class Steps extends AppCompatActivity {
         String current_start_time = hours + ":" + minutes + ":" + seconds + ":" + mlseconds;
 
         return current_start_time;
+    }
+
+    public void createNotification(){
+        //PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        //mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
+        //mWakeLock.acquire();
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle(getText(R.string.app_name));
+        builder.setContentText("Step counter");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+
+        Intent resultIntent = new Intent(this, Steps.class);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(1, builder.build());
+
+        //startForeground(1, builder.build());
+
+
     }
 
 }
