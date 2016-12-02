@@ -48,16 +48,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME_STEPS = "Steps_Summary";
     public static final String STEPS_ID = "_id";
     public static final String ACT_START = "Act_Start";
-    public static final String ACT_STOP = "Act_Stop";
+    //public static final String ACT_STOP = "Act_Stop";
     public static final String STEPS = "Steps";
 
     //parameters of the STEPS table
     public static final String CREATE_TABLE_STEPS = "CREATE TABLE "
-            +TABLE_NAME + " ("
+            +TABLE_NAME_STEPS + " ("
             +STEPS_ID + " integer primary key autoincrement,"
-            +ACT_START + " INT,"
-            +ACT_STOP + " INT,"
-            +STEPS + " INT);";
+            +ACT_START + " TEXT,"
+            //+ACT_STOP + " INT,"
+            +STEPS + " REAL);";
 
 
 
@@ -73,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE);
-//        db.execSQL(CREATE_TABLE_STEPS);
+        db.execSQL(CREATE_TABLE_STEPS);
 
 
     }
@@ -103,13 +103,13 @@ public class DBHelper extends SQLiteOpenHelper {
     //METHODS FOR STEPS TABLE
     //==========================
 
-    public boolean addDataSteps(int act_start, int act_stop, int steps){
+    public boolean addDataSteps(String act_start,  long steps){
         SQLiteDatabase db = this.getWritableDatabase() ;
         ContentValues values = new ContentValues();
 
 
         values.put(ACT_START, act_start);
-        values.put(ACT_STOP, act_stop);
+        //values.put(ACT_STOP, act_stop);
         values.put(STEPS, steps);
         long result = db.insert(TABLE_NAME_STEPS,null ,values);
         if(result == -1)

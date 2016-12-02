@@ -235,7 +235,7 @@ public class Graph extends AppCompatActivity {
         z2.setLineWidth(2f);
         yAxis.addLimitLine(z2);
 
-        LimitLine z3 = new LimitLine(90f);//make this editable by user(-0.75)
+        LimitLine z3 = new LimitLine(89.9f);//make this editable by user(-0.75)
         z3.setLineColor(Color.YELLOW);
         z3.setLineWidth(2f);
         yAxis.addLimitLine(z3);

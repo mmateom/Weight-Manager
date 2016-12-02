@@ -22,7 +22,8 @@
         android:layout_marginEnd="78dp"
         android:id="@+id/stop"
         android:textColor="@color/HeaderColor"
-        android:background="@drawable/enter_weight_header" />
+        android:background="@drawable/enter_weight_header"
+        android:onClick="onStopService"/>
 
     <TextView
         android:text="Your steps"
@@ -51,7 +52,7 @@
         android:layout_below="@+id/step_title"
         android:layout_alignLeft="@+id/step_title"
         android:layout_alignStart="@+id/step_title"
-        android:onClick="startService"/>
+        android:onClick="onStartService"/>
 
     <TextView
         android:text="Step counter"
@@ -66,7 +67,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_above="@+id/stop"
         android:layout_centerHorizontal="true"
-        android:onClick="stopService"/>
+        />
 
     <TextView
         android:text="TextView"
@@ -76,6 +77,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
         android:id="@+id/steps_counting" />
+
+    <Button
+        android:text="GET STEPS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:id="@+id/getSteps"
+        android:onClick="onBtnClick"/>
 
 
 </RelativeLayout>

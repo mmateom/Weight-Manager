@@ -1,96 +1,68 @@
 package com.mikel.poseidon;
 
-import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.admin.SystemUpdatePolicy;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.PowerManager;
-import android.os.SystemClock;
+import android.os.Binder;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.Random;
 
 import uk.ac.mdx.cs.ie.acontextlib.IContextReceiver;
-import uk.ac.mdx.cs.ie.acontextlib.hardware.LightContext;
 import uk.ac.mdx.cs.ie.acontextlib.hardware.StepCounter;
 
 import static android.R.attr.name;
-import static android.os.Build.VERSION_CODES.M;
+import static android.R.attr.value;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static com.mikel.poseidon.R.id.textView;
 
 /**
- * Created by mikel on 30/11/2016.
+ * Created by mikel on 02/12/2016.
  */
 
-public class StepIntentService extends IntentService {
+public class StepService extends Service {
+
+    // Binder given to clients
+    private final IBinder mBinder = new LocalBinder();
+    StepCounter sCounter;
+    private final Random mGenerator = new Random();
+    DBHelper myDB = new DBHelper(this);
 
 
-    public static final String EXTRA_KEY_OUT = "Steps";
-    private PowerManager.WakeLock mWakeLock;
-    String strValue;
-
-    public StepIntentService() {
-        super("StepIntentService");
-    }
-
-
+    @Nullable
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
-
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public void onDestroy() {
-        Toast.makeText(this, "Service stoped", Toast.LENGTH_SHORT).show();
-        super.onDestroy();
-//        mWakeLock.release();
-
+    public IBinder onBind(Intent intent) {
+        return mBinder;
     }
 
 
-
-
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        //This is what the service does
-
-
-
-        createNotification();
-        getSteps();
-
-
+    public class LocalBinder extends Binder {
+        StepService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return StepService.this;
+        }
     }
 
+    ArrayList<Long> Value = new ArrayList<Long>();
+    long step;
 
-    public void getSteps() {
+    public long getSteps(){
 
-        StepCounter stepCounter;
+        sCounter = new StepCounter(getApplicationContext());
+        sCounter.start();
 
-        stepCounter = new StepCounter(getApplicationContext());
-        Log.e("Service ", "Service stops at this point");
-        stepCounter.addContextReceiver(new IContextReceiver() {
-
-
+        sCounter.addContextReceiver(new IContextReceiver() {
             @Override
             public void newContextValue(String name, long value) {
-                strValue = String.valueOf(value);
-
-                        Intent intent = new Intent();
-                        intent.setAction(Steps.MyBroadcastReceiver.ACTION_PASS_DATA);
-                        intent.putExtra(EXTRA_KEY_OUT, strValue);
-                        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        sendBroadcast(intent);
-
-
+                step = value;
+                /*Value.add(step);
+                Value.add(step+1);*/
 
 
             }
@@ -99,7 +71,6 @@ public class StepIntentService extends IntentService {
             public void newContextValue(String name, double value) {
 
             }
-
             @Override
             public void newContextValue(String name, boolean value) {
 
@@ -121,8 +92,27 @@ public class StepIntentService extends IntentService {
             }
         });
 
+        long steps_counted = setSteps();
+        return steps_counted;
+
+    }
+    /** method for clients */
+    public int getRandomNumber() {
+        return mGenerator.nextInt(100);
     }
 
+
+    public long setSteps(){
+
+        /*for (int i =0; i < Value.size(); i++){
+
+            step = step + Value.get(i-1);
+        }*/
+
+        return step;
+
+
+    }
 
     public void createNotification(){
         //PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -144,6 +134,11 @@ public class StepIntentService extends IntentService {
 
 
     }
+
+
+
+
+
 
 
 

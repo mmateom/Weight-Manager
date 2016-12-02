@@ -19,9 +19,7 @@
         <activity android:name=".Preferences" />
         <activity android:name=".Graph" />
         <activity android:name=".Steps"></activity>
-        <service android:name=".StepIntentService"
-            android:enabled="true"
-            android:exported="false"/>
+        <service android:name=".StepService"></service>
     </application>
 
 </manifest>
