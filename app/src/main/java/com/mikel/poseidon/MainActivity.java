@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(graphIntent);
             }
         });
-
         // Find the View that shows step counter
         TextView step_counter = (TextView) findViewById(R.id.steps);
 

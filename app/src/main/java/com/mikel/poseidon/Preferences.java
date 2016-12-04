@@ -14,6 +14,7 @@ import android.widget.Toast;
 import static android.R.attr.value;
 import static com.mikel.poseidon.R.id.delete_2;
 
+import static com.mikel.poseidon.R.id.delete_steps;
 import static com.mikel.poseidon.R.id.setbtn_becareful;
 import static com.mikel.poseidon.R.id.setbtn_good;
 import static com.mikel.poseidon.R.id.setbtn_risk;
@@ -23,7 +24,7 @@ public class Preferences extends AppCompatActivity {
 
 
     DBHelper myDB;
-    Button deletebtn, set_risk,set_becareful,set_good;
+    Button deletebtn, deletebtn_steps, set_risk,set_becareful,set_good;
     EditText min_risk_edit, max_risk_edit;
     EditText min_becareful_edit, max_becareful_edit;
     EditText min_good_edit, max_good_edit;
@@ -69,12 +70,29 @@ public class Preferences extends AppCompatActivity {
         deletebtn = (Button) findViewById(delete_2);
 
 
-        //When I press OK button get newWeight and newDate
+        //Delete weight data
         deletebtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 myDB.deleteData("Weight_Summary");
+
+                Toast.makeText(Preferences.this,"Data deleted",Toast.LENGTH_LONG).show();
+
+            }
+
+        });
+
+
+        deletebtn_steps = (Button) findViewById(delete_steps);
+
+
+        //Delete steps data
+        deletebtn_steps.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                myDB.deleteDataSteps("Steps_Summary");
 
                 Toast.makeText(Preferences.this,"Data deleted",Toast.LENGTH_LONG).show();
 
