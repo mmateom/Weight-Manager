@@ -199,14 +199,14 @@ public class Graph extends AppCompatActivity {
 
         mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
 
-        min_limit_risk= mPrefs.getFloat("min_risk", 0);
-        max_limit_risk = mPrefs.getFloat("max_risk", 0);
+        min_limit_risk= mPrefs.getFloat("min_risk", (float) 92.1);
+        max_limit_risk = mPrefs.getFloat("max_risk", 97);
 
-        min_limit_becareful= mPrefs.getFloat("min_becareful", 0);
-        max_limit_becareful = mPrefs.getFloat("max_becareful", 0);
+        min_limit_becareful= mPrefs.getFloat("min_becareful", (float) 88.1);
+        max_limit_becareful = mPrefs.getFloat("max_becareful", (float) 92);
 
-        min_limit_good= mPrefs.getFloat("min_good", 0);
-        max_limit_good = mPrefs.getFloat("max_good", 0);
+        min_limit_good= mPrefs.getFloat("min_good", 84);
+        max_limit_good = mPrefs.getFloat("max_good", 88);
 
         //risk
 
@@ -215,7 +215,7 @@ public class Graph extends AppCompatActivity {
         //where is the limit line
         LimitLine z0 = new LimitLine(min_limit_risk);
         z0.setLineColor(getResources().getColor(R.color.LightRed, null));
-        z0.setLineWidth(2f);
+        z0.setLineWidth(4f);
         yAxis.addLimitLine(z0);
 
         LimitLine z1 = new LimitLine(max_limit_risk);//make this editable by user(+0.5)
@@ -227,7 +227,7 @@ public class Graph extends AppCompatActivity {
 
         LimitLine z2 = new LimitLine(min_limit_becareful);//make this editable by user(-0.5)
         z2.setLineColor(getResources().getColor(R.color.BeCareful, null));
-        z2.setLineWidth(2f);
+        z2.setLineWidth(4f);
         yAxis.addLimitLine(z2);
 
         LimitLine z3 = new LimitLine(max_limit_becareful);//make this editable by user(-0.75)
@@ -239,7 +239,7 @@ public class Graph extends AppCompatActivity {
 
         LimitLine z4 = new LimitLine(min_limit_good);//make this editable by user(+0.75)
         z4.setLineColor(getResources().getColor(R.color.Good, null));
-        z4.setLineWidth(2f);
+        z4.setLineWidth(4f);
         yAxis.addLimitLine(z4);
 
         LimitLine z5 = new LimitLine(max_limit_good);//make this editable by user(-0.75)

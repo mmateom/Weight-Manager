@@ -134,7 +134,6 @@ public class Preferences extends AppCompatActivity {
         set_becareful = (Button) findViewById(setbtn_becareful);
         set_good = (Button) findViewById(setbtn_good);
 
-        //TODO: me mecla el rojo y el amarillo, pero el verde no, por qué??
 
         //when click set button store values to retrieve from Graph.java
         set_risk.setOnClickListener(new View.OnClickListener() {
