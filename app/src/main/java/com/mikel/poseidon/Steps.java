@@ -128,10 +128,10 @@ public class Steps extends AppCompatActivity {
     public void onStopService(View v) {
 
         // Unbind from the service
-        if (mBound = true) {
+        if (mBound) {
             String currentStartTime = getCurrentStartTime();
             myDB.addDataSteps(currentStartTime, number);
-            //mService.stopCounting();
+            mService.stopCounting();
             Toast.makeText(this, "Step counter STOPED", Toast.LENGTH_LONG).show();
         } else {
 

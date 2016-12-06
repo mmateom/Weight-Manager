@@ -124,7 +124,7 @@ public class StepService extends Service {
         }
     }
 
-    public long setSteps(){
+   /* public long setSteps(){
 
         if (Value.size() > 0) {
 
@@ -141,24 +141,33 @@ public class StepService extends Service {
         return step;
 
 
-    }
+    }*/
 
-   /*public void stopCounting (){
+   public void stopCounting (){
 
-       if(sCounter.isRunning()) {
+
+       try {
            sCounter.stop();
+       } catch (Exception e) {
+           Log.e("StopService", e.getMessage());
        }
-
-    }
+   }
 
     @Override
     public void onDestroy() {
-        if(sCounter.isRunning()) {
-            sCounter.stop();
+
+
+        try {
+            if(sCounter.isRunning()) {
+                sCounter.stop();
+            }
+
+        } catch (Exception e) {
+            Log.e("StopService", e.getMessage());
         }
 
         super.onDestroy();
-    }*/
+    }
 
 
 

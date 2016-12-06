@@ -69,7 +69,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'85'"/>
+            android:hint="'91'"/>
 
         <TextView
             android:text="Max"
@@ -91,7 +91,7 @@
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'90'"/>
+            android:hint="'120'"/>
 
         <Button
             android:text="Set"
@@ -137,7 +137,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'75'"/>
+            android:hint="'81'"/>
 
         <TextView
             android:text="Max"
@@ -159,7 +159,7 @@
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'84'"/>
+            android:hint="'90'"/>
         <Button
             android:text="Set"
             android:layout_width="40dp"
@@ -206,7 +206,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'65'"/>
+            android:hint="'70'"/>
 
         <TextView
             android:text="Max"
@@ -228,7 +228,7 @@
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="'74'"/>
+            android:hint="'80'"/>
 
         <Button
             android:text="Set"
