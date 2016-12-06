@@ -10,6 +10,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class StepService extends Service {
     DBHelper myDB = new DBHelper(this);
     Calendar cal;
     //TextView textViewSteps;
+    public static final String BROADCAST_INTENT = "com.mikel.poseidon.TOTAL_STEPS";
+    private Context mContext;
 
 
     @Nullable
@@ -58,17 +61,17 @@ public class StepService extends Service {
     long step;
 
     public long getSteps(){
-
-        sCounter = new StepCounter(getApplicationContext());
+        mContext = getApplicationContext();
+        sCounter = new StepCounter(mContext);
         sCounter.start();
 
         sCounter.addContextReceiver(new IContextReceiver() {
             @Override
             public void newContextValue(String name, long value) {
-                step = value;
-                Value.add(step);
+                step += value;
+                //Value.add(step);
                 //Value.add(step+1);*/
-
+                broadcastSteps();
 
 
             }
@@ -98,16 +101,28 @@ public class StepService extends Service {
             }
         });
 
-        long steps_counted = setSteps();
+        //long steps_counted = setSteps();
 
        /* System.out.println("step "+steps_counted);
         System.out.println("Array size "+ Value.size());
         System.out.println("Array size "+ Value);*/
-        return steps_counted;
+        return 0;
 
     }
     /** method for clients */
 
+
+    public void broadcastSteps() {
+
+        Intent intent = new Intent();
+        try {
+            intent.setAction(BROADCAST_INTENT);
+            intent.putExtra("steps",step);
+            mContext.sendBroadcast(intent);
+        } catch (Exception e) {
+            Log.e("StopService", e.getMessage());
+        }
+    }
 
     public long setSteps(){
 
@@ -128,13 +143,22 @@ public class StepService extends Service {
 
     }
 
-    public void stopCounting (){
-        sCounter.stop();
+   /*public void stopCounting (){
+
+       if(sCounter.isRunning()) {
+           sCounter.stop();
+       }
 
     }
 
+    @Override
+    public void onDestroy() {
+        if(sCounter.isRunning()) {
+            sCounter.stop();
+        }
 
-
+        super.onDestroy();
+    }*/
 
 
 

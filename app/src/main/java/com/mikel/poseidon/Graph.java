@@ -47,12 +47,7 @@ import static android.R.attr.x;
 import static android.R.attr.y;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.mikel.poseidon.DBHelper.WEIGHT;
-import static com.mikel.poseidon.Preferences.BE_CAREFUL_MAX;
-import static com.mikel.poseidon.Preferences.BE_CAREFUL_MIN;
-import static com.mikel.poseidon.Preferences.GOOD_MAX;
-import static com.mikel.poseidon.Preferences.GOOD_MIN;
-import static com.mikel.poseidon.Preferences.RISK_MAX;
-import static com.mikel.poseidon.Preferences.RISK_MIN;
+import static com.mikel.poseidon.Preferences.sharedPrefs;
 import static java.lang.reflect.Array.getFloat;
 
 
@@ -193,7 +188,7 @@ public class Graph extends AppCompatActivity {
         }
     }
 
-
+    SharedPreferences mPrefs;
     private void setLimitLines() {
 
         //===================================================================
@@ -201,12 +196,17 @@ public class Graph extends AppCompatActivity {
         //===================================================================
 
 
-        SharedPreferences settings_risk_min = this.getSharedPreferences(RISK_MIN, 0);
-        min_limit_risk=settings_risk_min.getFloat(RISK_MIN, 90);
 
+        mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
 
-        SharedPreferences settings_risk_max = this.getSharedPreferences(RISK_MAX, 0);
-        max_limit_risk = settings_risk_max.getFloat(RISK_MAX, 95);
+        min_limit_risk= mPrefs.getFloat("min_risk", 0);
+        max_limit_risk = mPrefs.getFloat("max_risk", 0);
+
+        min_limit_becareful= mPrefs.getFloat("min_becareful", 0);
+        max_limit_becareful = mPrefs.getFloat("max_becareful", 0);
+
+        min_limit_good= mPrefs.getFloat("min_good", 0);
+        max_limit_good = mPrefs.getFloat("max_good", 0);
 
         //risk
 
@@ -225,34 +225,25 @@ public class Graph extends AppCompatActivity {
 
 
 
-        /*SharedPreferences settings_becareful_min = this.getSharedPreferences(BE_CAREFUL_MIN, 0);
-        min_limit_becareful=settings_becareful_min.getFloat(BE_CAREFUL_MIN, 45);
-        SharedPreferences settings_becareful_max = this.getSharedPreferences(BE_CAREFUL_MAX, 0);
-        max_limit_becareful = settings_becareful_max.getFloat(BE_CAREFUL_MAX, 46);*/
-
-        LimitLine z2 = new LimitLine(85f);//make this editable by user(-0.5)
-        z2.setLineColor(Color.YELLOW);
+        LimitLine z2 = new LimitLine(min_limit_becareful);//make this editable by user(-0.5)
+        z2.setLineColor(getResources().getColor(R.color.BeCareful, null));
         z2.setLineWidth(2f);
         yAxis.addLimitLine(z2);
 
-        LimitLine z3 = new LimitLine(89.9f);//make this editable by user(-0.75)
-        z3.setLineColor(Color.YELLOW);
+        LimitLine z3 = new LimitLine(max_limit_becareful);//make this editable by user(-0.75)
+        z3.setLineColor(getResources().getColor(R.color.BeCareful, null));
         z3.setLineWidth(2f);
         yAxis.addLimitLine(z3);
 
 
-        /*SharedPreferences settings_good_min = this.getSharedPreferences(GOOD_MIN, 0);
-        min_limit_good=settings_good_min.getFloat(GOOD_MIN, 34);
-        SharedPreferences settings_good_max = this.getSharedPreferences(GOOD_MAX, 0);
-        max_limit_good = settings_good_max.getFloat(GOOD_MAX, 35);*/
 
-        LimitLine z4 = new LimitLine(84.9f);//make this editable by user(+0.75)
-        z4.setLineColor(Color.GREEN);
+        LimitLine z4 = new LimitLine(min_limit_good);//make this editable by user(+0.75)
+        z4.setLineColor(getResources().getColor(R.color.Good, null));
         z4.setLineWidth(2f);
         yAxis.addLimitLine(z4);
 
-        LimitLine z5 = new LimitLine(65f);//make this editable by user(-0.75)
-        z5.setLineColor(Color.GREEN);
+        LimitLine z5 = new LimitLine(max_limit_good);//make this editable by user(-0.75)
+        z5.setLineColor(getResources().getColor(R.color.Good, null));
         z5.setLineWidth(2f);
         yAxis.addLimitLine(z5);
 

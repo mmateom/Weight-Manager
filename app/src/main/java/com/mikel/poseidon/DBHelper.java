@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Editable;
 
+import static android.R.attr.data;
 import static java.awt.font.TextAttribute.WEIGHT;
 
 
@@ -74,6 +75,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE);
         db.execSQL(CREATE_TABLE_STEPS);
+        insertExampleData(db); /** inserts example data. Comment this method in the future */
 
 
     }
@@ -169,6 +171,15 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    private void insertExampleData(SQLiteDatabase db){
 
+
+        db.execSQL("insert into Weight_Summary values (1, '01-12-16' , 89)");
+        db.execSQL("insert into Weight_Summary values (2, '08-12-16' , 90)");
+        db.execSQL("insert into Weight_Summary values (3, '15-12-16' , 91)");
+        db.execSQL("insert into Weight_Summary values (4, '22-12-16' , 91.5)");
+        db.execSQL("insert into Weight_Summary values (5, '29-12-16' , 92)");
+
+    }
 }
 

@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.RunnableFuture;
 
 import static android.R.attr.onClick;
 import static android.media.CamcorderProfile.get;
@@ -41,14 +42,18 @@ public class Steps extends AppCompatActivity {
 
     ArrayList<Long> stepArray;
     Cursor allsteps;
+    private TextView mStepsTextView;
 
     long number;
+    private BroadcastReceiver mStepsReceiver;
+    private Context mContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps);
+        mContext = getApplicationContext();
 
         //create db
         myDB = new DBHelper(this);
@@ -68,43 +73,44 @@ public class Steps extends AppCompatActivity {
             }
         });
 
+        mStepsTextView = (TextView) findViewById(steps_counting);
 
-        Thread t = new Thread() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupBReceiver();
+
+        Intent intent = new Intent(this, StepService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        unbindService(mConnection);
+        mContext.unregisterReceiver(mStepsReceiver);
+    }
+
+    public void setupBReceiver(){
+        mStepsReceiver = new BroadcastReceiver() {
             @Override
-            public void run() {
-                try {
-                    while (!isInterrupted()) {
-                        Thread.sleep(20001);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (mBound) {
-                                    // Call a method from the LocalService.
-                                    // However, if this call were something that might hang, then this request should
-                                    // occur in a separate thread to avoid slowing down the activity performance.
+            public void onReceive(Context context, Intent intent) {
+                final long steps = intent.getLongExtra("steps", 0);
+                number = steps;
 
-
-                                   // Toast.makeText(this, "Steps: " + number, Toast.LENGTH_SHORT).show();
-                                    number = mService.getSteps();
-
-                                    textView = (TextView) findViewById(steps_counting);
-                                    textView.setText(String.valueOf(number));
-                                    //steps_txt.setText(String.valueOf(total));
-                                }
-
-                            }
-                        });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mStepsTextView.setText(String.valueOf(steps));
                     }
-                } catch (InterruptedException e) {
-                }
+                });
             }
         };
 
-        t.start();
-
-
-
+        mContext.registerReceiver(mStepsReceiver, new IntentFilter(StepService.BROADCAST_INTENT));
 
     }
 
@@ -112,10 +118,9 @@ public class Steps extends AppCompatActivity {
     public void onStartService(View v) {
         super.onStart();
         // Bind to LocalService
-        Intent intent = new Intent(this, StepService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
         createNotification();
-        mBound = true;
+        mService.getSteps();
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
     }
 
@@ -123,19 +128,16 @@ public class Steps extends AppCompatActivity {
     public void onStopService(View v) {
 
         // Unbind from the service
-        if (mBound) {
+        if (mBound = true) {
             String currentStartTime = getCurrentStartTime();
             myDB.addDataSteps(currentStartTime, number);
-            mService.stopCounting();
-            unbindService(mConnection);
-            mBound = false;
+            //mService.stopCounting();
             Toast.makeText(this, "Step counter STOPED", Toast.LENGTH_LONG).show();
         } else {
 
             Toast.makeText(this, "Currently stoped", Toast.LENGTH_SHORT).show();
         }
 
-        super.onStop();
     }
 
     /**

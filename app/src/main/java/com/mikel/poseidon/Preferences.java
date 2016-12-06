@@ -19,6 +19,7 @@ import static com.mikel.poseidon.R.id.setbtn_becareful;
 import static com.mikel.poseidon.R.id.setbtn_good;
 import static com.mikel.poseidon.R.id.setbtn_risk;
 import static java.lang.Float.parseFloat;
+import static java.lang.reflect.Array.getFloat;
 
 public class Preferences extends AppCompatActivity {
 
@@ -29,22 +30,22 @@ public class Preferences extends AppCompatActivity {
     EditText min_becareful_edit, max_becareful_edit;
     EditText min_good_edit, max_good_edit;
 
-    float new_Risk_Min, new_Risk_Max;
-    float new_Becareful_Min, new_Becareful_Max;
-    float new_Good_Min, new_Good_Max;
+    float new_Risk_Min, new_Risk_Max, riskMin, riskMax;
+    float new_Becareful_Min, new_Becareful_Max, becarefulMin, becarefulMax;
+    float new_Good_Min, new_Good_Max, goodMin, goodMax;
 
-    public static String RISK_MIN = "weight_prefs_risk_min";
-    public static String RISK_MAX = "weight_prefs_risk_max";
+    public static String sharedPrefs = "com.mikel.poseidon";
+    public String min_key_risk = "min_risk";
+    public String max_key_risk = "max_risk";
 
-    public static String BE_CAREFUL_MIN = "weight_prefs_risk_min";
-    public static String BE_CAREFUL_MAX = "weight_prefs_risk_max";
+    public String min_key_becareful = "min_becareful";
+    public String max_key_becareful = "max_becareful";
 
-    public static String GOOD_MIN = "weight_prefs_risk_min";
-    public static String GOOD_MAX = "weight_prefs_risk_max";
+    public String min_key_good = "min_good";
+    public String max_key_good = "max_good";
 
-    SharedPreferences settings_risk_min, settings_risk_max;
-    SharedPreferences settings_becareful_min, settings_becareful_max;
-    SharedPreferences settings_good_min, settings_good_max;
+
+    private SharedPreferences mSharedPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,53 +111,108 @@ public class Preferences extends AppCompatActivity {
         min_good_edit = (EditText) findViewById(R.id.min_good);
         max_good_edit = (EditText) findViewById(R.id.max_good);
 
-        ////initialize risk limit sharedpreferences instances
+        ////initialize limit sharedpreferences instances
+
+        mSharedPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
 
         //Risk
-        settings_risk_min = this.getSharedPreferences(RISK_MIN, 0);
-        settings_risk_min.getFloat(RISK_MIN, 85);
 
-        settings_risk_max = this.getSharedPreferences(RISK_MAX, 0);
-        settings_risk_max.getFloat(RISK_MAX, 85);
+        mSharedPrefs.getFloat(min_key_risk, 0);
+        mSharedPrefs.getFloat(max_key_risk, 0);
+
 
         //Be careful
-        settings_becareful_min = this.getSharedPreferences(BE_CAREFUL_MIN, 0);
-        settings_becareful_min.getFloat(BE_CAREFUL_MIN, 85);
-
-        settings_becareful_max = this.getSharedPreferences(BE_CAREFUL_MAX, 0);
-        settings_becareful_max.getFloat(BE_CAREFUL_MAX, 85);
+        mSharedPrefs.getFloat(min_key_becareful, 0);
+        mSharedPrefs.getFloat(max_key_becareful, 0);
 
         //Good
-        settings_good_min = this.getSharedPreferences(GOOD_MIN, 0);
-        settings_good_min.getFloat(BE_CAREFUL_MIN, 85);
-
-        settings_good_max = this.getSharedPreferences(GOOD_MAX, 0);
-        settings_good_max.getFloat(GOOD_MAX, 85);
+        mSharedPrefs.getFloat(min_key_good, 0);
+        mSharedPrefs.getFloat(max_key_good, 0);
 
 
         set_risk = (Button) findViewById(setbtn_risk);
         set_becareful = (Button) findViewById(setbtn_becareful);
         set_good = (Button) findViewById(setbtn_good);
 
+        //TODO: me mecla el rojo y el amarillo, pero el verde no, por qué??
 
         //when click set button store values to retrieve from Graph.java
         set_risk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new_Risk_Min = Float.parseFloat(min_risk_edit.getText().toString());
-                new_Risk_Max = Float.parseFloat(max_risk_edit.getText().toString());
+                riskMin = Float.parseFloat(min_risk_edit.getText().toString());
+                riskMax = Float.parseFloat(max_risk_edit.getText().toString());
+
 
                 //When saving
-                SharedPreferences.Editor editor_risk_min = settings_risk_min.edit();
-                editor_risk_min.putFloat(RISK_MIN, new_Risk_Min);
+                SharedPreferences.Editor editor_risk_min = mSharedPrefs.edit();
+                editor_risk_min.putFloat(min_key_risk, riskMin);
                 editor_risk_min.apply();
 
-                SharedPreferences.Editor editor_risk_max = settings_risk_max.edit();
-                editor_risk_max.putFloat(RISK_MAX, new_Risk_Max);
+                SharedPreferences.Editor editor_risk_max = mSharedPrefs.edit();
+                editor_risk_max.putFloat(max_key_risk, riskMax);
                 editor_risk_max.apply();
 
 
-                /*new_Good_Min = Float.parseFloat(min_good_edit.getText().toString());
+                Toast.makeText(Preferences.this, "Changes applied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        //Be careful
+        set_becareful.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                becarefulMin = Float.parseFloat(min_becareful_edit.getText().toString());
+                becarefulMax = Float.parseFloat(max_becareful_edit.getText().toString());
+
+
+                //When saving
+                SharedPreferences.Editor editor_becareful_min = mSharedPrefs.edit();
+                editor_becareful_min.putFloat(min_key_becareful, becarefulMin);
+                editor_becareful_min.apply();
+
+                SharedPreferences.Editor editor_becareful_max = mSharedPrefs.edit();
+                editor_becareful_max.putFloat(max_key_becareful, becarefulMax);
+                editor_becareful_max.apply();
+
+
+                Toast.makeText(Preferences.this, "Changes applied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Good
+        set_good.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goodMin = Float.parseFloat(min_good_edit.getText().toString());
+                goodMax = Float.parseFloat(max_good_edit.getText().toString());
+
+
+                //When saving
+                SharedPreferences.Editor editor_good_min = mSharedPrefs.edit();
+                editor_good_min.putFloat(min_key_good, goodMin);
+                editor_good_min.apply();
+
+                SharedPreferences.Editor editor_good_max = mSharedPrefs.edit();
+                editor_good_max.putFloat(max_key_good, goodMax);
+                editor_good_max.apply();
+
+
+                Toast.makeText(Preferences.this, "Changes applied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+
+
+
+    }
+
+                    /*new_Good_Min = Float.parseFloat(min_good_edit.getText().toString());
                 new_Good_Max = Float.parseFloat(max_good_edit.getText().toString());
 
                 SharedPreferences.Editor editor_good_min = settings_good_min.edit();
@@ -178,20 +234,6 @@ public class Preferences extends AppCompatActivity {
                 SharedPreferences.Editor editor_becareful_max = settings_becareful_max.edit();
                 editor_becareful_max.putFloat(BE_CAREFUL_MAX, new_Becareful_Max );
                 editor_becareful_max.apply();*/
-
-
-
-
-
-                Toast.makeText(Preferences.this, "Changes applied", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-
-    }
-
 
     //============================
     //          Methods
