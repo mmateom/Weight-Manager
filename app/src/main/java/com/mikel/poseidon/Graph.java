@@ -3,21 +3,14 @@ package com.mikel.poseidon;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -28,27 +21,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.utils.Utils;
 
-
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
-import static android.R.attr.data;
-import static android.R.attr.max;
-import static android.R.attr.packageNames;
-import static android.R.attr.value;
-import static android.R.attr.x;
-import static android.R.attr.y;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.mikel.poseidon.DBHelper.WEIGHT;
 import static com.mikel.poseidon.Preferences.sharedPrefs;
-import static java.lang.reflect.Array.getFloat;
 
 
 public class Graph extends AppCompatActivity {
@@ -71,6 +48,7 @@ public class Graph extends AppCompatActivity {
 
     LineData lineData;
     LineDataSet dataSet;
+    private Context mContext;
 
     //java.sql.Timestamp[] ts;
     //java.sql.Date[] date_sql;
@@ -80,6 +58,7 @@ public class Graph extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+        mContext = getApplicationContext();
 
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
@@ -214,36 +193,36 @@ public class Graph extends AppCompatActivity {
 
         //where is the limit line
         LimitLine z0 = new LimitLine(min_limit_risk);
-        z0.setLineColor(getResources().getColor(R.color.LightRed, null));
+        z0.setLineColor(ContextCompat.getColor(mContext, R.color.LightRed));
         z0.setLineWidth(4f);
         yAxis.addLimitLine(z0);
 
         LimitLine z1 = new LimitLine(max_limit_risk);//make this editable by user(+0.5)
-        z1.setLineColor(getResources().getColor(R.color.LightRed, null));
+        z1.setLineColor(ContextCompat.getColor(mContext, R.color.LightRed));
         z1.setLineWidth(2f);
         yAxis.addLimitLine(z1);
 
 
 
         LimitLine z2 = new LimitLine(min_limit_becareful);//make this editable by user(-0.5)
-        z2.setLineColor(getResources().getColor(R.color.BeCareful, null));
+        z2.setLineColor(ContextCompat.getColor(mContext, R.color.BeCareful));
         z2.setLineWidth(4f);
         yAxis.addLimitLine(z2);
 
         LimitLine z3 = new LimitLine(max_limit_becareful);//make this editable by user(-0.75)
-        z3.setLineColor(getResources().getColor(R.color.BeCareful, null));
+        z3.setLineColor(ContextCompat.getColor(mContext, R.color.BeCareful));
         z3.setLineWidth(2f);
         yAxis.addLimitLine(z3);
 
 
 
         LimitLine z4 = new LimitLine(min_limit_good);//make this editable by user(+0.75)
-        z4.setLineColor(getResources().getColor(R.color.Good, null));
+        z4.setLineColor(ContextCompat.getColor(mContext, R.color.Good));
         z4.setLineWidth(4f);
         yAxis.addLimitLine(z4);
 
         LimitLine z5 = new LimitLine(max_limit_good);//make this editable by user(-0.75)
-        z5.setLineColor(getResources().getColor(R.color.Good, null));
+        z5.setLineColor(ContextCompat.getColor(mContext, R.color.Good));
         z5.setLineWidth(2f);
         yAxis.addLimitLine(z5);
 
