@@ -97,29 +97,47 @@ public class GetWeight extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                newWeight = Double.parseDouble(inputWeight.getText().toString());
-                newDate = date_final;
 
-                //If date is not entered, show a toast and DO NOT add data to DB
-                if(newDate != null) {
+                //Check if user has entered weight
+                if(inputWeight.getText().toString().matches("")){
+                    Toast dateToast = Toast.makeText(GetWeight.this, "Enter weight", Toast.LENGTH_SHORT);
+                    dateToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0 , 100);
+                    dateToast.show();
 
-                    // Find last weight entered to compare to the new one
-                    double theLastWeight = getLastWeight();
-                    double weightDiference = newWeight - theLastWeight;
+                }else{
 
-                    //Insert new data
-                    AddData(newWeight, newDate);
+                    newWeight = Double.parseDouble(inputWeight.getText().toString());
+                    newDate = date_final;
+
+                    //If date is not entered, show a message and DO NOT add data to DB
+                    if(newDate != null && newWeight > 0) {
+
+                        // Find last weight entered to compare to the new one
+                        double theLastWeight = getLastWeight();
+                        double weightDiference = newWeight - theLastWeight;
+
+                        //Insert new data
+                        AddData(newWeight, newDate);
 
 
-                    //Pop up feedback window
-                    weightFeedback(weightDiference);
+                        //Pop up feedback window
+                        weightFeedback(weightDiference);
 
-                }else {
+                    }else {
 
-                    Toast dateToast = Toast.makeText(GetWeight.this, "Enter date", Toast.LENGTH_SHORT);
-                dateToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0 , 100);
-                dateToast.show();
+                             /*Toast dateToast = Toast.makeText(GetWeight.this, "Enter date", Toast.LENGTH_SHORT);
+                             dateToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0 , 100);
+                             dateToast.show();*/
+
+                        //Show date error pop up window
+                        showDateErrorMessage();
+                    }
+
                 }
+
+
+
+
 
 
             }
@@ -304,6 +322,10 @@ public class GetWeight extends AppCompatActivity {
 
 
 
+    //===============================================
+    //                  Get last weight
+    //===============================================
+
     public double getLastWeight() {
 
         Cursor alldata;
@@ -330,4 +352,33 @@ public class GetWeight extends AppCompatActivity {
         return lastWeight;
 
     }
+
+
+    //===============================================
+    //                  Get last weight
+    //===============================================
+
+    public void showDateErrorMessage(){
+
+        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.dateerror, null);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+        popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+
+        //shut popup outside window
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                popupWindow.dismiss();
+                return false;
+            }
+        });
+
+    }
+
+
+
 }
+
