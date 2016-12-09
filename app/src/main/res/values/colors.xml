@@ -10,5 +10,6 @@
     <color name="BeCareful">#ffc107</color>
     <color name="Risk">#c62828</color>
     <color name="LightRed">#e53935</color>
+    <color name="textColor">#58857e</color>
 
 </resources>

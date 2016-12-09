@@ -100,9 +100,8 @@ public class GetWeight extends AppCompatActivity {
 
                 //Check if user has entered weight
                 if(inputWeight.getText().toString().matches("")){
-                    Toast dateToast = Toast.makeText(GetWeight.this, "Enter weight", Toast.LENGTH_SHORT);
-                    dateToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0 , 100);
-                    dateToast.show();
+
+                    showWeightDateErrorMessage();
 
                 }else{
 
@@ -135,17 +134,9 @@ public class GetWeight extends AppCompatActivity {
 
                 }
 
-
-
-
-
-
             }
 
         });
-
-
-
 
 
 
@@ -252,10 +243,6 @@ public class GetWeight extends AppCompatActivity {
 
         }
 
-
-
-
-
     }
 
 
@@ -354,9 +341,9 @@ public class GetWeight extends AppCompatActivity {
     }
 
 
-    //===============================================
-    //                  Get last weight
-    //===============================================
+    //======================================================
+    //             Show error if date is not entered
+    //======================================================
 
     public void showDateErrorMessage(){
 
@@ -365,6 +352,27 @@ public class GetWeight extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
         popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+
+        //shut popup outside window
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                popupWindow.dismiss();
+                return false;
+            }
+        });
+
+    }
+
+
+    public void showWeightDateErrorMessage(){
+
+        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.dateweighterror, null);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+        popupWindow = new PopupWindow(container, 500, 300, true); //true allows us to close window by tapping outside
         popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
 
         //shut popup outside window
