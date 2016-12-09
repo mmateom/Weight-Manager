@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class StepService extends Service {
     //TextView textViewSteps;
     public static final String BROADCAST_INTENT = "com.mikel.poseidon.TOTAL_STEPS";
     private Context mContext;
+    private PowerManager.WakeLock mWakeLock;
 
 
     @Nullable
@@ -53,17 +55,19 @@ public class StepService extends Service {
     public class LocalBinder extends Binder {
         StepService getService() {
             // Return this instance of LocalService so clients can call public methods
+
+            createNotification();
             return StepService.this;
         }
     }
 
-    ArrayList<Long> Value = new ArrayList<Long>();
     long step;
 
     public long getSteps(){
         mContext = getApplicationContext();
         sCounter = new StepCounter(mContext);
         sCounter.start();
+        //sCounter.setInterval(2000);
 
         sCounter.addContextReceiver(new IContextReceiver() {
             @Override
@@ -101,11 +105,7 @@ public class StepService extends Service {
             }
         });
 
-        //long steps_counted = setSteps();
 
-       /* System.out.println("step "+steps_counted);
-        System.out.println("Array size "+ Value.size());
-        System.out.println("Array size "+ Value);*/
         return 0;
 
     }
@@ -167,6 +167,30 @@ public class StepService extends Service {
         }
 
         super.onDestroy();
+       // mWakeLock.release();
+    }
+
+    public void createNotification() {
+
+        /*PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
+        mWakeLock.acquire();*/
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle(getText(R.string.app_name));
+        builder.setContentText("Step counter");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+
+        Intent resultIntent = new Intent(this, Steps.class);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(1, builder.build());
+
+        //startForeground(1, builder.build());
+
+
     }
 
 

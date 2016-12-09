@@ -24,12 +24,17 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import static android.R.attr.format;
+import static android.R.attr.value;
+import static android.R.id.list;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import static android.media.CamcorderProfile.get;
+import static android.widget.Toast.makeText;
 import static com.mikel.poseidon.R.id.activity_get_weight;
 import static com.mikel.poseidon.R.id.ok_button;
 
@@ -87,7 +92,6 @@ public class GetWeight extends AppCompatActivity {
 
         showDialogOnSelectDateClick();
 
-
         //When I press OK button get newWeight and newDate + show popup window
         okbtn.setOnClickListener(new View.OnClickListener() {
 
@@ -96,33 +100,26 @@ public class GetWeight extends AppCompatActivity {
                 newWeight = Double.parseDouble(inputWeight.getText().toString());
                 newDate = date_final;
 
-                AddData(newWeight,newDate);
+                //If date is not entered, show a toast and DO NOT add data to DB
+                if(newDate != null) {
 
-                //popup window
-                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup,null);
-                relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+                    // Find last weight entered to compare to the new one
+                    double theLastWeight = getLastWeight();
+                    double weightDiference = newWeight - theLastWeight;
 
-                popupWindow = new PopupWindow(container, 500,500,true); //true allows us to close window by tapping outside
-                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125,300);
+                    //Insert new data
+                    AddData(newWeight, newDate);
 
-                //shut popup outside window
-                container.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        popupWindow.dismiss();
-                        return false;
-                    }
-                });
 
-                /*Intent intent = new Intent(GetWeight.this, ViewSummary.class);
-                intent.putExtra("Weight", weight);
-                startActivity(intent);*/
-                /*if(newWeight.length()!= 0)
-                    Toast.makeText(GetWeight.this,"Data Inserted",Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(GetWeight.this,"Data not Inserted",Toast.LENGTH_LONG).show();*/
+                    //Pop up feedback window
+                    weightFeedback(weightDiference);
 
+                }else {
+
+                    Toast dateToast = Toast.makeText(GetWeight.this, "Enter date", Toast.LENGTH_SHORT);
+                dateToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0 , 100);
+                dateToast.show();
+                }
 
 
             }
@@ -142,14 +139,111 @@ public class GetWeight extends AppCompatActivity {
         boolean insertData = myDB.addData(newWeight,newDate);
 
         if(insertData==true){
-            Toast.makeText(this, "Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
+            makeText(this, "Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "Something went wrong :(.", Toast.LENGTH_LONG).show();
+            makeText(this, "Something went wrong :(.", Toast.LENGTH_LONG).show();
         }
     }
 
 
-    /////////////////DatePicker////////////
+    //===============================================
+    //                   Give feedback
+    //===============================================
+    public void weightFeedback(double substraction){
+
+        if (substraction > -1 && substraction <1){
+
+            //more or less the same pop up window
+            layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup, null);
+            relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+
+            //shut popup outside window
+            container.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return false;
+                }
+            });
+
+            //System.out.println("more or less the same pop up window");
+
+        }else if (substraction >= 1 && substraction < 2 ){
+
+            //increased between 1 and 2Kg
+            layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_1to2, null);
+            relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+
+            //shut popup outside window
+            container.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return false;
+                }
+            });
+            //System.out.println("increased between 1 and 2Kg");
+
+        }else if (substraction >= 2){
+
+            //increased in more than 2Kg
+            layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_2plus, null);
+            relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+
+            //shut popup outside window
+            container.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return false;
+                }
+            });
+            //System.out.println("increased in more than 2Kg");
+
+        }else if (substraction < -1){
+
+            //reduced in more than 1Kg -- Good
+            layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_good, null);
+            relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+
+            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+
+            //shut popup outside window
+            container.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return false;
+                }
+            });
+            //System.out.println("reduced in more than 1Kg");
+
+        }
+
+
+
+
+
+    }
+
+
+    //===============================================
+    //                   Date Picker
+    //===============================================
 
     public void showDialogOnSelectDateClick(){
 
@@ -210,4 +304,30 @@ public class GetWeight extends AppCompatActivity {
 
 
 
+    public double getLastWeight() {
+
+        Cursor alldata;
+        ArrayList<Double> yVals;
+        alldata= myDB.getListContents();
+
+        int count = alldata.getCount();
+        double[] weights = new double[count];
+
+        yVals = new ArrayList<Double>();
+
+        //get dates and weight from the database and populate arrays
+        for (int m = 0; m < count; m++) {
+            alldata.moveToNext();
+            weights[m] = alldata.getDouble(2);
+
+            yVals.add(weights[m]);
+
+
+        }
+
+        double lastWeight = yVals.get(yVals.size() - 1);
+
+        return lastWeight;
+
+    }
 }

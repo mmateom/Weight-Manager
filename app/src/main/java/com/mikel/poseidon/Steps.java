@@ -11,6 +11,7 @@ import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ public class Steps extends AppCompatActivity {
     long number;
     private BroadcastReceiver mStepsReceiver;
     private Context mContext;
+
+
 
 
     @Override
@@ -119,7 +122,7 @@ public class Steps extends AppCompatActivity {
         super.onStart();
         // Bind to LocalService
 
-        createNotification();
+        //createNotification();
         mService.getSteps();
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
     }
@@ -188,27 +191,6 @@ public class Steps extends AppCompatActivity {
     };
 
 
-
-    public void createNotification() {
-        //PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        //mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
-        //mWakeLock.acquire();
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle(getText(R.string.app_name));
-        builder.setContentText("Step counter");
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-
-        Intent resultIntent = new Intent(this, Steps.class);
-
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
-        builder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, builder.build());
-
-        //startForeground(1, builder.build());
-
-
-    }
 
     public String getCurrentStartTime() {
 
