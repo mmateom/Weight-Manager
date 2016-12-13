@@ -288,8 +288,8 @@ public class GetWeight extends AppCompatActivity {
                 date_final = formatter.format(date_f);
 
 
-                System.out.println(date_f);
-                System.out.println(date_final);
+                //System.out.println(date_f);
+                //System.out.println(date_final);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

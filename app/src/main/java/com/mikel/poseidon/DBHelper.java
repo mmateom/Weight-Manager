@@ -185,6 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
         /*db.execSQL("insert into Weight_Summary values (8, '19-01-17' , 90)");
         db.execSQL("insert into Weight_Summary values (9, '26-01-17' , 89.7)");
         db.execSQL("insert into Weight_Summary values (10, '02-01-17' , 89.2)");*/
+        db.execSQL("insert into Steps_Summary values (1, '12-01-17 14:23:12' , 12000)");
 
     }
 }

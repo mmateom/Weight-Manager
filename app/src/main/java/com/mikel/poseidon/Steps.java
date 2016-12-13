@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.icu.util.Calendar;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
@@ -23,18 +22,18 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.data.Entry;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.RunnableFuture;
-
+import java.util.Calendar;
 import static android.R.attr.onClick;
 import static android.media.CamcorderProfile.get;
 import static com.mikel.poseidon.R.id.steps_counting;
 
 public class Steps extends AppCompatActivity {
 
-    TextView textView, steps_txt;
-    String steps_c;
     StepService mService = new StepService();
     DBHelper myDB;
 
@@ -61,7 +60,7 @@ public class Steps extends AppCompatActivity {
         //create db
         myDB = new DBHelper(this);
 
-        allsteps= myDB.getListContents();
+        allsteps= myDB.getListContentsSteps();
 
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
@@ -196,7 +195,7 @@ public class Steps extends AppCompatActivity {
 
         cal = Calendar.getInstance();
 
-        int millisecond = cal.get(Calendar.MILLISECOND);
+        /*int millisecond = cal.get(Calendar.MILLISECOND);
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
         //24 hour format
@@ -207,9 +206,37 @@ public class Steps extends AppCompatActivity {
         String minutes = String.valueOf(minute);
         String hours = String.valueOf(hourofday);
 
-        String current_start_time = hours + ":" + minutes + ":" + seconds + ":" + mlseconds;
+        String current_start_time = hours + ":" + minutes + ":" + seconds + ":" + mlseconds;*/
 
-        return current_start_time;
+        int second = cal.get(Calendar.SECOND);
+        int minute = cal.get(Calendar.MINUTE);
+        //24 hour format
+        int hourofday = cal.get(Calendar.HOUR_OF_DAY);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH) +1;
+        int year = cal.get(Calendar.YEAR);
+
+        String date_final = null;
+
+
+        String current_start_time = day + "-" + month + "-" + year + " " + hourofday + ":" + minute + ":" +second;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy HH:mm:ss");
+        try {
+
+            Date date_f = formatter.parse(current_start_time);
+            date_final = formatter.format(date_f);
+
+
+
+            System.out.println(date_f);
+            System.out.println(date_final);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return date_final;
     }
 
 }

@@ -64,6 +64,11 @@ public class StepService extends Service {
     long step;
 
     public long getSteps(){
+
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
+        mWakeLock.acquire();
+
         mContext = getApplicationContext();
         sCounter = new StepCounter(mContext);
         sCounter.start();
@@ -144,16 +149,12 @@ public class StepService extends Service {
     }*/
 
    public void stopCounting (){
+       sCounter.stop();
+       mWakeLock.release();
 
-
-       try {
-           sCounter.stop();
-       } catch (Exception e) {
-           Log.e("StopService", e.getMessage());
-       }
    }
 
-    @Override
+    /*@Override
     public void onDestroy() {
 
 
@@ -168,13 +169,9 @@ public class StepService extends Service {
 
         super.onDestroy();
        // mWakeLock.release();
-    }
+    }*/
 
     public void createNotification() {
-
-        /*PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
-        mWakeLock.acquire();*/
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle(getText(R.string.app_name));

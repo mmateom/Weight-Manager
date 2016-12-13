@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.attr.x;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(graphIntent);
             }
         });
+
+
         // Find the View that shows step counter
         TextView step_counter = (TextView) findViewById(R.id.steps);
 
@@ -107,8 +111,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // Find the View that shows step counter
+        TextView step_record = (TextView) findViewById(R.id.steps_record);
 
+        // Set a click listener on that View
+        step_record.setOnClickListener(new View.OnClickListener() {
 
+            // The code in this method will be executed when the preferences button is clicked on.
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to open the {@link steprecord}
+                Intent stepsRecordIntent = new Intent(MainActivity.this, StepsRecord.class);
+                // Start the new activity
+                startActivity(stepsRecordIntent);
+            }
+        });
 
 
 
