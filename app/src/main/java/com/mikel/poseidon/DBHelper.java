@@ -8,8 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Editable;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import static android.R.attr.data;
 import static android.R.attr.value;
+import static android.icu.text.MessagePattern.ArgType.SELECT;
 import static java.awt.font.TextAttribute.WEIGHT;
 
 
@@ -57,7 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_STEPS = "CREATE TABLE "
             +TABLE_NAME_STEPS + " ("
             +STEPS_ID + " integer primary key autoincrement,"
-            +ACT_START + " TEXT,"
+            +ACT_START + " date,"
             //+ACT_STOP + " INT,"
             +STEPS + " REAL);";
 
@@ -106,12 +110,14 @@ public class DBHelper extends SQLiteOpenHelper {
     //METHODS FOR STEPS TABLE
     //==========================
 
-    public boolean addDataSteps(String act_start,  long steps){
+    public boolean addDataSteps(long steps){
         SQLiteDatabase db = this.getWritableDatabase() ;
         ContentValues values = new ContentValues();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
 
-        values.put(ACT_START, act_start);
+        values.put(ACT_START, date);
         //values.put(ACT_STOP, act_stop);
         values.put(STEPS, steps);
         long result = db.insert(TABLE_NAME_STEPS,null ,values);
@@ -135,6 +141,28 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME_STEPS, null);
         return data;
     }
+
+    public Cursor getStepsSumByDate(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT Act_Start, SUM(Steps) FROM Steps_Summary GROUP BY Act_Start";
+
+        Cursor dates = db.rawQuery(query, null);
+
+        return dates;
+    }
+
+    public Cursor getStepsByDate(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT _id, Act_Start, SUM(Steps) as Steps FROM Steps_Summary GROUP BY Act_Start";
+
+        Cursor dates = db.rawQuery(query, null);
+
+        return dates;
+    }
+
+
 
     //==========================
     //METHODS FOR WEIGHT TABLE
@@ -185,7 +213,7 @@ public class DBHelper extends SQLiteOpenHelper {
         /*db.execSQL("insert into Weight_Summary values (8, '19-01-17' , 90)");
         db.execSQL("insert into Weight_Summary values (9, '26-01-17' , 89.7)");
         db.execSQL("insert into Weight_Summary values (10, '02-01-17' , 89.2)");*/
-        db.execSQL("insert into Steps_Summary values (1, '12-01-17 14:23:12' , 12000)");
+        //db.execSQL("insert into Steps_Summary values (1, '12-01-17 14:23:12' , 12000)");
 
     }
 }

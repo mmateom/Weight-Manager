@@ -288,8 +288,8 @@ public class GetWeight extends AppCompatActivity {
                 date_final = formatter.format(date_f);
 
 
-                //System.out.println(date_f);
-                //System.out.println(date_final);
+                System.out.println(date_f);
+                System.out.println(date_final);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -297,11 +297,6 @@ public class GetWeight extends AppCompatActivity {
             /*Intent pass_date = new Intent(GetWeight.this, DBHelper.class);
             pass_date.putExtra("Date", date_final);
             startActivity(pass_date);*/
-
-
-
-
-
 
             //Toast.makeText(GetWeight.this, (CharSequence) date_f, Toast.LENGTH_SHORT).show();
         }

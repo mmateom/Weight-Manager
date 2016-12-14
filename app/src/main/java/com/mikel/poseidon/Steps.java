@@ -121,7 +121,7 @@ public class Steps extends AppCompatActivity {
         super.onStart();
         // Bind to LocalService
 
-        //createNotification();
+        createNotification(); //create notification
         mService.getSteps();
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
     }
@@ -131,8 +131,9 @@ public class Steps extends AppCompatActivity {
 
         // Unbind from the service
         if (mBound) {
-            String currentStartTime = getCurrentStartTime();
-            myDB.addDataSteps(currentStartTime, number);
+            //String currentStartTime = getCurrentStartTime();
+            //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
+            myDB.addDataSteps(number);
             mService.stopCounting();
             Toast.makeText(this, "Step counter STOPED", Toast.LENGTH_LONG).show();
         } else {
@@ -141,29 +142,6 @@ public class Steps extends AppCompatActivity {
         }
 
     }
-
-    /**
-     * Called when a button is clicked (the button in the layout file attaches to
-     * this method with the android:onClick attribute)
-     */
-   /* public void onBtnClick(View v) {
-        if (mBound) {
-            // Call a method from the LocalService.
-            // However, if this call were something that might hang, then this request should
-            // occur in a separate thread to avoid slowing down the activity performance.
-
-            long number = mService.getSteps();
-            Toast.makeText(this, "Steps: " + number, Toast.LENGTH_SHORT).show();
-
-            textView = (TextView) findViewById(steps_counting);
-            textView.setText(String.valueOf(number));
-            steps_txt = (TextView) findViewById(total_steps);
-           // steps_txt.setText(String.valueOf(total));
-        } else {
-            Toast.makeText(this, "Start service first", Toast.LENGTH_SHORT).show();
-
-        }
-    }*/
 
 
     /**
@@ -191,29 +169,19 @@ public class Steps extends AppCompatActivity {
 
 
 
-    public String getCurrentStartTime() {
+    //=========================================
+    //             GET CURRENT TIME
+    //=========================================
+   /* public String getCurrentStartTime() {
 
         cal = Calendar.getInstance();
 
-        /*int millisecond = cal.get(Calendar.MILLISECOND);
-        int second = cal.get(Calendar.SECOND);
-        int minute = cal.get(Calendar.MINUTE);
-        //24 hour format
-        int hourofday = cal.get(Calendar.HOUR_OF_DAY);
-
-        String mlseconds = String.valueOf(millisecond);
-        String seconds = String.valueOf(second);
-        String minutes = String.valueOf(minute);
-        String hours = String.valueOf(hourofday);
-
-        String current_start_time = hours + ":" + minutes + ":" + seconds + ":" + mlseconds;*/
 
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
-        //24 hour format
-        int hourofday = cal.get(Calendar.HOUR_OF_DAY);
+        int hourofday = cal.get(Calendar.HOUR_OF_DAY);//24 hour format
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        int month = cal.get(Calendar.MONTH) +1;
+        int month = cal.get(Calendar.MONTH) +1; //plus 1, because months star in 0 in java
         int year = cal.get(Calendar.YEAR);
 
         String date_final = null;
@@ -237,6 +205,29 @@ public class Steps extends AppCompatActivity {
 
 
         return date_final;
+    }*/
+
+    //=======================================================
+    //        CREATE NOTIFICATION - when start is pushed
+    //=======================================================
+
+    public void createNotification() {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle(getText(R.string.app_name));
+        builder.setContentText("Step counter");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+
+        Intent resultIntent = new Intent(this, Steps.class);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(1, builder.build());
+
+        //startForeground(1, builder.build());
+
+
     }
 
 }

@@ -11,12 +11,16 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.R.attr.data;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import static com.mikel.poseidon.DBHelper.TABLE_NAME_STEPS;
 import static com.mikel.poseidon.R.id.listView;
 
 
@@ -44,25 +48,14 @@ public class StepsRecord extends AppCompatActivity {
 
         myDB = new DBHelper(this);
 
-        //populate an ArrayList<String> from the database and then view it
-        //ArrayList<String> theList = new ArrayList<>();
-        Cursor dataSteps = myDB.getListContentsSteps();
-        /*if(data.getCount() == 0){
-            Toast.makeText(this, "There are no contents in this list!",Toast.LENGTH_SHORT).show();
-        }else{
-            while(data.moveToNext()){
-                theList.add(data.getString(2));
-                ListAdapter listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
-                listView.setAdapter(listAdapter);
-            }
-        }*/
+        Cursor dataSteps = myDB.getStepsByDate();
 
         startManagingCursor(dataSteps);
 
         String[] fromFieldNames = new String[]
                 {DBHelper.ACT_START, DBHelper.STEPS};
         int[] toViewIDs = new int[]
-                {R.id.date_item, R.id.weight_item};//cambiar esto
+                {R.id.date_item, R.id.weight_item};//puede que haya que cambiar esto en un futuro
 
         SimpleCursorAdapter myCursorAdapterSteps = new SimpleCursorAdapter(
 
@@ -73,8 +66,36 @@ public class StepsRecord extends AppCompatActivity {
                 toViewIDs);                     //view IDs to put information in
 
 
-        ListView listViewSteps = (ListView) findViewById(R.id.listView_steps); //TODO: por qué es nulo?????
+        ListView listViewSteps = (ListView) findViewById(R.id.listView_steps);
         listViewSteps.setAdapter(myCursorAdapterSteps);
+
+
+        TextView todayTotalSteps  = (TextView) findViewById(R.id.sumaSteps);
+        todayTotalSteps.setText(String.valueOf(todaySteps()));
+
+    }
+
+    //TODO: crear una DB para solo los pasos por día
+
+
+
+
+    public long todaySteps(){
+        Cursor alldata = myDB.getStepsSumByDate();
+        int count = alldata.getCount();
+        long[] dates = new long[count];
+
+
+
+        //get dates and weight from the database and populate arrays
+        for (int m = 0; m < count; m++) {
+            alldata.moveToNext();
+            dates[m] = alldata.getLong(1);
+
+
+        }
+
+        return dates[0]; //TODO: que cuando sea la fecha de hoy me returnee la suma
 
     }
 }

@@ -36,9 +36,7 @@ public class StepService extends Service {
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
     StepCounter sCounter;
-    //private final Random mGenerator = new Random();
-    DBHelper myDB = new DBHelper(this);
-    Calendar cal;
+
     //TextView textViewSteps;
     public static final String BROADCAST_INTENT = "com.mikel.poseidon.TOTAL_STEPS";
     private Context mContext;
@@ -56,7 +54,6 @@ public class StepService extends Service {
         StepService getService() {
             // Return this instance of LocalService so clients can call public methods
 
-            createNotification();
             return StepService.this;
         }
     }
@@ -171,24 +168,7 @@ public class StepService extends Service {
        // mWakeLock.release();
     }*/
 
-    public void createNotification() {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle(getText(R.string.app_name));
-        builder.setContentText("Step counter");
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-
-        Intent resultIntent = new Intent(this, Steps.class);
-
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
-        builder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, builder.build());
-
-        //startForeground(1, builder.build());
-
-
-    }
 
 
 
