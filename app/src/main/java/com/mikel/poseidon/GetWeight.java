@@ -2,13 +2,15 @@ package com.mikel.poseidon;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
+import android.os.IBinder;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,20 +24,17 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.mikel.poseidon.utility.ExplicitIntentGenerator;
+
+import org.poseidon_project.context.IContextReasoner;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.R.attr.format;
-import static android.R.attr.value;
-import static android.R.id.list;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
-import static android.media.CamcorderProfile.get;
 import static android.widget.Toast.makeText;
-import static com.mikel.poseidon.R.id.activity_get_weight;
 import static com.mikel.poseidon.R.id.ok_button;
 
 public class GetWeight extends AppCompatActivity {
@@ -56,12 +55,17 @@ public class GetWeight extends AppCompatActivity {
     private PopupWindow popupWindow;
     private LayoutInflater layoutInflater;
     private RelativeLayout relativeLayout;
+    private IContextReasoner mContextService;
+    private Context mContext;
+    private boolean mBound;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_weight);
+
+        mContext = getApplicationContext();
 
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
@@ -139,13 +143,52 @@ public class GetWeight extends AppCompatActivity {
         });
 
 
+        Intent serviceIntent = new Intent(IContextReasoner.class.getName());
+
+        serviceIntent = ExplicitIntentGenerator
+                .createExplicitFromImplicitIntent(mContext, serviceIntent);
+
+        if (serviceIntent != null) {
+            bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
+        } else {
+            Log.e("POSEIDON", "Context Reasoner not installed!");
+        }
 
     }
+
+    private void sendReasonerData(double newWeight) {
+        Intent intent = new Intent();
+        try {
+            intent.setAction("org.poseidon_project.context.EXTERNAL_CONTEXT_UPDATE");
+            intent.putExtra("context_name", "Weight");
+            intent.putExtra("context_value_type","double");
+            intent.putExtra("context_value",newWeight);
+            mContext.sendBroadcast(intent);
+        } catch (Exception e) {
+            Log.e("StopService", e.getMessage());
+        }
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mContextService  = IContextReasoner.Stub.asInterface(iBinder);
+            mBound = ! mBound;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mContextService = null;
+            mBound = ! mBound;
+        }
+    };
 
 
     public void AddData(double newWeight, String newDate) {
 
         boolean insertData = myDB.addData(newWeight,newDate);
+        sendReasonerData(newWeight);
 
         if(insertData==true){
             makeText(this, "Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
