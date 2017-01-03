@@ -1,31 +1,26 @@
 package com.mikel.poseidon;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.util.Calendar;
+import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.mikel.poseidon.utility.ExplicitIntentGenerator;
+
+import org.poseidon_project.context.IContextReasoner;
+
 import java.util.Map;
-import java.util.Random;
 
 import uk.ac.mdx.cs.ie.acontextlib.IContextReceiver;
 import uk.ac.mdx.cs.ie.acontextlib.hardware.StepCounter;
-
-import static android.R.attr.name;
-import static android.R.attr.value;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static com.mikel.poseidon.R.id.steps_counting;
-import static com.mikel.poseidon.R.id.textView;
 
 /**
  * Created by mikel on 02/12/2016.
@@ -36,11 +31,14 @@ public class StepService extends Service {
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
     StepCounter sCounter;
+    private boolean mBound;
+    private boolean mCollecting = false;
 
     //TextView textViewSteps;
     public static final String BROADCAST_INTENT = "com.mikel.poseidon.TOTAL_STEPS";
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
+    private IContextReasoner mContextService;
 
 
     @Nullable
@@ -61,6 +59,11 @@ public class StepService extends Service {
     long step;
 
     public long getSteps(){
+
+        // We want to avoid people trying to start the "service" more than once
+        if (mCollecting) {
+            return step;
+        }
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
@@ -107,6 +110,18 @@ public class StepService extends Service {
             }
         });
 
+        Intent serviceIntent = new Intent(IContextReasoner.class.getName());
+
+        serviceIntent = ExplicitIntentGenerator
+                .createExplicitFromImplicitIntent(mContext, serviceIntent);
+
+        if (serviceIntent != null) {
+            bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
+        } else {
+            Log.e("POSEIDON", "Context Reasoner not installed!");
+        }
+
+        createNotification();
 
         return 0;
 
@@ -146,7 +161,34 @@ public class StepService extends Service {
     }*/
 
    public void stopCounting (){
-       sCounter.stop();
+
+       //Only allow stopping if its collecting.
+       if (! mCollecting) {
+           return;
+       }
+
+       if (sCounter.isRunning()) {
+           sCounter.stop();
+       }
+
+       Intent intent = new Intent();
+       try {
+           intent.setAction("org.poseidon_project.context.EXTERNAL_CONTEXT_UPDATE");
+           intent.putExtra("context_name", "Activity");
+           intent.putExtra("context_value_type","long");
+           intent.putExtra("context_value",step);
+           mContext.sendBroadcast(intent);
+       } catch (Exception e) {
+           Log.e("StopService", e.getMessage());
+       }
+
+       if (mBound) {
+           unbindService(mConnection);
+       }
+
+       //Autodismiss the notification
+       stopForeground(true);
+
        mWakeLock.release();
 
    }
@@ -155,26 +197,45 @@ public class StepService extends Service {
     public void onDestroy() {
 
 
-        try {
-            if(sCounter.isRunning()) {
-                sCounter.stop();
-            }
-
-        } catch (Exception e) {
-            Log.e("StopService", e.getMessage());
-        }
-
         super.onDestroy();
-       // mWakeLock.release();
     }*/
 
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mContextService  = IContextReasoner.Stub.asInterface(iBinder);
+            mBound = ! mBound;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mContextService = null;
+            mBound = ! mBound;
+        }
+    };
 
 
 
+    //=======================================================
+    //        CREATE NOTIFICATION - when start is pushed
+    //=======================================================
 
+    public void createNotification() {
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle(getText(R.string.app_name));
+        builder.setContentText("Step counter");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
 
+        Intent resultIntent = new Intent(this, Steps.class);
 
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, 0);
+        builder.setContentIntent(resultPendingIntent);
+
+        startForeground(1, builder.build());
+
+    }
 
 
 

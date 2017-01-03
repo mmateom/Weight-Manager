@@ -1,7 +1,5 @@
 package com.mikel.poseidon;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,27 +7,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.os.IBinder;
-import android.os.PowerManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.IBinder;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.data.Entry;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.RunnableFuture;
 import java.util.Calendar;
-import static android.R.attr.onClick;
-import static android.media.CamcorderProfile.get;
+
 import static com.mikel.poseidon.R.id.steps_counting;
 
 public class Steps extends AppCompatActivity {
@@ -120,8 +108,6 @@ public class Steps extends AppCompatActivity {
     public void onStartService(View v) {
         super.onStart();
         // Bind to LocalService
-
-        createNotification(); //create notification
         mService.getSteps();
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
     }
@@ -135,10 +121,10 @@ public class Steps extends AppCompatActivity {
             //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
             myDB.addDataSteps(number);
             mService.stopCounting();
-            Toast.makeText(this, "Step counter STOPED", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Step counter STOPPED", Toast.LENGTH_LONG).show();
         } else {
 
-            Toast.makeText(this, "Currently stoped", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Currently stopped", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -206,29 +192,6 @@ public class Steps extends AppCompatActivity {
 
         return date_final;
     }*/
-
-    //=======================================================
-    //        CREATE NOTIFICATION - when start is pushed
-    //=======================================================
-
-    public void createNotification() {
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle(getText(R.string.app_name));
-        builder.setContentText("Step counter");
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-
-        Intent resultIntent = new Intent(this, Steps.class);
-
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
-        builder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, builder.build());
-
-        //startForeground(1, builder.build());
-
-
-    }
 
 }
 
