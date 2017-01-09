@@ -25,9 +25,9 @@
         android:rowCount="3"
         android:columnCount="3"
         android:orientation="vertical"
+        android:id="@+id/gridLayout"
         android:layout_below="@+id/include"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/gridLayout">
+        android:layout_centerHorizontal="true">
 
         <Button
             android:text="Measure Weight"
@@ -95,6 +95,20 @@
             />
 
         <Button
+            android:text="Steps record"
+            style="@style/ButtonText"
+            android:drawableTop="@drawable/table1"
+            android:paddingTop="15sp"
+            android:background="@drawable/round_corner_button"
+            android:layout_width="125dp"
+            android:layout_height="100dp"
+            android:id="@+id/steps_record"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"/>
+
+        <Button
             android:text="Weight Graph"
             style="@style/ButtonText"
             android:background="@drawable/round_corner_button"
@@ -110,23 +124,8 @@
 
             />
 
-        <Button
-            android:text="Steps record"
-            style="@style/ButtonText"
-            android:drawableTop="@drawable/table1"
-            android:paddingTop="15sp"
-            android:background="@drawable/round_corner_button"
-            android:layout_width="125dp"
-            android:layout_height="100dp"
-            android:id="@+id/steps_record"
-            android:layout_column="1"
-            android:layout_row="1"
-            android:layout_gravity="fill"
-            android:layout_columnWeight="1"/>
-
 
     </GridLayout>
-
 
 
 </RelativeLayout>

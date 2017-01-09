@@ -142,6 +142,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    //today steps textview
     public Cursor getStepsSumByDate(){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -152,6 +153,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return dates;
     }
 
+    //for listview
     public Cursor getStepsByDate(){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -213,7 +215,10 @@ public class DBHelper extends SQLiteOpenHelper {
         /*db.execSQL("insert into Weight_Summary values (8, '19-01-17' , 90)");
         db.execSQL("insert into Weight_Summary values (9, '26-01-17' , 89.7)");
         db.execSQL("insert into Weight_Summary values (10, '02-01-17' , 89.2)");*/
-        //db.execSQL("insert into Steps_Summary values (1, '12-01-17 14:23:12' , 12000)");
+        db.execSQL("insert into Steps_Summary values (1, '2016-12-19' , 7823)");
+        db.execSQL("insert into Steps_Summary values (2, '2016-12-20' , 6384)");
+        db.execSQL("insert into Steps_Summary values (3, '2016-12-21' , 8387)");
+        db.execSQL("insert into Steps_Summary values (4, '2016-12-22' , 9387)");
 
     }
 }

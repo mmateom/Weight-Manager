@@ -75,10 +75,6 @@ public class StepsRecord extends AppCompatActivity {
 
     }
 
-    //TODO: crear una DB para solo los pasos por día
-
-
-
 
     public long todaySteps(){
         Cursor alldata = myDB.getStepsSumByDate();
@@ -95,7 +91,7 @@ public class StepsRecord extends AppCompatActivity {
 
         }
 
-        return dates[0]; //TODO: que cuando sea la fecha de hoy me returnee la suma
+        return dates[dates.length-1];
 
     }
 }
