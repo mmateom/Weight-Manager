@@ -1,6 +1,12 @@
 package com.mikel.poseidon;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,11 +15,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import static android.R.attr.x;
 
 
 public class MainActivity extends AppCompatActivity {
 
+
+    //WeightNotifService mNotif= new WeightNotifService();
+
+    WeightNotifService mService = new WeightNotifService();
+
+    boolean mBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +142,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //Remind user to weight every x days
 
+
+
+        timeToWeightNotif();
 
 
 
@@ -138,6 +156,48 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+
+
+    public void timeToWeightNotif() {
+
+        Intent myIntent = new Intent(this , WeightNotifService.class);
+        //bindService(myIntent, mConnection, Context.BIND_AUTO_CREATE);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 30);
+        calendar.set(Calendar.MINUTE, 23);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        int everyDayNotif = 1000*60*60*24;
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+
+    }
+
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            WeightNotifService.WeightBinder binder = (WeightNotifService.WeightBinder) service;
+            mService = binder.getService();
+            mBound = true;
+
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+
+            mBound = false;
+        }
+    };
 
 }
 

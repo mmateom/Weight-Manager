@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import static android.R.attr.data;
 import static android.R.attr.value;
 import static android.icu.text.MessagePattern.ArgType.SELECT;
+import static android.icu.text.RelativeDateTimeFormatter.AbsoluteUnit.NOW;
 import static java.awt.font.TextAttribute.WEIGHT;
 
 
@@ -143,15 +144,19 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //today steps textview
-    public Cursor getStepsSumByDate(){
+    public Cursor getTodaySumSteps(){ //previous: getStepsSumByDate
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT Act_Start, SUM(Steps) FROM Steps_Summary GROUP BY Act_Start";
+        //String query = "SELECT Act_Start, SUM(Steps) FROM Steps_Summary GROUP BY Act_Start";
+        //Previous query only sums and groups by date to then go to the latest entry.
+        //With the new query it automatically gets today's entry
+        String query = "SELECT Act_Start, SUM(Steps) FROM Steps_Summary WHERE DATE(Act_Start) = DATE('now')";
 
         Cursor dates = db.rawQuery(query, null);
 
         return dates;
     }
+
 
     //for listview
     public Cursor getStepsByDate(){

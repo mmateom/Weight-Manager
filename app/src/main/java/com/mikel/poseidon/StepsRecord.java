@@ -15,12 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import static android.R.attr.data;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static com.mikel.poseidon.DBHelper.TABLE_NAME_STEPS;
+import static com.mikel.poseidon.R.id.all;
 import static com.mikel.poseidon.R.id.listView;
 
 
@@ -70,28 +72,55 @@ public class StepsRecord extends AppCompatActivity {
         listViewSteps.setAdapter(myCursorAdapterSteps);
 
 
-        TextView todayTotalSteps  = (TextView) findViewById(R.id.sumaSteps);
-        todayTotalSteps.setText(String.valueOf(todaySteps()));
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        TextView todayTotalSteps = (TextView) findViewById(R.id.sumaSteps);
+
+
+        if (hourOfDay ==  24) //if it is midnight, set textview to 0 to start new count of next day
+        {
+
+            todayTotalSteps.setText("0");
+
+        }else {
+            todayTotalSteps.setText(String.valueOf(todaySteps()));
+        }
+
 
     }
 
 
+
+
     public long todaySteps(){
-        Cursor alldata = myDB.getStepsSumByDate();
-        int count = alldata.getCount();
-        long[] dates = new long[count];
+        Cursor alldata = myDB.getTodaySumSteps();
+        long todaySteps = 0;
 
+        if(alldata.getCount() > 0) { //if count equals zero (no record today), textView automatically displays 0
 
+            alldata.moveToFirst();
+            todaySteps = alldata.getLong(1);
+        }
+        //previous: see COMMENTED CODE below
+        return todaySteps;
+    }
+}
 
+//COMMENTED CODE
+//this code used to work with an array that stored all the values on the cursor, but it had no sense
+//because it only returns one value (today's value).
+
+//int count = alldata.getCount();
+//long[] dates = new long[count];
+
+        /*
         //get dates and weight from the database and populate arrays
         for (int m = 0; m < count; m++) {
             alldata.moveToNext();
             dates[m] = alldata.getLong(1);
 
-
         }
-
-        return dates[dates.length-1];
-
-    }
-}
+        return dates[0]; //there will only be one entry for today, so it always takes the first one
+        */

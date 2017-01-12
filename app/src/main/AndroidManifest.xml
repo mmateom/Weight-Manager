@@ -20,7 +20,15 @@
         <activity android:name=".Steps"></activity>
         <activity android:name=".StepsRecord"></activity>
         <service android:name=".StepService"></service>
+        <service android:name=".WeightNotifService"></service>
+        <receiver android:name="com.mikel.poseidon.WeightNotifBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>
