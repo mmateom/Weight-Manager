@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mikel.poseidon">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:label="POSEIDON"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -10,6 +13,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -17,18 +21,26 @@
         <activity android:name=".ViewSummary" />
         <activity android:name=".Preferences" />
         <activity android:name=".Graph" />
-        <activity android:name=".Steps"></activity>
-        <activity android:name=".StepsRecord"></activity>
-        <service android:name=".StepService"></service>
-        <service android:name=".WeightNotifService"></service>
-        <receiver android:name="com.mikel.poseidon.WeightNotifBootReceiver">
+        <activity android:name=".Steps" />
+        <activity android:name=".StepsRecord" />
+        <activity android:name=".PreferencesList" />
+
+        <service android:name=".StepService" />
+        <service android:name=".WeightNotifService" />
+
+        <receiver android:name=".WeightNotifBootReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".SetGraphLimits"
+            android:label="@string/title_activity_set_graph_limits"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".DeleteData"></activity>
     </application>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>

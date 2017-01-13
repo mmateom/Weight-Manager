@@ -4,4 +4,5 @@
     <string name="Good"><b>Good!</b></string>
     <string name="BeCareful"><b>Be careful</b></string>
     <string name="Risk"><b>Risk</b></string>
+    <string name="title_activity_set_graph_limits">SetGraphLimits</string>
 </resources>

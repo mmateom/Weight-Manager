@@ -55,97 +55,75 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Find the View that shows the summary
+        // weight summary
         TextView view_summary = (TextView) findViewById(R.id.view_summary);
 
-        // Set a click listener on that View
         view_summary.setOnClickListener(new View.OnClickListener() {
 
             // The code in this method will be executed when the view summary button is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link ViewSummary}
                 Intent viewSummaryIntent = new Intent(MainActivity.this, ViewSummary.class);
-
-                // Start the new activity
                 startActivity(viewSummaryIntent);
             }
         });
 
-        // Find the View that shows preferences
+        // preferences
         TextView preferences = (TextView) findViewById(R.id.preferences);
 
-        // Set a click listener on that View
         preferences.setOnClickListener(new View.OnClickListener() {
 
             // The code in this method will be executed when the preferences button is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link preferences}
-                Intent preferencesIntent = new Intent(MainActivity.this, Preferences.class);
-
-                // Start the new activity
+                Intent preferencesIntent = new Intent(MainActivity.this, PreferencesList.class);
                 startActivity(preferencesIntent);
             }
         });
 
-        // Find the View that shows graph
+        //  graph
         TextView graph = (TextView) findViewById(R.id.graph);
 
-        // Set a click listener on that View
         graph.setOnClickListener(new View.OnClickListener() {
 
             // The code in this method will be executed when the preferences button is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link graph}
                 Intent graphIntent = new Intent(MainActivity.this, Graph.class);
-
-                // Start the new activity
                 startActivity(graphIntent);
             }
         });
 
 
-        // Find the View that shows step counter
+        //  step counter
         TextView step_counter = (TextView) findViewById(R.id.steps);
 
-        // Set a click listener on that View
         step_counter.setOnClickListener(new View.OnClickListener() {
 
             // The code in this method will be executed when the preferences button is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link stepcounter}
                 Intent stepsIntent = new Intent(MainActivity.this, Steps.class);
-
-                // Start the new activity
                 startActivity(stepsIntent);
             }
         });
 
 
-        // Find the View that shows step counter
+        // step counter record
         TextView step_record = (TextView) findViewById(R.id.steps_record);
 
-        // Set a click listener on that View
         step_record.setOnClickListener(new View.OnClickListener() {
 
             // The code in this method will be executed when the preferences button is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link steprecord}
                 Intent stepsRecordIntent = new Intent(MainActivity.this, StepsRecord.class);
-                // Start the new activity
                 startActivity(stepsRecordIntent);
             }
         });
 
 
         //Remind user to weight every x days
-
-
-
         timeToWeightNotif();
 
 
@@ -167,10 +145,11 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.SECOND, 30);
-        calendar.set(Calendar.MINUTE, 23);
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 20);
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        //calendar.add(Calendar.DAY_OF_YEAR, 1);
         int everyDayNotif = 1000*60*60*24;
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -179,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private ServiceConnection mConnection = new ServiceConnection() {
+   /* private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
         public void onServiceConnected(ComponentName className,
@@ -197,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
             mBound = false;
         }
-    };
+    };*/
 
 }
 
