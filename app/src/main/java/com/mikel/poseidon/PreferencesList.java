@@ -30,6 +30,35 @@ public class PreferencesList extends AppCompatActivity{
         getSupportActionBar().setTitle(null);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 
+        //callback to home button
+        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
+        home_button.setOnClickListener(new View.OnClickListener() {
+
+            // The code in this method will be executed when the preferences button is clicked on.
+            @Override
+            public void onClick(View view) {
+
+                Intent home_intent = new Intent(PreferencesList.this, MainActivity.class);
+                startActivity(home_intent);
+            }
+        });
+
+    }
+
+    public static class MyPreferenceFragment extends PreferenceFragment{
+
+        @Override
+        public void onCreate(Bundle savedInstanceState)
+        {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.act_preferences_list);
+
+
+
+        }
+
+
+
     }
 
 

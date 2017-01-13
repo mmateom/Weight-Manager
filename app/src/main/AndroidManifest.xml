@@ -16,6 +16,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.MainActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity android:name=".GetWeight" />
         <activity android:name=".ViewSummary" />
@@ -24,6 +28,24 @@
         <activity android:name=".Steps" />
         <activity android:name=".StepsRecord" />
         <activity android:name=".PreferencesList" />
+        <activity
+            android:name=".SetGraphLimits"
+            android:label="@string/title_activity_set_graph_limits"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.SetGraphLimits" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".DeleteData">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.DeleteData" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service android:name=".StepService" />
         <service android:name=".WeightNotifService" />
@@ -36,11 +58,8 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".SetGraphLimits"
-            android:label="@string/title_activity_set_graph_limits"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".DeleteData"></activity>
+
+
     </application>
 
 </manifest>

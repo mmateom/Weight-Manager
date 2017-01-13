@@ -5,25 +5,43 @@
     android:layout_width="match_parent">
 
 
-    <EditTextPreference
-        
-        android:layout_height="match_parent"
-        android:layout_width="?android:attr/actionBarSize"
-        android:key="username"
+    <Preference
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout="@layout/trampa"
         >
-    </EditTextPreference>
-    <CheckBoxPreference android:title="Application Updates"
+    </Preference>
+    <Preference
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:title="Preferences"
+        android:layout="@layout/preference_title"
+        >
+    </Preference>
+    <Preference android:title="Weight limits lines"
+        android:summary="Set the limit lines shown in the weight graph"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:defaultValue="false"
-        android:summary="This option if selected will allow the application to check for latest versions."
-        android:key="applicationUpdates" />
-    <ListPreference     android:title="Download Details"
-        android:summary="Select the kind of data that you would like to download"
+        android:key="limitLines"
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.SetGraphLimits"/>
+    </Preference>
+
+    <Preference android:title="Reminders"
+        android:summary="Set specific date and time for weighting"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:key="downloadType"
+        android:key="reminders"
         android:defaultValue="1"
-        android:entries="@array/listArray"
-        android:entryValues="@array/listValues" />
+        />
+
+    <Preference android:title="Delete data"
+        android:summary="This will delete both activity and weight data"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:key="deleteData"
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.DeleteData"/>
+    </Preference>
+    />
 </PreferenceScreen>

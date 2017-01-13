@@ -124,13 +124,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Remind user to weight every x days
-        timeToWeightNotif();
+        //TODO: CUANDO HAGA LA PANTALLA PARA EDITAR LA HORA, PASAR ESOS VALORES A LOS IF
+        //TODO: EN timeToWeightNotif (abajo) Y EN EL RECEIVER
+
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int min = cal.get(Calendar.MINUTE);
+        int sec = cal.get(Calendar.SECOND);
+        int milLisec = cal.get(Calendar.MILLISECOND);
+
+
+        // If current time matches alarm's time, fire it
+        if (hour == 17 && min == 11 && sec == 0 && milLisec == 0){
+            timeToWeightNotif();
+        }
+
+
+
 
 
 
     }
 
     @Override protected void onResume() {
+
+
         super.onResume();
     }
 
@@ -139,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     public void timeToWeightNotif() {
 
         Intent myIntent = new Intent(this , WeightNotifService.class);
+
         //bindService(myIntent, mConnection, Context.BIND_AUTO_CREATE);
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
@@ -147,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, 20);
-        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.MINUTE, 11);
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
         //calendar.add(Calendar.DAY_OF_YEAR, 1);
         int everyDayNotif = 1000*60*60*24;
 
