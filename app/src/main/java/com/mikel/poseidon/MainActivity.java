@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import static android.R.attr.x;
+import static android.content.Context.ALARM_SERVICE;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -126,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
         //Remind user to weight every x days
         //TODO: CUANDO HAGA LA PANTALLA PARA EDITAR LA HORA, PASAR ESOS VALORES A LOS IF
         //TODO: EN timeToWeightNotif (abajo) Y EN EL RECEIVER
+        //TODO: Para que el método timeToWeightNotif comience tiene que abrirse la aplicación y acceder al main
+        //TODO: lo que no tiene sentido. Habría que poner la condición en el propio método,
+        //TODO: porque ahí es donde se activa el servicio
+
 
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -134,12 +139,8 @@ public class MainActivity extends AppCompatActivity {
         int milLisec = cal.get(Calendar.MILLISECOND);
 
 
-        // If current time matches alarm's time, fire it
-        if (hour == 17 && min == 11 && sec == 0 && milLisec == 0){
-            timeToWeightNotif();
-        }
 
-
+        timeToWeightNotif();
 
 
 
@@ -166,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, 11);
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 47);
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
         //calendar.add(Calendar.DAY_OF_YEAR, 1);
         int everyDayNotif = 1000*60*60*24;
 
@@ -175,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
    /* private ServiceConnection mConnection = new ServiceConnection() {

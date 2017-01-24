@@ -5,12 +5,17 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
+        android:name = ".RootFitbitApplication"
         android:label="POSEIDON"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:label">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,47 +23,75 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="com.mikel.poseidon.MainActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".GetWeight" />
-        <activity android:name=".ViewSummary" />
-        <activity android:name=".Preferences" />
-        <activity android:name=".Graph" />
-        <activity android:name=".Steps" />
-        <activity android:name=".StepsRecord" />
-        <activity android:name=".PreferencesList" />
+        <activity
+            android:name=".GetWeight"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ViewSummary"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Preferences"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Graph"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Steps"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".StepsRecord"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PreferencesList"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SetGraphLimits"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_set_graph_limits"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
             <intent-filter>
                 <action android:name="com.mikel.poseidon.SetGraphLimits" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".DeleteData">
+            android:name=".DeleteData"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.DeleteData" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FitbitBtnActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.FitbitBtnActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <service android:name=".StepService" />
+        <service
+            android:name=".StepService"
+            android:screenOrientation="portrait"/>
         <service android:name=".WeightNotifService" />
 
-        <receiver android:name=".WeightNotifBootReceiver"
+        <receiver
+            android:name=".WeightNotifBootReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-
 
     </application>
 

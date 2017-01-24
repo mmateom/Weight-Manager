@@ -43,5 +43,14 @@
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.DeleteData"/>
     </Preference>
+
+    <Preference android:title="Connect to Fitbit"
+        android:summary="This will retrive your weight data from your scale"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:key="connectToFitbit"
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.FitbitBtnActivity"/>
+    </Preference>
     />
 </PreferenceScreen>
