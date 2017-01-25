@@ -32,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //==========================
-    //Create tables
+    //     Create tables
     //==========================
 
 
@@ -210,13 +210,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private void insertExampleData(SQLiteDatabase db){
 
 
-        db.execSQL("insert into Weight_Summary values (1, '01-12-16' , 89)");
-        db.execSQL("insert into Weight_Summary values (2, '08-12-16' , 90)");
-        db.execSQL("insert into Weight_Summary values (3, '15-12-16' , 91)");
-        db.execSQL("insert into Weight_Summary values (4, '22-12-16' , 91.5)");
-        db.execSQL("insert into Weight_Summary values (5, '29-12-16' , 92)");
-        db.execSQL("insert into Weight_Summary values (6, '05-01-17' , 91.3)");
-        db.execSQL("insert into Weight_Summary values (7, '12-01-17' , 90.8)");
+        db.execSQL("insert into Weight_Summary values (1, '2016-12-05' , 89)");
+        db.execSQL("insert into Weight_Summary values (2, '2016-12-12' , 90)");
+        db.execSQL("insert into Weight_Summary values (3, '2016-12-19' , 91)");
+        db.execSQL("insert into Weight_Summary values (4, '2016-12-26' , 91.5)");
+        db.execSQL("insert into Weight_Summary values (5, '2017-01-02' , 92)");
+        db.execSQL("insert into Weight_Summary values (6, '2017-01-09' , 91.3)");
+        db.execSQL("insert into Weight_Summary values (7, '2017-01-16' , 90.8)");
         /*db.execSQL("insert into Weight_Summary values (8, '19-01-17' , 90)");
         db.execSQL("insert into Weight_Summary values (9, '26-01-17' , 89.7)");
         db.execSQL("insert into Weight_Summary values (10, '02-01-17' , 89.2)");*/

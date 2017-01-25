@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.R.attr.y;
 import static android.widget.Toast.makeText;
 import static com.mikel.poseidon.R.id.ok_button;
 
@@ -69,15 +70,10 @@ public class GetWeight extends AppCompatActivity {
 
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
-        home_button.setOnClickListener(new View.OnClickListener() {
+        home_button.setOnClickListener(view -> {
 
-            // The code in this method will be executed when the preferences button is clicked on.
-            @Override
-            public void onClick(View view) {
-
-                Intent home_intent = new Intent(GetWeight.this, MainActivity.class);
-                startActivity(home_intent);
-            }
+            Intent home_intent = new Intent(GetWeight.this, MainActivity.class);
+            startActivity(home_intent);
         });
 
 
@@ -323,9 +319,9 @@ public class GetWeight extends AppCompatActivity {
             month = String.valueOf(month_x);
             day = String.valueOf(day_x);
 
-            date = day + "-" + month + "-"+ year;
+            date = year + "-" + month + "-"+ day;
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 date_f = formatter.parse(date);
                 date_final = formatter.format(date_f);
