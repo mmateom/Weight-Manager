@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_get_weight_fitbit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mikel.poseidon.GetWeightFitbit">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/include2" />
+
+    <TextView
+        android:text="      Measure Your Weight"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textView4"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/include2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Your feedback will appear here"
+        android:layout_marginTop="34dp"
+        android:id="@+id/textView14"
+        android:gravity="center"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="250dp"
+        android:layout_height="250dp" />
+
+    <Button
+        android:text="Get My Weight"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:id="@+id/getWeightFitbit"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_below="@+id/displayWeight"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp" />
+
+    <TextView
+        android:text="Kg"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/weightUnit"
+        android:textSize="20sp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_alignBaseline="@+id/displayWeight"
+        android:layout_alignBottom="@+id/displayWeight"
+        android:layout_toRightOf="@+id/displayWeight"
+        android:layout_toEndOf="@+id/displayWeight" />
+
+    <TextView
+        android:text=""
+        android:hint="0.0"
+        android:layout_marginTop="11dp"
+        android:id="@+id/displayWeight"
+        android:layout_height="80dp"
+        android:gravity="bottom|right"
+        android:textColor="@color/ToolbarTextColor"
+        android:textSize="50sp"
+        android:layout_width="150dp"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
+
+
+</RelativeLayout>

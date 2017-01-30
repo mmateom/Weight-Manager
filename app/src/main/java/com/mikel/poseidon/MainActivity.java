@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create a new intent to open the {@link GetWeight}
-                Intent weightIntent = new Intent(MainActivity.this, GetWeight.class);
+                Intent weightIntent = new Intent(MainActivity.this, ChooseManAuto.class);
 
                 // Start the new activity
                 startActivity(weightIntent);

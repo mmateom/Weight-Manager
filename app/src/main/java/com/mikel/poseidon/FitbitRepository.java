@@ -49,12 +49,9 @@ public class FitbitRepository {
         return fitbitApi;
     }
 
-    String currentDate = getCurrentTime();
 
     interface FitbitApiRest {
         String URL_BASE = "https://api.fitbit.com";
-
-
 
         @GET("1/user/-/body/weight/date/today/1d.json")
         Call<WeightArray> getData();
@@ -78,39 +75,7 @@ public class FitbitRepository {
 
 
 
-    //=========================================
-    //             GET CURRENT TIME
-    //=========================================
-   public String getCurrentTime() {
 
-        Calendar cal = Calendar.getInstance();
-
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        int month = cal.get(Calendar.MONTH) +1; //plus 1, because months star in 0 in java
-        int year = cal.get(Calendar.YEAR);
-
-        String date_final = null;
-
-
-        String current_start_time = year + "-" + month + "-" + day;
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-
-            Date date_f = formatter.parse(current_start_time);
-            date_final = formatter.format(date_f);
-
-
-
-            System.out.println(date_f);
-            System.out.println(date_final);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        return date_final;
-   }
 
 }
 

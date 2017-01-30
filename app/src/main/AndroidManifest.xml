@@ -8,13 +8,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
-        android:name = ".RootFitbitApplication"
+        android:name=".RootFitbitApplication"
         android:label="POSEIDON"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:label">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,33 +26,32 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".GetWeight"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewSummary"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Preferences"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Graph"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Steps"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StepsRecord"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PreferencesList"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SetGraphLimits"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_set_graph_limits"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.SetGraphLimits" />
@@ -78,10 +77,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UserProfile"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.UserProfile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".StepService"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <service android:name=".WeightNotifService" />
 
         <receiver
@@ -93,6 +101,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".GetWeightFitbit" />
+        <activity android:name=".ChooseManAuto"></activity>
     </application>
 
 </manifest>

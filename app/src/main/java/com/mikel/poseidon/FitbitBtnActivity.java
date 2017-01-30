@@ -8,7 +8,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.scribejava.apis.FacebookApi;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.mikel.poseidon.utility.FitbitApi20;
 
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
 
@@ -54,6 +56,9 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
 
     private void setUpFitbit() {
+
+        RxSocialConnect.getTokenOAuth2(FitbitApi20.class);
+
         findViewById(R.id.fitbitbtn).setOnClickListener(v ->
                 RxSocialConnect.with(this, repository.fitbitService())
                         .subscribe(response -> response.targetUI().showToken(response.token()),
@@ -72,6 +77,10 @@ public class FitbitBtnActivity extends AppCompatActivity {
                                Log.e("Weight:", todayWeight.getValue().toString());
                                Log.e("Weight:", todayWeight.getDateTime().toString());
 
+                               Log.v("RESPONSE_CALLED", "ON_RESPONSE_CALLED");
+                               String didItWork = String.valueOf(response.isSuccessful());
+                               Log.v("SUCCESS?", didItWork);
+
                                nowWeight = Double.parseDouble(todayWeight.getValue());
                                nowDate = todayWeight.getDateTime().toString();
 
@@ -79,7 +88,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
 
                                TextView profile = (TextView)findViewById(tv_profile);
-                               profile.setText(String.valueOf(nowDate));
+                               profile.setText(String.valueOf(nowWeight));
 
                                myDB.addData(nowWeight, String.valueOf(nowDate));
 
@@ -112,6 +121,8 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
 
                 }
+
+
 
         );
     }

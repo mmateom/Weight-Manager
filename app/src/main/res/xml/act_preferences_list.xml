@@ -52,5 +52,13 @@
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.FitbitBtnActivity"/>
     </Preference>
+    <Preference android:title="Your Profile"
+        android:summary="Manage your personal information like height, age, etc."
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:key="userProfile"
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.UserProfile"/>
+    </Preference>
     />
 </PreferenceScreen>
