@@ -66,7 +66,7 @@
         android:layout_marginTop="11dp"
         android:id="@+id/displayWeight"
         android:layout_height="80dp"
-        android:gravity="bottom|right"
+        android:gravity="bottom|end"
         android:textColor="@color/ToolbarTextColor"
         android:textSize="50sp"
         android:layout_width="150dp"

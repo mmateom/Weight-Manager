@@ -84,9 +84,6 @@ public class Graph extends AppCompatActivity {
         alldata_a= myDB.getListContents();
 
         //generate graph
-
-
-
         createGraph(alldata_a);
 
 
