@@ -1,5 +1,6 @@
 package com.mikel.poseidon;
 
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,27 +21,37 @@ import static android.os.Build.VERSION_CODES.M;
 
 public class WeightNotifService extends Service {
 
-    private final IBinder mBinder = new WeightBinder();
 
 
-    @Override
-    public void onCreate() {
+    /*@Override
+    protected void onHandleIntent(Intent intent) {
+        NotificationManager nm = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //Define sound URI
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        //Create notification
+        NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(this)
+                .setContentTitle(getText(R.string.app_name))
+                .setContentText("Time to weight!")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setSound(soundUri); //This sets the sound to play
 
 
 
-    }
+        Intent myIntent = new Intent(this , GetWeight.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 32, myIntent, 0);
+        weightNotif.setContentIntent(contentIntent);
+        Notification n = weightNotif.build();
+
+        nm.notify(23, n);
+    }*/
 
     @Override
     public IBinder onBind(Intent intent) {
-        return mBinder;
-    }
-
-    public class WeightBinder extends Binder {
-        WeightNotifService getService() {
-            // Return this instance of LocalService so clients can call public methods
-
-            return WeightNotifService.this;
-        }
+        return null;
     }
 
 
@@ -72,13 +83,7 @@ public class WeightNotifService extends Service {
 
 
         //startForeground(1, weightNotif.build());
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

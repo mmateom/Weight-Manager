@@ -86,6 +86,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Reminders"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.Reminders" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".StepService"
@@ -100,9 +109,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".WeightNotifReceiver"
+            android:process=":remote"></receiver>
 
         <activity android:name=".GetWeightFitbit" />
-        <activity android:name=".ChooseManAuto"></activity>
+        <activity android:name=".ChooseManAuto" />
     </application>
 
 </manifest>

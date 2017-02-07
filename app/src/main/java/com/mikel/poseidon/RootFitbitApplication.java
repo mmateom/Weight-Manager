@@ -1,6 +1,10 @@
 package com.mikel.poseidon;
 
 import android.app.Application;
+import android.widget.Toast;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.mikel.poseidon.utility.FitbitApi20;
 
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
 
@@ -16,8 +20,12 @@ public class RootFitbitApplication extends Application {
     @Override public void onCreate() {
         super.onCreate();
 
-        RxSocialConnect.register(this, "myEncryptionKey")
+        RxSocialConnect.register(this, "holacaracola")
                 .using(new GsonSpeaker());
+        
+
     }
+
+
 }
 

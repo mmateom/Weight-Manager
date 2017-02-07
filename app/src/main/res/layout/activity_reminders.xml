@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reminders"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mikel.poseidon.Reminders">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/include4" />
+
+    <TextView
+        android:text="      Reminders"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textView4"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/include4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Measure Your Weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textView15"
+        android:textColor="@color/ToolbarTextColor"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Set Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView15"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView16" />
+
+    <TextView
+        android:text=""
+        android:hint="09:25"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/remind_time"
+        android:textStyle="normal|bold"
+        android:background="@drawable/enter_weight"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_alignTop="@+id/textView16"
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:text=""
+        android:hint="25"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/frequency"
+        android:textStyle="normal|bold"
+        android:background="@drawable/enter_weight"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_alignBaseline="@+id/textView17"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_alignLeft="@+id/remind_time"
+        android:layout_alignStart="@+id/remind_time" />
+
+    <TextView
+        android:text="Set Frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:id="@+id/textView17"
+        android:layout_below="@+id/remind_time"
+        android:layout_alignLeft="@+id/textView16"
+        android:layout_alignStart="@+id/textView16" />
+
+    <TextView
+        android:text="days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_alignBaseline="@+id/frequency"
+        android:layout_alignBottom="@+id/frequency"
+        android:layout_toRightOf="@+id/frequency"
+        android:layout_toEndOf="@+id/frequency"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
+
+    <Button
+        android:text="SAVE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frequency"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:id="@+id/save2"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"/>
+
+</RelativeLayout>

@@ -15,6 +15,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mikel.poseidon.utility.FitbitApi20;
+
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class GetWeightFitbit extends AppCompatActivity {
 
 
     public void getWeightFromFitbit(){
-
+        
 
         findViewById(R.id.getWeightFitbit).setOnClickListener(v -> {
 

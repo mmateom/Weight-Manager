@@ -91,7 +91,6 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
     }
 
 
-    int v;
 
     public void showAgeDialog()
     {
@@ -109,7 +108,7 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
         np.setWrapSelectorWheel(false);
         np.setOnValueChangedListener(this);
 
-        v=np.getValue();
+       // v=np.getValue();
 
         set.setOnClickListener(v -> {
             age.setText(String.valueOf(np.getValue())); //set the value to textview

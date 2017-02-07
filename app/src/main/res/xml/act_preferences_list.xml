@@ -32,8 +32,9 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="reminders"
-        android:defaultValue="1"
-        />
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.Reminders"/>
+    </Preference>
 
     <Preference android:title="Delete data"
         android:summary="This will delete both activity and weight data"
