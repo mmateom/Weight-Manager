@@ -10,7 +10,6 @@ import android.util.Log;
 import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
-import static com.mikel.poseidon.WeightNotification.setRepeating;
 
 /**
  * Created by mikel on 12/01/2017.
