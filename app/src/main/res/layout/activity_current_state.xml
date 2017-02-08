@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_current_state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.mikel.poseidon.CurrentState">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/inclu" />
+
+
+    <TextView
+        android:text="Your Body"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textView4"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/inclu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="BMI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="33dp"
+        android:id="@+id/textView21" />
+
+    <TextView
+        android:text="BMR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView21"
+        android:layout_alignLeft="@+id/textView21"
+        android:layout_alignStart="@+id/textView21"
+        android:layout_marginTop="32dp"
+        android:id="@+id/textView22" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView22"
+        android:layout_toRightOf="@+id/textView22"
+        android:layout_toEndOf="@+id/textView22"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:id="@+id/bmi_text" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bmr_text"
+        android:layout_alignBaseline="@+id/textView22"
+        android:layout_alignBottom="@+id/textView22"
+        android:layout_alignLeft="@+id/bmi_text"
+        android:layout_alignStart="@+id/bmi_text" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/bmr_text"
+        android:layout_toRightOf="@+id/bmr_text"
+        android:layout_toEndOf="@+id/bmr_text"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:id="@+id/daily_calories" />
+
+</RelativeLayout>

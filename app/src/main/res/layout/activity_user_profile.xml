@@ -29,17 +29,75 @@
         android:layout_width="100dp"
         android:layout_height="400dp"
         android:orientation="vertical"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:id="@+id/linearLayout4"
+        android:layout_toRightOf="@+id/linearLayout3"
+        android:layout_toEndOf="@+id/linearLayout3"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_alignTop="@+id/linearLayout3">
+
+        <TextView
+            android:text="years"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:id="@+id/years"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="62dp"/>
+
+        <TextView
+            android:text="cm"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:id="@+id/cm"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            />
+
+        <TextView
+            android:text=""
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:id="@+id/gender"
+            android:textStyle="normal|bold"
+            android:gravity="center"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            />
+
+        <TextView
+            android:text="Kg"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:id="@+id/weight"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:id="@+id/linearLayout3"
-        android:layout_alignTop="@+id/linearLayout2"
-        android:layout_centerHorizontal="true">
+        android:weightSum="1"
+        android:layout_below="@+id/include"
+        android:layout_alignLeft="@+id/save"
+        android:layout_alignStart="@+id/save"
+        android:layout_marginTop="22dp">
 
         <TextView
             android:text=""
             android:hint="25"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/profile_age"
-            android:layout_weight="1.03"
             android:textStyle="normal|bold"
             android:background="@drawable/enter_weight"
             android:textSize="18sp"
@@ -50,120 +108,70 @@
         <TextView
             android:text=""
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:hint="175"
             android:background="@drawable/enter_weight"
             android:id="@+id/profile_height"
-            android:layout_weight="1.03"
             android:textStyle="normal|bold"
             android:textColor="@android:color/holo_green_dark"
             android:gravity="center"
             android:textSize="18sp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="32dp"
             />
 
         <TextView
             android:text=""
             android:hint="Male"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:background="@drawable/enter_weight"
             android:id="@+id/profile_gender"
-            android:layout_weight="1"
             android:textStyle="normal|bold"
             android:gravity="center"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="18sp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="37dp"
             />
         <EditText
             android:text=""
             android:hint="70"
             android:layout_width="100dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:id="@+id/profile_weight"
             android:inputType="numberDecimal"
-            android:layout_weight="1"
             android:background="@drawable/enter_weight"
             android:gravity="center"
             android:textStyle="normal|bold"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="18sp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="32dp"
             />
-
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="400dp"
-        android:orientation="vertical"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:id="@+id/linearLayout4"
-        android:layout_below="@+id/include"
-        android:layout_toRightOf="@+id/linearLayout3"
-        android:layout_toEndOf="@+id/linearLayout3"
-        android:layout_marginTop="19dp">
+    <Spinner
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:id="@+id/spinner"
 
-        <TextView
-            android:text="years"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/years"
-            android:layout_weight="1.03"
-            android:textSize="18sp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="62dp"/>
-
-        <TextView
-            android:text="cm"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cm"
-            android:layout_weight="1.03"
-            android:gravity="center_vertical"
-            android:textSize="18sp"
-            android:layout_marginTop="62dp"
-            />
-
-        <TextView
-            android:text=""
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/gender"
-            android:layout_weight="1"
-            android:textStyle="normal|bold"
-            android:gravity="center"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="18sp"
-            android:layout_marginTop="62dp"
-            />
-        <TextView
-            android:text="Kg"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:id="@+id/weight"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textSize="18sp"
-            android:layout_marginTop="62dp"
-            />
-
-
-
-    </LinearLayout>
+        android:background="@drawable/spinner"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_alignLeft="@+id/save"
+        android:layout_alignStart="@+id/save"
+        android:layout_toLeftOf="@+id/linearLayout4"
+        android:layout_toStartOf="@+id/linearLayout4" />
 
     <LinearLayout
         android:layout_width="100dp"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayout2"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignTop="@+id/linearLayout4"
+        android:weightSum="1"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView4"
         android:layout_toLeftOf="@+id/linearLayout3"
         android:layout_toStartOf="@+id/linearLayout3">
 
@@ -172,42 +180,39 @@
             android:text="Age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center"
             android:id="@+id/textView10"
-            android:layout_weight="1.03"
             android:textSize="18sp"
             android:gravity="center"
             android:textStyle="normal|bold"
             android:textColor="@color/ToolbarTextColor"
-            android:layout_marginTop="62dp"
+
             />
 
         <TextView
         android:text="Height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="left|center"
         android:id="@+id/textView12"
-        android:layout_weight="1.03"
         android:textSize="18sp"
             android:gravity="center"
         android:textStyle="normal|bold"
         android:textColor="@color/ToolbarTextColor"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="42dp"
        />
 
     <TextView
             android:text="Gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center"
             android:id="@+id/textView11"
-            android:layout_weight="1"
             android:gravity="center"
             android:textStyle="normal|bold"
             android:textColor="@color/ToolbarTextColor"
             android:textSize="18sp"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="42dp"
   />
 
     <TextView
@@ -215,14 +220,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView13"
-            android:layout_weight="1"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center"
             android:textStyle="normal|bold"
             android:gravity="center"
             android:textColor="@color/ToolbarTextColor"
             android:textSize="18sp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="42dp"
    />
+
+        <TextView
+            android:text="Activity          Level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView14"
+            android:layout_gravity="left|center"
+            android:textStyle="normal|bold"
+            android:gravity="left"
+            android:textColor="@color/ToolbarTextColor"
+            android:textSize="18sp"
+            android:layout_marginTop="42dp"
+            android:layout_weight="0.11" />
 
     </LinearLayout>
 
@@ -233,8 +250,8 @@
         android:id="@+id/save"
         android:background="@drawable/enter_weight_header"
         android:textColor="@color/HeaderColor"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/linearLayout3"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <!--<TextView

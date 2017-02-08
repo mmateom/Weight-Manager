@@ -5,4 +5,12 @@
     <string name="BeCareful"><b>Be careful</b></string>
     <string name="Risk"><b>Risk</b></string>
     <string name="title_activity_set_graph_limits">SetGraphLimits</string>
+
+    <string-array name="activity_level">
+        <item>Sedentary</item>
+        <item>Light (1–3 days)</item>
+        <item>Moderate (3–5 days)</item>
+        <item>Very active (6–7 days)</item>
+    </string-array>
+
 </resources>

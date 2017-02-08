@@ -109,11 +109,13 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".WeightNotifReceiver"
-            android:process=":remote"></receiver>
+        <receiver
+            android:name=".WeightNotifReceiver"
+            android:process=":remote" />
 
         <activity android:name=".GetWeightFitbit" />
         <activity android:name=".ChooseManAuto" />
+        <activity android:name=".CurrentState"></activity>
     </application>
 
 </manifest>

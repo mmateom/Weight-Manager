@@ -21,12 +21,12 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:rowCount="3"
         android:columnCount="3"
         android:orientation="vertical"
         android:id="@+id/gridLayout"
-        android:layout_below="@+id/include"
+        android:layout_marginBottom="64dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
         <Button
@@ -63,7 +63,7 @@
             android:layout_alignEnd="@+id/gridLayout" />
 
         <Button
-            android:text="Step Counter"
+            android:text="Activity Tracker"
             style="@style/ButtonText"
             android:background="@drawable/round_corner_button"
             android:layout_width="125dp"
@@ -126,6 +126,23 @@
 
 
     </GridLayout>
+
+    <Button
+        android:text="Summary"
+        style="@style/ButtonText"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:drawableTop="@drawable/bmi"
+        android:paddingTop="10sp"
+        android:id="@+id/current_state"
+        android:layout_gravity="fill"
+
+        android:layout_above="@+id/gridLayout"
+        android:layout_alignLeft="@+id/gridLayout"
+        android:layout_alignStart="@+id/gridLayout"
+        android:layout_alignRight="@+id/gridLayout"
+        android:layout_alignEnd="@+id/gridLayout" />
 
 
 </RelativeLayout>

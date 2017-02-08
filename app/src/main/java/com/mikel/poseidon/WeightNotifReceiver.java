@@ -19,4 +19,6 @@ public class WeightNotifReceiver extends BroadcastReceiver {
         Log.d(LOG_TAG, "AlarmReceiver invoked.");
         context.startService(new Intent(context, WeightNotifService.class));
     }
+
+
 }

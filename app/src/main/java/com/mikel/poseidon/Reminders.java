@@ -159,6 +159,8 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
     protected void onResume() {
         super.onResume();
 
+        System.out.println("onResume!!!!!!!!!!!!!!!!!");
+
         mSharedPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         int mMinute= mSharedPrefs.getInt(minutes_key,0);
         int mHour = mSharedPrefs.getInt(hours_key,0);
@@ -166,12 +168,9 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
 
         String output = String.format("%02d:%02d", mHour, mMinute); //this does zero padding on minutes
 
-
-        if (!"".equals(remindTime.getText().toString())){
         remindTime.setText(output);
-        }else if (!"".equals(mFrequency.getText().toString())){
-        mFrequency.setText(frequency);
-        }
+        mFrequency.setText(String.valueOf(frequency));
+
 
 
     }

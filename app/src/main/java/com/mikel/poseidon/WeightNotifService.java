@@ -74,7 +74,7 @@ public class WeightNotifService extends Service {
 
 
 
-        Intent myIntent = new Intent(this , GetWeight.class);
+        Intent myIntent = new Intent(this , ChooseManAuto.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, myIntent, 0);
         weightNotif.setContentIntent(contentIntent);
         Notification n = weightNotif.build();
@@ -86,4 +86,8 @@ public class WeightNotifService extends Service {
         return START_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

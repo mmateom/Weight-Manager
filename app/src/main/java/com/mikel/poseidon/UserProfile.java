@@ -7,11 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,16 +27,24 @@ import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 import static com.mikel.poseidon.Preferences.sharedPrefs;
 import static com.mikel.poseidon.R.id.textView;
 
-public class UserProfile extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
+public class UserProfile extends AppCompatActivity  implements NumberPicker.OnValueChangeListener, AdapterView.OnItemSelectedListener {
 
     private TextView age,height,gender;
     private EditText weight;
     private Button savebtn;
 
+    Spinner spinner;
+
     SharedPreferences mSharedPrefs;
     public String age_key = "age_key";
     public String height_key = "height_key";
     public String gender_key = "gender_key";
+    public String actLevelKey = "actLevelKey";
+    public String levelint = "levelint";
+
+    int position;
+
+
 
     //numberpicker
 
@@ -69,6 +81,8 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
         mSharedPrefs.getInt(age_key, 0);
         mSharedPrefs.getInt(height_key,0);
         mSharedPrefs.getString(gender_key, "Male");
+        mSharedPrefs.getString(actLevelKey, "");
+        mSharedPrefs.getInt(levelint, 0);
 
         //set listeners
         age.setOnClickListener(view -> showAgeDialog());
@@ -80,7 +94,44 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
         myDB = new DBHelper(this);
 
 
+        //spinner
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(this);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.activity_level, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
     }
+
+    //===========================
+    // SPINNER METHODS
+    //===========================
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        String selection = parent.getItemAtPosition(pos).toString();
+        position = pos;
+        System.out.println(selection);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
+    //===========================
+    // NUMBERPICKER METHOD
+    //===========================
 
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -90,7 +141,9 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
 
     }
 
-
+    public int getPosition() {
+        return position;
+    }
 
     public void showAgeDialog()
     {
@@ -187,6 +240,9 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
 
     }
 
+    //===========================
+    // Save button
+    //===========================
 
     public void onSaveButtonClick()
     {
@@ -213,6 +269,15 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
             genderEditor.putString(gender_key, gender.getText().toString());
             genderEditor.apply();
         }
+
+
+        SharedPreferences.Editor actLevelEditor = mSharedPrefs.edit();
+        actLevelEditor.putInt(levelint, getPosition());
+        actLevelEditor.apply();
+
+        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+
+
 
 
 
@@ -287,6 +352,10 @@ public class UserProfile extends AppCompatActivity implements NumberPicker.OnVal
 
         String mGender = mSharedPrefs.getString(gender_key,"Male");
         gender.setText(String.valueOf(mGender));
+
+
+        int mPosition = mSharedPrefs.getInt(levelint, 0);
+        spinner.setSelection(mPosition);
 
 
     }
