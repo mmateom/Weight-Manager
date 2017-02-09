@@ -6,10 +6,10 @@
     <color name="ToolbarBackgroundColor">#ff8f00</color>
     <color name="ToolbarTextColor">#009688</color>
     <color name="HeaderColor">#ffffff</color>
-    <color name="Good">#388e3c</color>
-    <color name="BeCareful">#ffc107</color>
+    <color name="Good">#45b84a</color>
+    <color name="BeCareful">#e1b83d</color>
     <color name="Risk">#c62828</color>
-    <color name="LightRed">#e53935</color>
+    <color name="LightRed">#e33e41</color>
     <color name="textColor">#58857e</color>
 
 </resources>

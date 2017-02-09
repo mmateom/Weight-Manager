@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikel.poseidon.utility.ExplicitIntentGenerator;
@@ -37,12 +38,14 @@ import java.util.Date;
 import static android.R.attr.y;
 import static android.widget.Toast.makeText;
 import static com.mikel.poseidon.R.id.ok_button;
+import static com.mikel.poseidon.R.id.yourdate;
 
 public class GetWeight extends AppCompatActivity {
 
 
     Button okbtn, date_button;
     EditText inputWeight;
+    TextView yourDate;
     DBHelper myDB;
 
     //DatePicker variables
@@ -81,6 +84,7 @@ public class GetWeight extends AppCompatActivity {
         myDB = new DBHelper(this);
 
         //create view objects
+        yourDate = (TextView)findViewById(yourdate);
         okbtn = (Button) findViewById(ok_button);
         inputWeight = (EditText) findViewById(R.id.editTextWeight);
 
@@ -291,8 +295,7 @@ public class GetWeight extends AppCompatActivity {
 
     public void showDialogOnSelectDateClick(){
 
-        date_button = (Button) findViewById(R.id.datebtn);
-        date_button.setOnClickListener(new View.OnClickListener() {
+        yourDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog(DIALOG_ID);
@@ -332,6 +335,8 @@ public class GetWeight extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+            yourDate.setText(date_final);
 
             /*Intent pass_date = new Intent(GetWeight.this, DBHelper.class);
             pass_date.putExtra("Date", date_final);
@@ -418,6 +423,13 @@ public class GetWeight extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
     }
 
 

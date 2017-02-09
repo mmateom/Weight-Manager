@@ -6,59 +6,121 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.mikel.poseidon.GetWeight">
-    <include layout="@layout/toolbar"/>
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/include1"/>
+
 
     <TextView
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="60dp"
-        android:text="ENTER WEIGHT MANUALLY"
-        android:textColor="@color/ToolbarTextColor"
+        android:text="      Enter your weight"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textView4"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
         android:textStyle="bold"
-        android:id="@+id/enter_manually"
-        android:layout_alignBottom="@+id/editTextWeight"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"/>
+        android:layout_below="@+id/include1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:inputType="numberDecimal"
-        android:ems="7"
-        android:hint="Enter weight"
-        android:layout_marginTop="153dp"
-        android:id="@+id/editTextWeight"
-        android:background="@drawable/enter_weight"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:gravity="center"/>
 
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="135dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout6"
+        android:weightSum="1"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignTop="@+id/linearLayout5"
+        android:layout_toRightOf="@+id/linearLayout5"
+        android:layout_toEndOf="@+id/linearLayout5">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inputType="numberDecimal"
+            android:hint="Enter weight"
+            android:id="@+id/editTextWeight"
+            android:background="@drawable/enter_weight"
+            android:layout_weight="0.01"
+            android:gravity="center"
+
+
+        />
+
+        <TextView
+            android:hint="Enter date"
+            android:gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.00"
+            android:background="@drawable/enter_weight"
+            android:layout_marginTop="55dp"
+            android:id="@+id/yourdate"
+            android:layout_gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Medium.Inverse" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:id="@+id/linearLayout5"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/textView4"
+        android:layout_toLeftOf="@+id/ok_button"
+        android:layout_toStartOf="@+id/ok_button">
+
+        <TextView
+            android:text="Weight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/textView10"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_weight="0.50"
+            android:textStyle="normal|bold"
+            android:textColor="@color/ToolbarTextColor"
+            android:layout_marginRight="36dp"
+            android:layout_marginEnd="36dp"
+             />
+
+        <TextView
+            android:text="Date"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:id="@+id/t"
+            android:layout_weight="0.5"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textStyle="normal|bold"
+            android:textColor="@color/ToolbarTextColor"
+
+            />
+
+
+    </LinearLayout>
 
     <Button
-        android:text="OK"
+        android:text="SAVE"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/ok_button"
         android:background="@drawable/enter_weight_header"
         android:textColor="@color/HeaderColor"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/datebtn"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Select Date"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/datebtn"
-        android:background="@drawable/enter_weight_header"
-        android:textColor="@color/HeaderColor"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/enter_manually"
-        android:layout_alignLeft="@+id/editTextWeight"
-        android:layout_alignStart="@+id/editTextWeight"
-        android:layout_alignRight="@+id/editTextWeight"
-        android:layout_alignEnd="@+id/editTextWeight" />
+        android:layout_below="@+id/linearLayout5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
 
     <!--<TextView
         android:layout_width="200dp"

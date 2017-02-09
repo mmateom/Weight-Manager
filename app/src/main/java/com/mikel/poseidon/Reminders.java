@@ -181,4 +181,11 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
         startActivity(mainIntent);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
+    }
 }

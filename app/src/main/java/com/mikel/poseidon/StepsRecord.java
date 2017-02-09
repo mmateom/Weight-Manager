@@ -106,6 +106,13 @@ public class StepsRecord extends AppCompatActivity {
         //previous: see COMMENTED CODE below
         return todaySteps;
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
+    }
 }
 
 //COMMENTED CODE

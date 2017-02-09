@@ -193,6 +193,12 @@ public class Steps extends AppCompatActivity {
         return date_final;
     }*/
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
+    }
 }
 
 

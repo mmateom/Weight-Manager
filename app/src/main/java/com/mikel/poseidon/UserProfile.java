@@ -361,6 +361,13 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 

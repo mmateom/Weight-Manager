@@ -177,34 +177,18 @@ public class SetGraphLimits extends AppCompatActivity {
 
     }
 
-                    /*new_Good_Min = Float.parseFloat(min_good_edit.getText().toString());
-                new_Good_Max = Float.parseFloat(max_good_edit.getText().toString());
-
-                SharedPreferences.Editor editor_good_min = settings_good_min.edit();
-                editor_good_min.putFloat(GOOD_MIN, new_Good_Min );
-                editor_good_min.commit();
-
-                SharedPreferences.Editor editor_good_max = settings_good_max.edit();
-                editor_good_max.putFloat(GOOD_MAX, new_Good_Max );
-                editor_good_max.commit();
-
-                new_Becareful_Min = Float.parseFloat(min_becareful_edit.getText().toString());
-                new_Becareful_Max = Float.parseFloat(max_becareful_edit.getText().toString());
-
-
-                SharedPreferences.Editor editor_becareful_min = settings_becareful_min.edit();
-                editor_becareful_min.putFloat(BE_CAREFUL_MIN, new_Becareful_Min );
-                editor_becareful_min.apply();
-
-                SharedPreferences.Editor editor_becareful_max = settings_becareful_max.edit();
-                editor_becareful_max.putFloat(BE_CAREFUL_MAX, new_Becareful_Max );
-                editor_becareful_max.apply();*/
 
     //============================
     //          Methods
     //============================
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
+    }
 
 
 

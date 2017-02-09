@@ -161,4 +161,11 @@ public class FitbitBtnActivity extends AppCompatActivity {
         RxSocialConnect.getTokenOAuth2(FitbitApi20.class);
         setUpFitbit();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        this.finish();
+    }
 }
