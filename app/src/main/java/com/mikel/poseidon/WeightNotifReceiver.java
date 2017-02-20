@@ -1,8 +1,14 @@
 package com.mikel.poseidon;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 /**
@@ -17,7 +23,30 @@ public class WeightNotifReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(LOG_TAG, "AlarmReceiver invoked.");
-        context.startService(new Intent(context, WeightNotifService.class));
+        //context.startService(new Intent(context, WeightNotifService.class));
+
+        NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //Define sound URI
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        //Create notification
+        NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(context)
+                .setContentTitle("POSEIDON")
+                .setContentText("Time to weight!")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setSound(soundUri); //This sets the sound to play
+
+
+
+        Intent myIntent = new Intent(context, ChooseManAuto.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, myIntent, 0);
+        weightNotif.setContentIntent(contentIntent);
+        Notification n = weightNotif.build();
+
+        nm.notify(1, n);
     }
 
 

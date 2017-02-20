@@ -241,5 +241,6 @@ public class GetWeightFitbit extends AppCompatActivity {
         super.onStop();
 
         this.finish();
+        myDB.close();
     }
 }

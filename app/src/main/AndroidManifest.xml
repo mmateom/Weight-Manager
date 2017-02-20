@@ -99,7 +99,6 @@
         <service
             android:name=".StepService"
             android:screenOrientation="portrait" />
-        <service android:name=".WeightNotifService" />
 
         <receiver
             android:name=".WeightNotifBootReceiver"
@@ -115,7 +114,8 @@
 
         <activity android:name=".GetWeightFitbit" />
         <activity android:name=".ChooseManAuto" />
-        <activity android:name=".CurrentState"></activity>
+        <activity android:name=".CurrentState" />
+        <activity android:name=".ActivityTracker"></activity>
     </application>
 
 </manifest>

@@ -352,7 +352,7 @@ public class GetWeight extends AppCompatActivity {
     //                  Get last weight
     //===============================================
 
-    public double getLastWeight() {
+    private double getLastWeight() {
 
         Cursor alldata;
         ArrayList<Double> yVals;
@@ -430,6 +430,7 @@ public class GetWeight extends AppCompatActivity {
         super.onStop();
 
         this.finish();
+        myDB.close();
     }
 
 

@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the preferences button is clicked on.
             @Override
             public void onClick(View view) {
-                Intent stepsIntent = new Intent(MainActivity.this, Steps.class);
+                Intent stepsIntent = new Intent(MainActivity.this, ActivityTracker.class);
                 startActivity(stepsIntent);
             }
         });
@@ -236,12 +236,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };*/
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
-    }
 
 }
 

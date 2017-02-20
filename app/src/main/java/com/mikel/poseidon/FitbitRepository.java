@@ -61,7 +61,7 @@ public class FitbitRepository {
 
 
         final String client_id = "2283NP";
-        final String client_secret = "140376d2db1c29f2e8e0bb4bda2d0714";
+        final String client_secret = "1d730957a1af3011d339e00db5dfe929";
         final String redirect_uri = "http://example.com";
         final String permissions = "weight";
 

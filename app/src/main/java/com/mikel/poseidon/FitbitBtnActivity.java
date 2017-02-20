@@ -52,6 +52,10 @@ public class FitbitBtnActivity extends AppCompatActivity {
             repository = new FitbitRepository();
 
 
+            RxSocialConnect.getTokenOAuth2(FitbitApi20.class)
+                    .subscribe(token -> showToken(token),
+                            error -> showError(error));
+
 
             setUpFitbit();
 
@@ -61,16 +65,10 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
     private void setUpFitbit() {
 
-        findViewById(R.id.fitbitbtn).setOnClickListener((View v) -> {
-                    RxSocialConnect.with(this, repository.fitbitService())
-                            .subscribe(response -> response.targetUI().showToken(response.token()),
-                                    error -> showError(error));
-
-
-                    RxSocialConnect.getTokenOAuth2(FitbitApi20.class)
-                            .subscribe(token -> showToken(token),
-                                    error -> showError(error));
-                }
+        findViewById(R.id.fitbitbtn).setOnClickListener(v ->
+                RxSocialConnect.with(this, repository.fitbitService())
+                        .subscribe(response -> response.targetUI().showToken(response.token()),
+                                error -> showError(error))
         );
 
         findViewById(R.id.retrievebtn).setOnClickListener(v -> {
@@ -138,7 +136,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
 
     private void showToken(OAuth2AccessToken oAuth2AccessToken) {
-        Toast.makeText(this, oAuth2AccessToken.getTokenType(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, oAuth2AccessToken.getAccessToken(), Toast.LENGTH_SHORT).show();
     }
     private void showError(Throwable error) {
         Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -150,22 +148,9 @@ public class FitbitBtnActivity extends AppCompatActivity {
         super.onResume();
 
         RxSocialConnect.getTokenOAuth2(FitbitApi20.class);
-        setUpFitbit();
+        //setUpFitbit();
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
 
-        RxSocialConnect.getTokenOAuth2(FitbitApi20.class);
-        setUpFitbit();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
-    }
 }

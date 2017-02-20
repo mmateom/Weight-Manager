@@ -10,6 +10,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 import static com.mikel.poseidon.Preferences.sharedPrefs;
 import static com.mikel.poseidon.R.drawable.bmi;
 import static com.mikel.poseidon.R.id.cm;
@@ -78,27 +80,38 @@ public class CurrentState extends AppCompatActivity {
         mDailyCalories = calculateDailyCaloryIntake(mBmr, mPosition);
 
         //show
-
-        currentWeight = (TextView)findViewById(R.id.current_weight);
-        currentWeight.setText(String.valueOf(mWeight));
-
-        bmitxt = (TextView)findViewById(R.id.bmi_text);
-        bmitxt.setText(String.valueOf(round(mBmi,2)));
-
-        bmrtxt= (TextView)findViewById(R.id.bmr_text);
-        bmrtxt.setText(String.valueOf(round(mBmr,2)));
-
-        dailyIntake = (TextView)findViewById(R.id.daily_calories);
-        dailyIntake.setText(String.valueOf(mDailyCalories));
-
-        bmiFeedback = (TextView)findViewById(R.id.feedback);
-        bmiFeedback.setText(interpretBMI(mBmi));
+        setTexts();
 
 
-        bmiBar = (TextView)findViewById(R.id.bar);
-        bmiBar.setX((dpToPx((int) moveBmibar(mBmi)))); //300 es la mitad del progress bar del bmi
+
+    }
+
+    private void setTexts(){
+
+        try{
+            currentWeight = (TextView)findViewById(R.id.current_weight);
+            currentWeight.setText(String.valueOf(mWeight));
+
+            bmitxt = (TextView)findViewById(R.id.bmi_text);
+            bmitxt.setText(String.valueOf(round(mBmi,2)));
+
+            bmrtxt= (TextView)findViewById(R.id.bmr_text);
+            bmrtxt.setText(String.valueOf(round(mBmr,2)));
+
+            dailyIntake = (TextView)findViewById(R.id.daily_calories);
+            dailyIntake.setText(String.valueOf(mDailyCalories));
+
+            bmiFeedback = (TextView)findViewById(R.id.feedback);
+            bmiFeedback.setText(interpretBMI(mBmi));
 
 
+            bmiBar = (TextView)findViewById(R.id.bar);
+            bmiBar.setX((dpToPx((int) moveBmibar(mBmi))));
+        }
+        catch (Exception e){
+            Log.e("BMI", "No input in textviews");
+
+        }
     }
 
     public static int dpToPx(int dp)
