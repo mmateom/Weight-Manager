@@ -24,7 +24,7 @@ import java.util.Date;
 
 import static android.R.id.edit;
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
-import static com.mikel.poseidon.Preferences.sharedPrefs;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 import static com.mikel.poseidon.R.id.textView;
 
 public class UserProfile extends AppCompatActivity  implements NumberPicker.OnValueChangeListener, AdapterView.OnItemSelectedListener {
@@ -361,10 +361,8 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

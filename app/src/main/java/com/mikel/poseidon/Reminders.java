@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import static android.R.attr.value;
-import static com.mikel.poseidon.Preferences.sharedPrefs;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 import static com.mikel.poseidon.R.id.weight;
 
 public class Reminders extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
@@ -29,16 +29,10 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
     Button saveBtn;
     SharedPreferences mSharedPrefs;
 
-    public MainActivity mainActivity;
-
     String time_key = "time_key";
     static String minutes_key ="minutes_key";
     static String hours_key ="hours_key";
     String frequency_key = "frequency_key";
-
-
-    String time;
-
 
 
     @Override
@@ -183,9 +177,7 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

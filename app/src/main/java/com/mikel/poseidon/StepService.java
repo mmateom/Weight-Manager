@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -21,6 +22,9 @@ import java.util.Map;
 
 import uk.ac.mdx.cs.ie.acontextlib.IContextReceiver;
 import uk.ac.mdx.cs.ie.acontextlib.hardware.StepCounter;
+
+import static com.mikel.poseidon.ActivityTracker.ACTIVITY;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 /**
  * Created by mikel on 02/12/2016.
@@ -39,6 +43,8 @@ public class StepService extends Service {
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
     private IContextReasoner mContextService;
+
+
 
 
     @Nullable
@@ -121,7 +127,7 @@ public class StepService extends Service {
             Log.e("POSEIDON", "Context Reasoner not installed!");
         }
 
-        createNotification();
+        //createNotification();
 
         return 0;
 
@@ -186,8 +192,10 @@ public class StepService extends Service {
            unbindService(mConnection);
        }
 
+
        //Autodismiss the notification
        stopForeground(true);
+
 
        mWakeLock.release();
 
@@ -217,25 +225,7 @@ public class StepService extends Service {
 
 
 
-    //=======================================================
-    //        CREATE NOTIFICATION - when start is pushed
-    //=======================================================
 
-    public void createNotification() {
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle(getText(R.string.app_name));
-        builder.setContentText("Step counter");
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-
-        Intent resultIntent = new Intent(this, Steps.class);
-
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, 0);
-        builder.setContentIntent(resultPendingIntent);
-
-        startForeground(1, builder.build());
-
-    }
 
 
 

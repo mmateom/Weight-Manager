@@ -106,4 +106,20 @@
 
     </GridLayout>
 
+    <Button
+        android:text="Current activity"
+        style="@style/ButtonText"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:drawableRight="@drawable/walk"
+        android:drawableEnd="@drawable/walk"
+        android:paddingRight="12sp"
+        android:paddingEnd="12sp"
+        android:textSize="18dp"
+        android:id="@+id/current_activity"
+        android:layout_gravity="fill"
+        android:layout_below="@+id/gridLayout"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

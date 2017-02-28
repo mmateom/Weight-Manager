@@ -239,8 +239,11 @@ public class GetWeightFitbit extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
-        this.finish();
         myDB.close();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

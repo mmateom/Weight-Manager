@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
-import static com.mikel.poseidon.Preferences.sharedPrefs;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 /**
  * Created by mikel on 12/01/2017.

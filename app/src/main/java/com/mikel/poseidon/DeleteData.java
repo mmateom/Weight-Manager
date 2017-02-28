@@ -79,9 +79,7 @@ public class DeleteData extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

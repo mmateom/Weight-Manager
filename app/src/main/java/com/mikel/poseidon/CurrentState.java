@@ -6,39 +6,50 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import static android.os.Build.VERSION_CODES.M;
+import static android.view.View.GONE;
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
-import static com.mikel.poseidon.Preferences.sharedPrefs;
+import static com.mikel.poseidon.R.id.congratulations;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 import static com.mikel.poseidon.R.drawable.bmi;
 import static com.mikel.poseidon.R.id.cm;
 import static com.mikel.poseidon.R.id.years;
 import static java.lang.Math.pow;
 import static java.lang.Math.round;
+import static java.lang.reflect.Array.getInt;
 
 
 public class CurrentState extends AppCompatActivity {
 
     SharedPreferences mPrefs;
-    int mAge, mPosition;
+    int mAge, mPosition, goal;
     double mHeight, mWeight, mBmi, mBmr, mDailyCalories;
     String mGender;
 
     DBHelper myDB;
 
     TextView bmitxt, bmrtxt, dailyIntake, currentWeight, bmiFeedback, bmiBar;
+
+    ProgressBar stepsPrg;
 
 
     @Override
@@ -82,6 +93,42 @@ public class CurrentState extends AppCompatActivity {
         //show
         setTexts();
 
+        //calculate progress bar
+        goal = mPrefs.getInt("steps_goal", 0);
+        int stepProgress = (int) ((100 * todaySteps()) / goal);
+
+        stepsPrg = (ProgressBar)findViewById(R.id.stepsProgressBar);
+        stepsPrg.setScaleY(6f);
+        stepsPrg.setProgress(stepProgress);
+        stepsPrg.getProgressDrawable().setColorFilter(
+                ContextCompat.getColor(this, R.color.Good), PorterDuff.Mode.MULTIPLY);
+
+        TextView feedback = (TextView)findViewById(congratulations);
+        feedback.setVisibility(View.INVISIBLE);
+
+        TextView stepsFraction = (TextView)findViewById(R.id.fraction);
+
+        if (todaySteps() < goal){
+            stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
+
+        }
+
+        if(todaySteps() == goal){
+            feedback.setText("Congratulations! You did it!");
+            feedback.setVisibility(View.VISIBLE);
+            stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
+
+        }
+
+        if(todaySteps() > goal){
+            feedback.setText("Wow! Beyond your goal!");
+            feedback.setVisibility(View.VISIBLE);
+            stepsFraction.setText(String.valueOf(todaySteps()) + " - Goal: " + String.valueOf(goal));
+        }
+
+
+
+
 
 
     }
@@ -104,9 +151,10 @@ public class CurrentState extends AppCompatActivity {
             bmiFeedback = (TextView)findViewById(R.id.feedback);
             bmiFeedback.setText(interpretBMI(mBmi));
 
-
             bmiBar = (TextView)findViewById(R.id.bar);
             bmiBar.setX((dpToPx((int) moveBmibar(mBmi))));
+
+
         }
         catch (Exception e){
             Log.e("BMI", "No input in textviews");
@@ -231,10 +279,24 @@ public class CurrentState extends AppCompatActivity {
         return lastWeight;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
 
-        this.finish();
+    public long todaySteps(){
+        Cursor alldata = myDB.getTodaySumSteps();
+        long todaySteps = 0;
+
+        if(alldata.getCount() > 0) { //if count equals zero (no record today), textView automatically displays 0
+
+            alldata.moveToFirst();
+            todaySteps = alldata.getLong(1);
+        }
+
+
+
+        return todaySteps;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

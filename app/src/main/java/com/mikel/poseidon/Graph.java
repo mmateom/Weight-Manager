@@ -25,8 +25,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.mikel.poseidon.Preferences.sharedPrefs;
-
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Graph extends AppCompatActivity {
 
@@ -317,12 +316,9 @@ public class Graph extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
+    public void onBackPressed() {
+        super.onBackPressed();
     }
-
 
 
 

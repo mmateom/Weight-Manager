@@ -42,6 +42,7 @@
 
         <EditText
             android:layout_width="match_parent"
+            android:textColor="@color/Good"
             android:layout_height="40dp"
             android:inputType="numberDecimal"
             android:hint="Enter weight"
@@ -51,7 +52,8 @@
             android:gravity="center"
 
 
-        />
+            android:textStyle="normal|bold"
+            android:textSize="20sp" />
 
         <TextView
             android:hint="Enter date"
@@ -63,7 +65,10 @@
             android:layout_marginTop="55dp"
             android:id="@+id/yourdate"
             android:layout_gravity="center"
-            android:textAppearance="@android:style/TextAppearance.Medium.Inverse" />
+            android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
+            android:textColor="@color/Good"
+            android:textStyle="normal|bold"
+            android:textSize="20sp" />
 
 
     </LinearLayout>
@@ -121,6 +126,19 @@
         android:layout_below="@+id/linearLayout5"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp" />
+
+    <TextView
+        android:text="Kg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textView22"
+        android:layout_alignTop="@+id/linearLayout6"
+        android:layout_toRightOf="@+id/linearLayout6"
+        android:layout_toEndOf="@+id/linearLayout6"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp" />
 
     <!--<TextView
         android:layout_width="200dp"

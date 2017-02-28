@@ -31,60 +31,35 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="22dp"
         android:id="@+id/textView15"
-        android:textColor="@color/ToolbarTextColor"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textStyle="normal|bold" />
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"
+        android:textSize="22sp"/>
 
-    <TextView
-        android:text="Set Time"
+
+    <Button
+        android:text="SAVE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView15"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textView16" />
-
-    <TextView
-        android:text=""
-        android:hint="09:25"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/remind_time"
-        android:textStyle="normal|bold"
-        android:background="@drawable/enter_weight"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:textColor="@android:color/holo_green_dark"
-        android:layout_alignTop="@+id/textView16"
+        android:layout_marginTop="99dp"
+        android:id="@+id/save2"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_below="@+id/textView17"
         android:layout_centerHorizontal="true" />
-
-
-    <TextView
-        android:text=""
-        android:hint="25"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/frequency"
-        android:textStyle="normal|bold"
-        android:background="@drawable/enter_weight"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:textColor="@android:color/holo_green_dark"
-        android:layout_alignBaseline="@+id/textView17"
-        android:layout_alignBottom="@+id/textView17"
-        android:layout_alignLeft="@+id/remind_time"
-        android:layout_alignStart="@+id/remind_time" />
 
     <TextView
         android:text="Set Frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="76dp"
         android:id="@+id/textView17"
-        android:layout_below="@+id/remind_time"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_below="@+id/textView16"
         android:layout_alignLeft="@+id/textView16"
         android:layout_alignStart="@+id/textView16" />
 
@@ -93,22 +68,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView18"
-        android:layout_alignBaseline="@+id/frequency"
-        android:layout_alignBottom="@+id/frequency"
-        android:layout_toRightOf="@+id/frequency"
-        android:layout_toEndOf="@+id/frequency"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
+        android:layout_alignBaseline="@+id/textView17"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp" />
 
-    <Button
-        android:text="SAVE"
+    <TextView
+        android:text=""
+        android:hint="25"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/frequency"
+        android:textStyle="normal|bold"
+        android:background="@drawable/enter_weight"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_toLeftOf="@+id/textView18"
+        android:layout_toStartOf="@+id/textView18"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp" />
+
+    <TextView
+        android:text="Set Time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frequency"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
-        android:id="@+id/save2"
-        android:background="@drawable/enter_weight_header"
-        android:textColor="@color/HeaderColor"/>
+        android:layout_marginTop="40dp"
+        android:id="@+id/textView16"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_below="@+id/textView15"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15" />
+
+    <TextView
+        android:text=""
+        android:hint="09:25"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/remind_time"
+        android:textStyle="normal|bold"
+        android:background="@drawable/enter_weight"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_alignTop="@+id/textView16"
+        android:layout_alignLeft="@+id/frequency"
+        android:layout_alignStart="@+id/frequency" />
 
 </RelativeLayout>

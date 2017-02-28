@@ -26,10 +26,9 @@ import static android.R.attr.value;
 import static android.R.attr.x;
 import static android.content.Context.ALARM_SERVICE;
 import static android.media.CamcorderProfile.get;
-import static com.mikel.poseidon.Preferences.sharedPrefs;
 import static com.mikel.poseidon.R.id.frequency;
 import static com.mikel.poseidon.R.id.view_summary;
-
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class MainActivity extends AppCompatActivity {
     int mMin, mHour, mMilis, mSeconds;

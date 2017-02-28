@@ -1,5 +1,8 @@
 package com.mikel.poseidon;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,6 +14,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,11 +37,13 @@ import static android.R.attr.value;
 import static android.R.attr.x;
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
+import static com.mikel.poseidon.ActivityTracker.ACTIVITY;
 import static com.mikel.poseidon.R.id.calories;
 import static com.mikel.poseidon.R.id.steps_counting;
 import static com.mikel.poseidon.R.id.stop;
 import static com.mikel.poseidon.R.id.tv_chr;
 import static com.mikel.poseidon.R.id.weight;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Steps extends AppCompatActivity {
 
@@ -56,6 +62,8 @@ public class Steps extends AppCompatActivity {
     private Context mContext;
 
     private Context context;
+
+    private String LOG_TAG = "Which activity";
 
 
     //Instance of Chronometer
@@ -79,7 +87,11 @@ public class Steps extends AppCompatActivity {
      */
     public static final String TV_TIMER_TEXT = "TV_TIMER_TEXT";
 
+    //
+    String activity;
 
+    SharedPreferences preferences;
+    NotificationManager nm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +99,12 @@ public class Steps extends AppCompatActivity {
         setContentView(R.layout.activity_steps);
         mContext = getApplicationContext();
         context = this;
+
+        preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        activity = preferences.getString(ACTIVITY, "");
+
+
+        nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //create db
         myDB = new DBHelper(this);
@@ -114,6 +132,7 @@ public class Steps extends AppCompatActivity {
 
         //chronometer = (Chronometer) findViewById(R.id.chronometer);
         //chronometer.setBase(SystemClock.elapsedRealtime());
+
 
 
 
@@ -147,8 +166,6 @@ public class Steps extends AppCompatActivity {
     }
 
 
-
-
     /// METHODS
     public void setupBReceiver(){
         mStepsReceiver = new BroadcastReceiver() {
@@ -180,7 +197,7 @@ public class Steps extends AppCompatActivity {
         super.onStart();
         // Bind to LocalService
         mService.getSteps();
-
+        createNotification();
         //start chronometer
         startChrono();
 
@@ -196,10 +213,12 @@ public class Steps extends AppCompatActivity {
             //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
             myDB.addDataSteps(number);
             mService.stopCounting();
+            cancelNotification();
 
             //stop chronometer
             stopChrono();
-            caloriesText.setText(String.valueOf(getCalories(getLastWeight())));
+            /**Maybe create another button with: tvChron.setText("00:00:00");**/
+            caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
 
             Toast.makeText(this, "Step counter STOPPED", Toast.LENGTH_LONG).show();
         } else {
@@ -238,17 +257,27 @@ public class Steps extends AppCompatActivity {
     //==============================
 
     //private double getCalories (int walkTime, double weight){
-    private double getCalories (double weight){
+    private double getCalories (double weight, String activity){
 
         double walkTime = getMinutes(tvChron.getText().toString());
 
-        double met = 3.5;
+        double met = 0;
 
-        double caloriesMin;
+        if (activity.equals("walk")){
+            met = 3.5;
+            Log.e(LOG_TAG, "Walking");
+        }else if(activity.equals("run")){
+            met = 7;
+            Log.e(LOG_TAG, "Running");
+        }else if(activity.equals("swim")){
+            met = 5.8;
+            Log.e(LOG_TAG, "Swimming");
+        }else if (activity.equals("dance")){
+            met = 5;
+            Log.e(LOG_TAG, "Dancing");
+        }
 
-        caloriesMin = (met * 3.5 * weight)/200;
-
-        //[(MET value) x 3.5 x (weight in kg)]/200
+        double caloriesMin = (met * 3.5 * weight)/200;  //[(MET value) x 3.5 x (weight in kg)]/200
 
         return round(caloriesMin * walkTime, 0);
     }
@@ -423,18 +452,57 @@ public class Steps extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        this.finish();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
 
         stopChrono();
     }
+
+
+    //=======================================================
+    //        CREATE NOTIFICATION - when start is pushed
+    //=======================================================
+
+    public void createNotification() {
+
+        SharedPreferences preferences;
+        preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        String activity = preferences.getString(ACTIVITY, "");
+
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setContentTitle("Monitoring Activity - POSEIDON")
+                .setContentText("Activity: " +activity)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setOngoing(true)
+                .setAutoCancel(false);
+
+        Intent resultIntent = new Intent(this, Steps.class);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, 0);
+        builder.setContentIntent(resultPendingIntent);
+
+        //startForeground(1, builder.build());
+
+        builder.setContentIntent(resultPendingIntent);
+        Notification n = builder.build();
+
+        nm.notify(1, n);
+
+    }
+
+    public void cancelNotification(){
+
+        nm.cancel(1);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+
 }
 
 

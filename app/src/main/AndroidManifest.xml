@@ -34,9 +34,6 @@
             android:name=".ViewSummary"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Preferences"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Graph"
             android:screenOrientation="portrait" />
         <activity
@@ -95,6 +92,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Goals"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.Goals" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".StepService"
@@ -115,7 +120,10 @@
         <activity android:name=".GetWeightFitbit" />
         <activity android:name=".ChooseManAuto" />
         <activity android:name=".CurrentState" />
-        <activity android:name=".ActivityTracker"></activity>
+        <activity android:name=".ActivityTracker" />
+
+
+
     </application>
 
 </manifest>

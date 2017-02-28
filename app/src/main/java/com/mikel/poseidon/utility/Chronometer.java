@@ -2,7 +2,7 @@ package com.mikel.poseidon.utility;
 
 import android.content.Context;
 
-import com.mikel.poseidon.MainActivity;
+
 import com.mikel.poseidon.Steps;
 
 /**

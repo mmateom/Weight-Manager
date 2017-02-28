@@ -60,8 +60,8 @@ public class FitbitRepository {
     OAuth20Service fitbitService() {
 
 
-        final String client_id = "2283NP";
-        final String client_secret = "1d730957a1af3011d339e00db5dfe929";
+        final String client_id = "";
+        final String client_secret = "";
         final String redirect_uri = "http://example.com";
         final String permissions = "weight";
 

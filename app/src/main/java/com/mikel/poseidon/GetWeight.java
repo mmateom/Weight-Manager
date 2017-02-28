@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -210,9 +211,8 @@ public class GetWeight extends AppCompatActivity {
             ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup, null);
             relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
-            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
-            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
-
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
             //shut popup outside window
             container.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -231,8 +231,8 @@ public class GetWeight extends AppCompatActivity {
             ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_1to2, null);
             relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
-            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
-            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
 
             //shut popup outside window
             container.setOnTouchListener(new View.OnTouchListener() {
@@ -251,8 +251,10 @@ public class GetWeight extends AppCompatActivity {
             ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_2plus, null);
             relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
-            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
-            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
+            //popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
+            //popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
 
             //shut popup outside window
             container.setOnTouchListener(new View.OnTouchListener() {
@@ -271,8 +273,8 @@ public class GetWeight extends AppCompatActivity {
             ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup_good, null);
             relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
-            popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
-            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
 
             //shut popup outside window
             container.setOnTouchListener(new View.OnTouchListener() {
@@ -288,6 +290,10 @@ public class GetWeight extends AppCompatActivity {
 
     }
 
+    public static int dpToPx(int dp)
+    {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
 
     //===============================================
     //                   Date Picker
@@ -390,8 +396,8 @@ public class GetWeight extends AppCompatActivity {
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.dateerror, null);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
-        popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
-        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+        popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
 
         //shut popup outside window
         container.setOnTouchListener(new View.OnTouchListener() {
@@ -411,8 +417,8 @@ public class GetWeight extends AppCompatActivity {
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.dateweighterror, null);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
-        popupWindow = new PopupWindow(container, 500, 300, true); //true allows us to close window by tapping outside
-        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
+        popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(170), true); //true allows us to close window by tapping outside
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
 
         //shut popup outside window
         container.setOnTouchListener(new View.OnTouchListener() {
@@ -428,9 +434,12 @@ public class GetWeight extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
-        this.finish();
         myDB.close();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 

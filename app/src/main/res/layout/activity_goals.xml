@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_goals"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mikel.poseidon.Goals">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/include10"/>
+
+    <TextView
+        android:text="   Set your goals"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/textView3"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:background="@color/ToolbarTextColor"
+        android:layout_below="@+id/include10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="Steps per day"
+        android:gravity="center"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="43dp"
+        android:id="@+id/textView19"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <Button
+        android:text="Set"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_steps_goal"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_alignBaseline="@+id/steps_per_day"
+        android:layout_alignBottom="@+id/steps_per_day"
+        android:layout_toRightOf="@+id/steps_per_day"
+        android:layout_toEndOf="@+id/steps_per_day" />
+
+    <EditText
+        android:text=""
+        android:hint="10000"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/steps_per_day"
+        android:inputType="number"
+        android:background="@drawable/enter_weight"
+        android:gravity="center"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_alignTop="@+id/textView19"
+        android:layout_toRightOf="@+id/textView19"
+        android:layout_toEndOf="@+id/textView19" />
+
+
+</RelativeLayout>

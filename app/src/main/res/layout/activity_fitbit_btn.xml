@@ -36,4 +36,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="disconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/retrievebtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:id="@+id/disconnect" />
 </RelativeLayout>

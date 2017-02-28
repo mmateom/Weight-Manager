@@ -22,22 +22,8 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:id="@+id/daily_calories"
-        android:gravity="center"/>
-
-    <TextView
-        android:text="Calories burnt"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/t2"
-        android:textSize="18sp"
         android:gravity="center"
-        android:background="@color/ToolbarTextColor"
-        android:textColor="@color/HeaderColor"
-        android:textStyle="bold"
-        android:layout_marginTop="79dp"
-        android:layout_below="@+id/Today"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:visibility="invisible"/>
 
     <TextView
         android:text="TextView"
@@ -45,36 +31,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/bmr_text"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="Your body shape"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/t3"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:background="@color/ToolbarTextColor"
-        android:textColor="@color/HeaderColor"
-        android:textStyle="bold"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/daily_calories"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Today"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:id="@+id/Today"
-        android:textSize="30sp"
-        android:textColor="@color/ToolbarTextColor"
-        android:layout_below="@+id/inclu"
-        android:layout_alignLeft="@+id/current_weight"
-        android:layout_alignStart="@+id/current_weight"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
 
     <TextView
         android:text=""
@@ -99,68 +57,45 @@
         android:layout_toLeftOf="@+id/bmr_text"
         android:layout_toStartOf="@+id/bmr_text" />
 
-    <TextView
-        android:text="Kg"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/currentWeightUnit"
-        android:textSize="20sp"
-        android:gravity="right"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_alignBottom="@+id/current_weight"
-        android:layout_toRightOf="@+id/Today"
-        android:layout_toEndOf="@+id/Today"
-        android:layout_marginBottom="17dp" />
-
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:id="@+id/linearLayout7"
+
         android:layout_alignBottom="@+id/progressbar"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp">
 
         <TextView
             android:layout_width="35dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:background="@android:color/holo_blue_light"
             />
         <TextView
             android:layout_width="65dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:background="@color/Good" />
         <TextView
             android:layout_width="50dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:background="@android:color/holo_orange_light" />
         <TextView
             android:layout_width="100dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:background="@color/ToolbarBackgroundColor" />
         <TextView
             android:layout_width="50dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:background="@color/LightRed" />
 
     </LinearLayout>
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/ToolbarTextColor"
-        android:textSize="20sp"
-        android:id="@+id/feedback"
-        android:layout_above="@+id/linearLayout7"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:id="@+id/bar"
-        android:background="?attr/actionModeSplitBackground"
+        android:background="@android:color/background_dark"
         android:layout_width="10dp"
-        android:layout_height="35dp"
+        android:layout_height="60dp"
         android:layout_alignTop="@+id/linearLayout7"
         android:layout_toLeftOf="@+id/linearLayout7"
         android:layout_toStartOf="@+id/linearLayout7" />
@@ -170,36 +105,180 @@
         android:layout_height="30dp"
         android:layout_alignTop="@+id/currentWeightUnit"
         android:layout_alignLeft="@+id/daily_calories"
-        android:layout_alignStart="@+id/daily_calories">
+        android:layout_alignStart="@+id/daily_calories"
+        android:id="@+id/linearLayout10">
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:text="    Today"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:id="@+id/Today"
+        android:textSize="30sp"
+
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/inclu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/Today"
+        android:layout_toRightOf="@+id/bar"
+        android:layout_toEndOf="@+id/bar"
+        android:layout_marginTop="32dp"
+        android:id="@+id/linearLayout12">
+
         <TextView
-            android:text="BMI:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView21"
-            android:layout_alignBottom="@+id/bmi_text"
-            android:layout_alignLeft="@+id/daily_calories"
-            android:layout_alignStart="@+id/daily_calories" />
+            android:text="Steps"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:id="@+id/T"
+            android:textSize="25sp"
+            android:textColor="@color/ToolbarTextColor"
+            android:layout_marginBottom="39dp"
+           />
+
         <TextView
-            android:layout_height="20dp"
-            android:id="@+id/bmi_text"
-            android:gravity="right"
-            android:layout_width="40dp"
-            android:layout_alignTop="@+id/currentWeightUnit"
-            android:layout_toRightOf="@+id/textView21"
-            android:layout_toEndOf="@+id/textView21" />
+            android:text=""
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:id="@+id/fraction"
+            android:textSize="20sp"
+            android:textColor="@color/ToolbarTextColor"
+            android:layout_marginBottom="39dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+
+            />
 
 
 
     </LinearLayout>
 
-    <TextView
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/stepsProgressBar"
+        android:layout_below="@+id/linearLayout12"
+        android:layout_alignLeft="@+id/linearLayout12"
+        android:layout_alignStart="@+id/linearLayout12" />
+
+    <!--<TextView
         android:text="BMR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView24"
         android:layout_above="@+id/t3"
-        android:layout_toLeftOf="@+id/currentWeightUnit"
-        android:layout_toStartOf="@+id/currentWeightUnit" />
+        android:layout_toLeftOf="@+id/feedback"
+        android:layout_toStartOf="@+id/feedback"
+        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp" />-->
+
+    <TextView
+        android:text="Your body shape"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/t3"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/daily_calories"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text=""
+        android:hint="Feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/ToolbarTextColor"
+        android:textSize="20sp"
+        android:id="@+id/feedback"
+        android:layout_above="@+id/linearLayout7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp" />
+
+    <TextView
+        android:text=""
+        android:layout_width="300dp"
+        android:layout_height="32dp"
+        android:id="@+id/textView20"
+        android:background="@drawable/progressstrock"
+        android:layout_alignTop="@+id/linearLayout12"
+        android:layout_alignLeft="@+id/linearLayout12"
+        android:layout_alignStart="@+id/linearLayout12"
+        android:layout_marginTop="42dp" />
+
+    <TextView
+        android:text=""
+        android:layout_width="310dp"
+        android:layout_height="45dp"
+        android:id="@+id/textView23"
+        android:gravity="center_horizontal"
+        android:background="@drawable/progressstrock"
+        android:layout_below="@+id/feedback"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/congratulations"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_purple"
+        tools:gravity="center_horizontal"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView20"
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_height="20dp"
+        android:id="@+id/bmi_text"
+        android:gravity="right"
+        android:layout_width="40dp"
+        android:layout_alignBottom="@+id/textView21"
+        android:layout_toRightOf="@+id/textView21"
+        android:layout_toEndOf="@+id/textView21"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
+
+    <TextView
+        android:text="BMI:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView21"
+        android:layout_marginTop="8dp"
+        android:layout_alignTop="@+id/current_weight"
+        android:layout_alignLeft="@+id/linearLayout10"
+        android:layout_alignStart="@+id/linearLayout10" />
+
+    <TextView
+        android:text="Kg"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/currentWeightUnit"
+        android:textSize="20sp"
+        android:gravity="right"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_above="@+id/feedback"
+        android:layout_toRightOf="@+id/bar"
+        android:layout_toEndOf="@+id/bar"
+        android:layout_marginBottom="8dp" />
 
 
 </RelativeLayout>

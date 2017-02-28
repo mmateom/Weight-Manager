@@ -65,7 +65,6 @@ public class PreferencesList extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
     }
 
 
