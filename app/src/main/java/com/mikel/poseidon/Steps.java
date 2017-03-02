@@ -176,11 +176,6 @@ public class Steps extends AppCompatActivity {
                 final long steps = intent.getLongExtra("steps", 0);
                 number = steps;
 
-                //TODO: CUIDAO CON ESTO
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(STEPS, String.valueOf(steps));
-                editor.apply();
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
