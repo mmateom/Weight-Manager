@@ -87,6 +87,8 @@ public class Steps extends AppCompatActivity {
      */
     public static final String TV_TIMER_TEXT = "TV_TIMER_TEXT";
 
+    public static final String STEPS = "STEPS";
+
     //
     String activity;
 
@@ -174,10 +176,17 @@ public class Steps extends AppCompatActivity {
                 final long steps = intent.getLongExtra("steps", 0);
                 number = steps;
 
+                //TODO: CUIDAO CON ESTO
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(STEPS, String.valueOf(steps));
+                editor.apply();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mStepsTextView.setText(String.valueOf(steps));
+
+
                     }
                 });
             }
@@ -212,6 +221,8 @@ public class Steps extends AppCompatActivity {
             //String currentStartTime = getCurrentStartTime();
             //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
             myDB.addDataSteps(number);
+            myDB.close();
+
             mService.stopCounting();
             cancelNotification();
 

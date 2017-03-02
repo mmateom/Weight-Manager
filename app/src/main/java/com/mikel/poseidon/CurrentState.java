@@ -108,7 +108,7 @@ public class CurrentState extends AppCompatActivity {
 
         TextView stepsFraction = (TextView)findViewById(R.id.fraction);
 
-        if (todaySteps() < goal){
+       /* if (todaySteps() < goal){
             stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
 
         }
@@ -124,7 +124,18 @@ public class CurrentState extends AppCompatActivity {
             feedback.setText("Wow! Beyond your goal!");
             feedback.setVisibility(View.VISIBLE);
             stepsFraction.setText(String.valueOf(todaySteps()) + " - Goal: " + String.valueOf(goal));
-        }
+        }*/
+
+        //stepsFraction.setText(String.valueOf(todaySteps()));
+
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(!(mPrefs.getString("STEPS", "")).equals("")){
+                stepsFraction.setText(String.valueOf(todaySteps() + Integer.parseInt(mPrefs.getString("STEPS", ""))));}
+            }
+        });
 
 
 

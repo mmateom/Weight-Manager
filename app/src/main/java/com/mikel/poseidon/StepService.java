@@ -13,6 +13,7 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mikel.poseidon.utility.ExplicitIntentGenerator;
 
@@ -78,7 +79,6 @@ public class StepService extends Service {
         mContext = getApplicationContext();
         sCounter = new StepCounter(mContext);
         sCounter.start();
-        //sCounter.setInterval(2000);
 
         sCounter.addContextReceiver(new IContextReceiver() {
             @Override
@@ -168,8 +168,10 @@ public class StepService extends Service {
 
    public void stopCounting (){
 
+
        //Only allow stopping if its collecting.
        if (! mCollecting) {
+           //sCounter.stop(); this somehow stops counting but crushes the counter
            return;
        }
 
@@ -194,7 +196,7 @@ public class StepService extends Service {
 
 
        //Autodismiss the notification
-       stopForeground(true);
+       //stopForeground(true);
 
 
        mWakeLock.release();
