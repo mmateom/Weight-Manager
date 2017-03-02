@@ -95,35 +95,48 @@ public class CurrentState extends AppCompatActivity {
 
         //calculate progress bar
         goal = mPrefs.getInt("steps_goal", 0);
-        int stepProgress = (int) ((100 * todaySteps()) / goal);
+        if(goal > 0) {
+            int stepProgress = (int) ((100 * todaySteps()) / goal);
 
-        stepsPrg = (ProgressBar)findViewById(R.id.stepsProgressBar);
-        stepsPrg.setScaleY(6f);
-        stepsPrg.setProgress(stepProgress);
-        stepsPrg.getProgressDrawable().setColorFilter(
-                ContextCompat.getColor(this, R.color.Good), PorterDuff.Mode.MULTIPLY);
+            stepsPrg = (ProgressBar) findViewById(R.id.stepsProgressBar);
+            stepsPrg.setScaleY(6f);
+            stepsPrg.setProgress(stepProgress);
+            stepsPrg.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.Good), PorterDuff.Mode.MULTIPLY);
 
-        TextView feedback = (TextView)findViewById(congratulations);
-        feedback.setVisibility(View.INVISIBLE);
+            TextView feedback = (TextView) findViewById(congratulations);
+            feedback.setVisibility(View.INVISIBLE);
 
-        TextView stepsFraction = (TextView)findViewById(R.id.fraction);
+            TextView stepsFraction = (TextView) findViewById(R.id.fraction);
 
-        if (todaySteps() < goal){
-            stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
+            if (todaySteps() < goal) {
+                stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
 
-        }
+            }
 
-        if(todaySteps() == goal){
-            feedback.setText("Congratulations! You did it!");
-            feedback.setVisibility(View.VISIBLE);
-            stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
+            if (todaySteps() == goal) {
+                feedback.setText("Congratulations! You did it!");
+                feedback.setVisibility(View.VISIBLE);
+                stepsFraction.setText(String.valueOf(todaySteps()) + " of " + String.valueOf(goal));
 
-        }
+            }
 
-        if(todaySteps() > goal){
-            feedback.setText("Wow! Beyond your goal!");
-            feedback.setVisibility(View.VISIBLE);
-            stepsFraction.setText(String.valueOf(todaySteps()) + " - Goal: " + String.valueOf(goal));
+            if (todaySteps() > goal) {
+                feedback.setText("Wow! Beyond your goal!");
+                feedback.setVisibility(View.VISIBLE);
+                stepsFraction.setText(String.valueOf(todaySteps()) + " - Goal: " + String.valueOf(goal));
+            }
+        }else{
+            TextView stepsFraction = (TextView) findViewById(R.id.fraction);
+            stepsFraction.setText("0");
+            stepsPrg = (ProgressBar) findViewById(R.id.stepsProgressBar);
+            stepsPrg.setScaleY(6f);
+            stepsPrg.setProgress(0);
+            stepsPrg.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.Good), PorterDuff.Mode.MULTIPLY);
+            TextView feedback = (TextView) findViewById(congratulations);
+            feedback.setVisibility(View.INVISIBLE);
+
         }
 
         //stepsFraction.setText(String.valueOf(todaySteps()));
