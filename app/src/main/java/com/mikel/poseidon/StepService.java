@@ -46,14 +46,16 @@ public class StepService extends Service {
     private IContextReasoner mContextService;
 
 
-
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
 
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return super.onUnbind(intent);
+    }
 
     public class LocalBinder extends Binder {
         StepService getService() {
@@ -145,6 +147,7 @@ public class StepService extends Service {
         } catch (Exception e) {
             Log.e("StopService", e.getMessage());
         }
+
     }
 
    /* public long setSteps(){
@@ -170,13 +173,17 @@ public class StepService extends Service {
 
 
        //Only allow stopping if its collecting.
-       if (! mCollecting) {
+       if (mCollecting) {
            //sCounter.stop(); this somehow stops counting but crushes the counter
            return;
        }
 
-       if (sCounter.isRunning()) {
-           sCounter.stop();
+       try {
+           if (sCounter.isRunning()) {
+               sCounter.stop();
+           }
+       }catch (Exception e){
+           Log.e("StepCounter", e.getMessage());
        }
 
        Intent intent = new Intent();
@@ -192,6 +199,7 @@ public class StepService extends Service {
 
        if (mBound) {
            unbindService(mConnection);
+           mBound = false;
        }
 
 
@@ -199,7 +207,8 @@ public class StepService extends Service {
        //stopForeground(true);
 
 
-       mWakeLock.release();
+       try{mWakeLock.release();}
+       catch(Exception e){Log.e("StepCounter", e.getMessage());}
 
    }
 
@@ -215,13 +224,13 @@ public class StepService extends Service {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mContextService  = IContextReasoner.Stub.asInterface(iBinder);
-            mBound = ! mBound;
+            mBound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             mContextService = null;
-            mBound = ! mBound;
+            mBound = false;
         }
     };
 

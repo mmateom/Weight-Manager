@@ -100,16 +100,6 @@
         android:layout_toLeftOf="@+id/linearLayout7"
         android:layout_toStartOf="@+id/linearLayout7" />
 
-    <LinearLayout
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_alignTop="@+id/currentWeightUnit"
-        android:layout_alignLeft="@+id/daily_calories"
-        android:layout_alignStart="@+id/daily_calories"
-        android:id="@+id/linearLayout10">
-
-
-    </LinearLayout>
 
 
     <TextView
@@ -251,20 +241,20 @@
         android:gravity="right"
         android:layout_width="40dp"
         android:layout_alignBottom="@+id/textView21"
-        android:layout_toRightOf="@+id/textView21"
-        android:layout_toEndOf="@+id/textView21"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
+        android:layout_alignRight="@+id/linearLayout7"
+        android:layout_alignEnd="@+id/linearLayout7"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp" />
 
     <TextView
         android:text="BMI:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView21"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:layout_alignTop="@+id/current_weight"
-        android:layout_alignLeft="@+id/linearLayout10"
-        android:layout_alignStart="@+id/linearLayout10" />
+        android:layout_toLeftOf="@+id/bmi_text"
+        android:layout_toStartOf="@+id/bmi_text" />
 
     <TextView
         android:text="Kg"

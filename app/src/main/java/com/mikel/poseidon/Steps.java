@@ -39,6 +39,8 @@ import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 import static com.mikel.poseidon.ActivityTracker.ACTIVITY;
 import static com.mikel.poseidon.R.id.calories;
+import static com.mikel.poseidon.R.id.k;
+import static com.mikel.poseidon.R.id.start;
 import static com.mikel.poseidon.R.id.steps_counting;
 import static com.mikel.poseidon.R.id.stop;
 import static com.mikel.poseidon.R.id.tv_chr;
@@ -47,10 +49,13 @@ import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Steps extends AppCompatActivity {
 
+    long ko = 0;
+
     StepService mService = new StepService();
     DBHelper myDB;
 
     boolean mBound = false;
+    boolean isPaused = false;
     Calendar cal;
 
     ArrayList<Long> stepArray;
@@ -152,6 +157,12 @@ public class Steps extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupBReceiver();
+        Toast.makeText(this, "ON RESUME", Toast.LENGTH_SHORT).show();
+        if(mChrono == null){
+            tvChron.setText("00:00:00");
+            caloriesText.setText("0");
+            mStepsTextView.setText("0");
+        }
 
         Intent intent = new Intent(this, StepService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
@@ -162,7 +173,7 @@ public class Steps extends AppCompatActivity {
         super.onPause();
         unbindService(mConnection);
         mContext.unregisterReceiver(mStepsReceiver);
-
+        Toast.makeText(this, "ON PAUSE", Toast.LENGTH_SHORT).show();
         saveInstance(); //save chrono instance
 
     }
@@ -175,6 +186,9 @@ public class Steps extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 final long steps = intent.getLongExtra("steps", 0);
                 number = steps;
+
+                ko = number - ko;
+
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -203,7 +217,13 @@ public class Steps extends AppCompatActivity {
         mService.getSteps();
         createNotification();
         //start chronometer
-        startChrono();
+        if(chronoIsPaused()){
+            loadInstance();
+            //startChrono();
+            isPaused = false;
+        }else {startChrono();}
+
+
 
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
     }
@@ -215,9 +235,9 @@ public class Steps extends AppCompatActivity {
         if (mBound) {
             //String currentStartTime = getCurrentStartTime();
             //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
-            myDB.addDataSteps(number);
+            myDB.addDataSteps(ko);
             myDB.close();
-
+            //mContext.unregisterReceiver(mStepsReceiver);
             mService.stopCounting();
             cancelNotification();
 
@@ -232,6 +252,36 @@ public class Steps extends AppCompatActivity {
             Toast.makeText(this, "Currently stopped", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    /*public void pauseCounting(View v){
+
+        // Unbind from the service
+        if (mBound) {
+            isPaused = true;
+            //String currentStartTime = getCurrentStartTime();
+            //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
+            myDB.addDataSteps(ko);
+            //mContext.unregisterReceiver(mStepsReceiver);
+            mService.stopCounting();
+
+            //stop chronometer
+            mChrono.stop();
+            saveInstance();
+            ///Maybe create another button with: tvChron.setText("00:00:00");
+            caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
+
+            Toast.makeText(this, "PAUSE", Toast.LENGTH_LONG).show();
+        } else {
+
+            Toast.makeText(this, "Currently stopped", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }*/
+
+    public boolean chronoIsPaused(){
+        return isPaused;
     }
 
 

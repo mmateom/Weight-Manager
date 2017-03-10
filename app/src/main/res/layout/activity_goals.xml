@@ -41,6 +41,8 @@
         android:layout_alignParentStart="true" />
 
 
+
+
     <Button
         android:text="Set"
         android:layout_width="60dp"
@@ -71,5 +73,47 @@
         android:layout_toRightOf="@+id/textView19"
         android:layout_toEndOf="@+id/textView19" />
 
+    <TextView
+        android:text="Calories per day"
+        android:gravity="center"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1r"
+        android:layout_below="@+id/set_steps_goal"
+        android:layout_alignLeft="@+id/textView19"
+        android:layout_alignStart="@+id/textView19"
+        android:layout_marginTop="52dp"
+        android:layout_toLeftOf="@+id/steps_per_day"
+        android:layout_toStartOf="@+id/steps_per_day" />
+    <EditText
+        android:text=""
+        android:hint="300"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/calories_per_day"
+        android:inputType="number"
+        android:background="@drawable/enter_weight"
+        android:gravity="center"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/textView1r"
+        android:layout_toLeftOf="@+id/set_steps_goal"
+        android:layout_toStartOf="@+id/set_steps_goal"
+        android:layout_marginTop="8dp" />
 
+    <Button
+        android:text="Set"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_calories_goal"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_alignBaseline="@+id/calories_per_day"
+        android:layout_alignBottom="@+id/calories_per_day"
+        android:layout_toRightOf="@+id/calories_per_day"
+        android:layout_toEndOf="@+id/calories_per_day" />
 </RelativeLayout>
