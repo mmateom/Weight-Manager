@@ -11,14 +11,16 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import static com.mikel.poseidon.R.id.a;
+import static com.mikel.poseidon.R.id.set_calories_goal;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Goals extends AppCompatActivity {
 
     SharedPreferences preferences;
-    EditText goaltxt;
+    EditText goaltxt, caloriesGoaltxt;
 
     public String STEPS_GOAL = "steps_goal";
+    public String CALORIES_GOAL = "calories_goal";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +28,20 @@ public class Goals extends AppCompatActivity {
         setContentView(R.layout.activity_goals);
 
         //callback to home button
-        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
-        home_button.setOnClickListener(view -> {
+        ImageButton home_button9 = (ImageButton) findViewById(R.id.homebutton);
+        home_button9.setOnClickListener(view -> {
 
-            Intent home_intent = new Intent(Goals.this, MainActivity.class);
-            startActivity(home_intent);
+            Intent home_intent9 = new Intent(Goals.this, MainActivity.class);
+            startActivity(home_intent9);
         });
 
         preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
 
         goaltxt = (EditText)findViewById(R.id.steps_per_day);
+        caloriesGoaltxt= (EditText)findViewById(R.id.calories_per_day);
 
         Button setStepsGoal = (Button)findViewById(R.id.set_steps_goal);
+        Button setCaloriesGoal = (Button)findViewById(set_calories_goal);
 
         setStepsGoal.setOnClickListener(view -> {
             if (!"".equals(goaltxt.getText().toString())) {
@@ -45,6 +49,19 @@ public class Goals extends AppCompatActivity {
                 int stepsGoal = Integer.parseInt(goaltxt.getText().toString());
                 SharedPreferences.Editor goalEditor = preferences.edit();
                 goalEditor.putInt(STEPS_GOAL, stepsGoal);
+                goalEditor.commit();
+
+                Toast.makeText(this, "GOAL SET", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        setCaloriesGoal.setOnClickListener(view -> {
+            if (!"".equals(caloriesGoaltxt.getText().toString())) {
+
+                int caloriesGoal = Integer.parseInt(caloriesGoaltxt.getText().toString());
+                SharedPreferences.Editor goalEditor = preferences.edit();
+                goalEditor.putInt(CALORIES_GOAL, caloriesGoal);
                 goalEditor.commit();
 
                 Toast.makeText(this, "GOAL SET", Toast.LENGTH_SHORT).show();
@@ -61,6 +78,7 @@ public class Goals extends AppCompatActivity {
 
         preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         goaltxt.setText(String.valueOf(preferences.getInt(STEPS_GOAL, 0)));
+        caloriesGoaltxt.setText(String.valueOf(preferences.getInt(CALORIES_GOAL, 0)));
 
 
 

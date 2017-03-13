@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="ToolbarBackgroundColor">#ff8f00</color>
+    <color name="StatusBarColor">#f57c00</color>
     <color name="ToolbarTextColor">#009688</color>
     <color name="HeaderColor">#ffffff</color>
     <color name="Good">#45b84a</color>
@@ -11,5 +12,6 @@
     <color name="Risk">#c62828</color>
     <color name="LightRed">#e33e41</color>
     <color name="textColor">#58857e</color>
+    <color name="lightGrey">#9e9e9e</color>
 
 </resources>

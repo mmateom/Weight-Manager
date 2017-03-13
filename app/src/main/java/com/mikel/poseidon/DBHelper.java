@@ -179,7 +179,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getCalories(){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT _id, Act_Start, SUM(Calories) as Calories FROM Steps_Summary GROUP BY Act_Start";
+        String query = "SELECT _id, Act_Start, SUM(Calories) FROM Steps_Summary WHERE DATE(Act_Start) = DATE('now')";
 
         Cursor dates = db.rawQuery(query, null);
 
@@ -189,7 +189,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getExerciseTime(){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT _id, Act_Start, SUM(Exercise_Time) as Exercise_Time FROM Steps_Summary GROUP BY Act_Start";
+        String query = "SELECT _id, Act_Start, SUM(Exercise_Time) FROM Steps_Summary WHERE DATE(Act_Start) = DATE('now')";
 
         Cursor dates = db.rawQuery(query, null);
 

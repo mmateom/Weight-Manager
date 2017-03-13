@@ -3,5 +3,5 @@
 
     <padding android:left="10dp" android:top="10dp"
         android:right="10dp" android:bottom="10dp" />
-    <stroke android:color="?attr/actionModeSplitBackground" android:width="5dp" />
+    <stroke android:color="@color/lightGrey" android:width="5dp" />
 </shape>

@@ -22,6 +22,7 @@ import io.victoralbertos.jolyglot.GsonSpeaker;
  * Created by mikel on 19/01/2017.
  */
 
+
 public class RootFitbitApplication extends Application {
 
 
@@ -30,6 +31,7 @@ public class RootFitbitApplication extends Application {
 
         RxSocialConnect.register(this, "holacaracola")
                 .using(new GsonSpeaker());
+
 
 
 

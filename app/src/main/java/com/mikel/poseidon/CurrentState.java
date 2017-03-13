@@ -9,12 +9,15 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,7 +31,9 @@ import java.util.ArrayList;
 import static android.os.Build.VERSION_CODES.M;
 import static android.view.View.GONE;
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
+import static com.mikel.poseidon.R.id.calories;
 import static com.mikel.poseidon.R.id.congratulations;
+import static com.mikel.poseidon.R.id.congratulations2;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 import static com.mikel.poseidon.R.drawable.bmi;
 import static com.mikel.poseidon.R.id.cm;
@@ -42,14 +47,16 @@ public class CurrentState extends AppCompatActivity {
 
     SharedPreferences mPrefs;
     int mAge, mPosition, goal;
-    double mHeight, mWeight, mBmi, mBmr, mDailyCalories;
+    double mHeight, mWeight, mBmi, mBmr, mDailyCalories, calories_goal;
     String mGender;
 
     DBHelper myDB;
 
     TextView bmitxt, bmrtxt, dailyIntake, currentWeight, bmiFeedback, bmiBar;
 
-    ProgressBar stepsPrg;
+
+    ProgressBar stepsPrg, caloriesPrg;
+
 
 
     @Override
@@ -57,11 +64,18 @@ public class CurrentState extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_state);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = CurrentState.this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(ContextCompat.getColor(CurrentState.this, R.color.StatusBarColor));
+        }
+
         //callback to home button
-        ImageButton home_button3 = (ImageButton) findViewById(R.id.homebutton);
-        home_button3.setOnClickListener(view -> {
-            Intent home_intent3 = new Intent(CurrentState.this, MainActivity.class);
-            startActivity(home_intent3);
+        ImageButton home_button5 = (ImageButton) findViewById(R.id.homebutton);
+        home_button5.setOnClickListener(view -> {
+            Intent home_intent5 = new Intent(CurrentState.this, MainActivity.class);
+            startActivity(home_intent5);
         });
 
         //create DB instance
@@ -94,6 +108,30 @@ public class CurrentState extends AppCompatActivity {
         setTexts();
 
         //calculate progress bar
+        setStepsProgressBars();
+        setCaloriesProgressBar();
+
+
+
+        //stepsFraction.setText(String.valueOf(todaySteps()));
+
+
+        /*runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(!(mPrefs.getString("STEPS", "")).equals("")){
+                stepsFraction.setText(String.valueOf(todaySteps() + Integer.parseInt(mPrefs.getString("STEPS", ""))));}
+            }
+        });*/
+
+
+
+
+
+
+    }
+
+    private void setStepsProgressBars(){
         goal = mPrefs.getInt("steps_goal", 0);
         if(goal > 0) {
             int stepProgress = (int) ((100 * todaySteps()) / goal);
@@ -139,21 +177,54 @@ public class CurrentState extends AppCompatActivity {
 
         }
 
-        //stepsFraction.setText(String.valueOf(todaySteps()));
 
+    }
 
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(!(mPrefs.getString("STEPS", "")).equals("")){
-                stepsFraction.setText(String.valueOf(todaySteps() + Integer.parseInt(mPrefs.getString("STEPS", ""))));}
+    private void setCaloriesProgressBar(){
+        calories_goal = mPrefs.getInt("calories_goal", 0);
+        if(calories_goal > 0) {
+            int caloriesProgress = (int) ((100 * todayCalories()) / calories_goal);
+
+            caloriesPrg = (ProgressBar) findViewById(R.id.caloriesProgressBar);
+            caloriesPrg.setScaleY(7f);
+            caloriesPrg.setProgress(caloriesProgress);
+            caloriesPrg.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.Good), PorterDuff.Mode.MULTIPLY);
+
+            TextView feedback = (TextView) findViewById(congratulations2);
+            feedback.setVisibility(View.INVISIBLE);
+
+            TextView stepsFraction = (TextView) findViewById(R.id.fraction2);
+
+            if (todayCalories() < calories_goal) {
+                stepsFraction.setText(String.valueOf(todayCalories()) + " of " + String.valueOf(calories_goal));
+
             }
-        });*/
 
+            if (todayCalories() == calories_goal) {
+                feedback.setText("Congratulations! You did it!");
+                feedback.setVisibility(View.VISIBLE);
+                stepsFraction.setText(String.valueOf(todayCalories()) + " of " + String.valueOf(calories_goal));
 
+            }
 
+            if (todayCalories() > calories_goal) {
+                feedback.setText("Okay! Enough for today!");
+                feedback.setVisibility(View.VISIBLE);
+                stepsFraction.setText(String.valueOf(todayCalories() + " - Goal: " + String.valueOf(calories_goal)));
+            }
+        }else{
+            TextView stepsFraction = (TextView) findViewById(R.id.fraction2);
+            stepsFraction.setText("0");
+            caloriesPrg = (ProgressBar) findViewById(R.id.caloriesProgressBar);
+            caloriesPrg.setScaleY(7f);
+            caloriesPrg.setProgress(0);
+            caloriesPrg.getProgressDrawable().setColorFilter(
+                    ContextCompat.getColor(this, R.color.Good), PorterDuff.Mode.MULTIPLY);
+            TextView feedback = (TextView) findViewById(congratulations);
+            feedback.setVisibility(View.INVISIBLE);
 
-
+        }
 
     }
 
@@ -166,11 +237,11 @@ public class CurrentState extends AppCompatActivity {
             bmitxt = (TextView)findViewById(R.id.bmi_text);
             bmitxt.setText(String.valueOf(round(mBmi,2)));
 
-            bmrtxt= (TextView)findViewById(R.id.bmr_text);
+            /*bmrtxt= (TextView)findViewById(R.id.bmr_text);
             bmrtxt.setText(String.valueOf(round(mBmr,2)));
 
             dailyIntake = (TextView)findViewById(R.id.daily_calories);
-            dailyIntake.setText(String.valueOf(mDailyCalories));
+            dailyIntake.setText(String.valueOf(mDailyCalories));*/
 
             bmiFeedback = (TextView)findViewById(R.id.feedback);
             bmiFeedback.setText(interpretBMI(mBmi));
@@ -317,6 +388,21 @@ public class CurrentState extends AppCompatActivity {
 
 
         return todaySteps;
+    }
+
+    public double todayCalories(){
+        Cursor alldata = myDB.getCalories();
+        double todayCalories = 0;
+
+        if(alldata.getCount() > 0) { //if count equals zero (no record today), textView automatically displays 0
+
+            alldata.moveToFirst();
+            todayCalories = alldata.getDouble(2);
+        }
+
+
+
+        return todayCalories;
     }
 
     @Override
