@@ -11,15 +11,19 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,8 +58,9 @@ public class Steps extends AppCompatActivity {
     StepService mService = new StepService();
     DBHelper myDB;
 
+
     boolean mBound = false;
-    boolean isPaused = false;
+
     Calendar cal;
 
     ArrayList<Long> stepArray;
@@ -71,8 +76,12 @@ public class Steps extends AppCompatActivity {
     private String LOG_TAG = "Which activity";
 
 
+
     //Instance of Chronometer
     private com.mikel.poseidon.utility.Chronometer mChrono;
+
+    //private Chronometer mChrono;
+    long timeWhenStopped = 0;
 
     //Thread for chronometer
     private Thread mThreadChrono;
@@ -85,7 +94,7 @@ public class Steps extends AppCompatActivity {
     /**
      * Same story, but to tell whether the Chronometer was running or not
      */
-    public static final String CHRONO_WAS_RUNNING = "CHRONO_WAS_RUNNING";
+    public static final String  CHRONO_WAS_RUNNING = "CHRONO_WAS_RUNNING";
     /**
      * Same story, but if chronometer was stopped, we dont want to lose the stop time shows in
      * the tv_timer
@@ -109,7 +118,6 @@ public class Steps extends AppCompatActivity {
 
         preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         activity = preferences.getString(ACTIVITY, "");
-
 
         nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -137,8 +145,6 @@ public class Steps extends AppCompatActivity {
 
         tvChron = (TextView)findViewById(tv_chr);
 
-        //chronometer = (Chronometer) findViewById(R.id.chronometer);
-        //chronometer.setBase(SystemClock.elapsedRealtime());
 
 
 
@@ -179,6 +185,8 @@ public class Steps extends AppCompatActivity {
     }
 
 
+
+
     /// METHODS
     public void setupBReceiver(){
         mStepsReceiver = new BroadcastReceiver() {
@@ -217,12 +225,7 @@ public class Steps extends AppCompatActivity {
         mService.getSteps();
         createNotification();
         //start chronometer
-        if(chronoIsPaused()){
-            loadInstance();
-            //startChrono();
-            isPaused = false;
-        }else {startChrono();}
-
+        startChrono();
 
 
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
@@ -235,14 +238,16 @@ public class Steps extends AppCompatActivity {
         if (mBound) {
             //String currentStartTime = getCurrentStartTime();
             //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
-            myDB.addDataSteps(ko);
-            myDB.close();
+
             //mContext.unregisterReceiver(mStepsReceiver);
             mService.stopCounting();
             cancelNotification();
-
             //stop chronometer
             stopChrono();
+            myDB.addDataSteps(tvChron.getText().toString(), getCalories(getLastWeight(), activity),  ko);
+            myDB.close();
+
+
             /**Maybe create another button with: tvChron.setText("00:00:00");**/
             caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
 
@@ -280,9 +285,6 @@ public class Steps extends AppCompatActivity {
 
     }*/
 
-    public boolean chronoIsPaused(){
-        return isPaused;
-    }
 
 
     /**
@@ -378,6 +380,8 @@ public class Steps extends AppCompatActivity {
     //=================
     //   CHRONOMETER
     //=================
+
+
     private void startChrono(){
         if(mChrono == null) {
             //instantiate the chronometer
@@ -511,7 +515,7 @@ public class Steps extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        stopChrono();
+        //stopChrono();
     }
 
 

@@ -57,12 +57,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String ACT_START = "Act_Start";
     //public static final String ACT_STOP = "Act_Stop";
     public static final String STEPS = "Steps";
+    public static final String CALORIES = "Calories";
+    public static final String EXERCISE_TIME = "Exercise_Time";
+    public static final String ACTIVITY = "Activity";
 
     //parameters of the STEPS table
     public static final String CREATE_TABLE_STEPS = "CREATE TABLE "
             +TABLE_NAME_STEPS + " ("
             +STEPS_ID + " integer primary key autoincrement,"
             +ACT_START + " date,"
+            +EXERCISE_TIME + " TEXT,"
+            +CALORIES + " REAL,"
             //+ACT_STOP + " INT,"
             +STEPS + " REAL);";
 
@@ -111,7 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //METHODS FOR STEPS TABLE
     //==========================
 
-    public boolean addDataSteps(long steps){
+    public boolean addDataSteps(String exercise_time, double calories, long steps){
         SQLiteDatabase db = this.getWritableDatabase() ;
         ContentValues values = new ContentValues();
 
@@ -121,6 +126,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(ACT_START, date);
         //values.put(ACT_STOP, act_stop);
         values.put(STEPS, steps);
+        values.put(CALORIES, calories);
+        values.put(EXERCISE_TIME, exercise_time);
         long result = db.insert(TABLE_NAME_STEPS,null ,values);
         if(result == -1)
             return false;
@@ -163,6 +170,26 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "SELECT _id, Act_Start, SUM(Steps) as Steps FROM Steps_Summary GROUP BY Act_Start";
+
+        Cursor dates = db.rawQuery(query, null);
+
+        return dates;
+    }
+
+    public Cursor getCalories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT _id, Act_Start, SUM(Calories) as Calories FROM Steps_Summary GROUP BY Act_Start";
+
+        Cursor dates = db.rawQuery(query, null);
+
+        return dates;
+    }
+
+    public Cursor getExerciseTime(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT _id, Act_Start, SUM(Exercise_Time) as Exercise_Time FROM Steps_Summary GROUP BY Act_Start";
 
         Cursor dates = db.rawQuery(query, null);
 
@@ -220,10 +247,10 @@ public class DBHelper extends SQLiteOpenHelper {
         /*db.execSQL("insert into Weight_Summary values (8, '19-01-17' , 90)");
         db.execSQL("insert into Weight_Summary values (9, '26-01-17' , 89.7)");
         db.execSQL("insert into Weight_Summary values (10, '02-01-17' , 89.2)");*/
-        db.execSQL("insert into Steps_Summary values (1, '2016-12-19' , 7823)");
-        db.execSQL("insert into Steps_Summary values (2, '2016-12-20' , 6384)");
-        db.execSQL("insert into Steps_Summary values (3, '2016-12-21' , 8387)");
-        db.execSQL("insert into Steps_Summary values (4, '2016-12-22' , 9387)");
+        db.execSQL("insert into Steps_Summary values (1, '2016-12-19' , '13:13:13', 230, 7823)");
+        db.execSQL("insert into Steps_Summary values (2, '2016-12-20' ,'13:13:13', 230, 6384)");
+        db.execSQL("insert into Steps_Summary values (3, '2016-12-21' ,'13:13:13', 230, 8387)");
+        db.execSQL("insert into Steps_Summary values (4, '2016-12-22' ,'13:13:13', 230, 9387)");
 
     }
 }

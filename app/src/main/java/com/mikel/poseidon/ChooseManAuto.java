@@ -20,17 +20,17 @@ public class ChooseManAuto extends AppCompatActivity {
         setContentView(R.layout.activity_choose_man_auto);
 
         //callback to home button
-        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
-        home_button.setOnClickListener(view -> {
+        ImageButton home_button5 = (ImageButton) findViewById(R.id.homebutton);
+        home_button5.setOnClickListener(view -> {
 
-            Intent home_intent = new Intent(ChooseManAuto.this, MainActivity.class);
-            startActivity(home_intent);
+            Intent home_intent5 = new Intent(ChooseManAuto.this, MainActivity.class);
+            startActivity(home_intent5);
         });
 
         // Manually
         Button getManually = (Button) findViewById(R.id.manually);
 
-        getManually.setOnClickListener(view -> {
+        getManually.setOnClickListener((View view) -> {
             Intent stepsRecordIntent = new Intent(ChooseManAuto.this, GetWeight.class);
             startActivity(stepsRecordIntent);
         });

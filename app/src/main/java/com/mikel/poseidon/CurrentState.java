@@ -58,10 +58,10 @@ public class CurrentState extends AppCompatActivity {
         setContentView(R.layout.activity_current_state);
 
         //callback to home button
-        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
-        home_button.setOnClickListener(view -> {
-            Intent home_intent = new Intent(CurrentState.this, MainActivity.class);
-            startActivity(home_intent);
+        ImageButton home_button3 = (ImageButton) findViewById(R.id.homebutton);
+        home_button3.setOnClickListener(view -> {
+            Intent home_intent3 = new Intent(CurrentState.this, MainActivity.class);
+            startActivity(home_intent3);
         });
 
         //create DB instance

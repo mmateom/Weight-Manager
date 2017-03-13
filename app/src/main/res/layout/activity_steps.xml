@@ -189,17 +189,18 @@
         android:layout_alignStart="@+id/tv_chr"
         android:layout_marginTop="20dp" />
 
-   <!-- <Button
-        android:id="@+id/pause"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_above="@+id/linearLayout8"
-        android:layout_alignLeft="@+id/linearLayout9"
-        android:layout_alignStart="@+id/linearLayout9"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:text="pause"
-        android:onClick="pauseCounting"/>-->
+
+    <!-- <Button
+         android:id="@+id/pause"
+         android:layout_width="wrap_content"
+         android:layout_height="60dp"
+         android:layout_above="@+id/linearLayout8"
+         android:layout_alignLeft="@+id/linearLayout9"
+         android:layout_alignStart="@+id/linearLayout9"
+         android:layout_marginLeft="16dp"
+         android:layout_marginStart="16dp"
+         android:text="pause"
+         android:onClick="pauseCounting"/>-->
 
 
 </RelativeLayout>

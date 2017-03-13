@@ -54,6 +54,7 @@ public class Chronometer implements Runnable {
         if(mStartTime == 0) { //if the start time was not set before! e.g. by second constructor
             mStartTime = System.currentTimeMillis();
         }
+        //SystemClock.elapsedRealtime()
         mIsRunning = true;
     }
 

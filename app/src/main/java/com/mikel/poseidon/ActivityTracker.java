@@ -29,11 +29,11 @@ public class ActivityTracker extends AppCompatActivity {
         setContentView(R.layout.activity_tracker);
 
         //callback to home button
-        ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
-        home_button.setOnClickListener(view -> {
+        ImageButton home_button4 = (ImageButton) findViewById(R.id.homebutton);
+        home_button4.setOnClickListener(view -> {
 
-            Intent home_intent = new Intent(ActivityTracker.this, MainActivity.class);
-            startActivity(home_intent);
+            Intent home_intent4 = new Intent(ActivityTracker.this, MainActivity.class);
+            startActivity(home_intent4);
         });
 
         //
@@ -48,7 +48,7 @@ public class ActivityTracker extends AppCompatActivity {
         walkText.setOnClickListener(view -> {
             Intent walkIntent = new Intent(ActivityTracker.this, Steps.class);
             editor.putString(ACTIVITY, "walk");
-            editor.commit();
+            editor.apply();
             startActivity(walkIntent);
         });
 
