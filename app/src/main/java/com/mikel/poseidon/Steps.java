@@ -48,7 +48,6 @@ import static com.mikel.poseidon.R.id.start;
 import static com.mikel.poseidon.R.id.steps_counting;
 import static com.mikel.poseidon.R.id.stop;
 import static com.mikel.poseidon.R.id.tv_chr;
-import static com.mikel.poseidon.R.id.weight;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Steps extends AppCompatActivity {

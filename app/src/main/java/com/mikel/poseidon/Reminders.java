@@ -21,7 +21,6 @@ import java.util.Calendar;
 
 import static android.R.attr.value;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
-import static com.mikel.poseidon.R.id.weight;
 
 public class Reminders extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
 

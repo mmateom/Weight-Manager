@@ -34,6 +34,8 @@ import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 import static com.mikel.poseidon.R.id.calories;
 import static com.mikel.poseidon.R.id.congratulations;
 import static com.mikel.poseidon.R.id.congratulations2;
+import static com.mikel.poseidon.R.id.currentWeightUnit;
+import static com.mikel.poseidon.R.id.unit_get_weight;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 import static com.mikel.poseidon.R.drawable.bmi;
 import static com.mikel.poseidon.R.id.cm;
@@ -47,14 +49,14 @@ public class CurrentState extends AppCompatActivity {
 
     SharedPreferences mPrefs;
     int mAge, mPosition, goal;
-    double mHeight, mWeight, mBmi, mBmr, mDailyCalories, calories_goal;
+    double mHeight, mWeight, mBmi, calories_goal;
     String mGender;
 
     DBHelper myDB;
 
-    TextView bmitxt, bmrtxt, dailyIntake, currentWeight, bmiFeedback, bmiBar;
+    TextView bmitxt, currentWeight, bmiFeedback, bmiBar;
 
-
+    int units;
     ProgressBar stepsPrg, caloriesPrg;
 
 
@@ -64,16 +66,10 @@ public class CurrentState extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_state);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = CurrentState.this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(ContextCompat.getColor(CurrentState.this, R.color.StatusBarColor));
-        }
 
         //callback to home button
-        ImageButton home_button5 = (ImageButton) findViewById(R.id.homebutton);
-        home_button5.setOnClickListener(view -> {
+        ImageButton home_butto = (ImageButton) findViewById(R.id.homebutton);
+        home_butto.setOnClickListener(view -> {
             Intent home_intent5 = new Intent(CurrentState.this, MainActivity.class);
             startActivity(home_intent5);
         });
@@ -83,6 +79,11 @@ public class CurrentState extends AppCompatActivity {
 
         //get values from sharedprefs
         mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        TextView unit = (TextView)findViewById(currentWeightUnit);
+        units = mPrefs.getInt("weightUnits", 0);
+        if (units == 1){
+            unit.setText("lbs");
+        }
 
 
         mAge = mPrefs.getInt("age_key",0);
@@ -93,16 +94,11 @@ public class CurrentState extends AppCompatActivity {
         mGender = mPrefs.getString("gender_key","Male");
         mPosition = mPrefs.getInt("levelint", 0);
 
+
         System.out.println(String.valueOf(mPosition));
 
         //calculate BMI
         mBmi = calculateBmi(mHeight, mWeight);
-
-        //calculate bmr
-        mBmr = calculateBmr(mHeight, mWeight, mAge, mGender);
-
-        //calculate daily calories
-        mDailyCalories = calculateDailyCaloryIntake(mBmr, mPosition);
 
         //show
         setTexts();
@@ -264,6 +260,9 @@ public class CurrentState extends AppCompatActivity {
 
 
     private double calculateBmi(double height, double weight){
+        if (units == 1){
+            weight = weight * 0.453592; //from lbs to kg
+        }
 
         double p = weight / pow((height/100), 2);
 
@@ -273,39 +272,7 @@ public class CurrentState extends AppCompatActivity {
 
     }
 
-    private double calculateBmr(double height, double weight, int age, String gender){
-        double bmr =0;
 
-        if(gender.equals("Male")){
-            bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
-        }else if (gender.equals("Female")){
-            bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
-
-        }
-
-        return bmr;
-
-
-
-    }
-
-    private double calculateDailyCaloryIntake(double bmr, int activityLevel) {
-        double dailyCalories = 0;
-
-        if (activityLevel == 0){
-            dailyCalories =  bmr*1.2;
-        }
-        else if (activityLevel == 1){
-            dailyCalories =  bmr*1.375;
-        }else if (activityLevel == 2){
-            dailyCalories = bmr *1.55;
-        }else if (activityLevel == 3) {
-            dailyCalories = bmr * 1.725;
-        }
-
-        return dailyCalories;
-
-    }
 
     private double moveBmibar(double bmi){
 

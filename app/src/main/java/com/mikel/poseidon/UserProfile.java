@@ -22,18 +22,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.R.id.edit;
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
+import static com.mikel.poseidon.R.id.weight1;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
-import static com.mikel.poseidon.R.id.textView;
 
-public class UserProfile extends AppCompatActivity  implements NumberPicker.OnValueChangeListener, AdapterView.OnItemSelectedListener {
+public class UserProfile extends AppCompatActivity  implements NumberPicker.OnValueChangeListener{
 
     private TextView age,height,gender;
     private EditText weight;
     private Button savebtn;
 
-    Spinner spinner;
+    Spinner spinner, spinnerUnits;
 
     SharedPreferences mSharedPrefs;
     public String age_key = "age_key";
@@ -41,6 +40,8 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
     public String gender_key = "gender_key";
     public String actLevelKey = "actLevelKey";
     public String levelint = "levelint";
+    public String weightUnits = "weightUnits";
+    TextView unit;
 
     int position;
 
@@ -76,6 +77,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
         weight = (EditText) findViewById(R.id.profile_weight);
         savebtn = (Button)findViewById(R.id.save);
 
+
         //initialise sharedprefs instances
         mSharedPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         mSharedPrefs.getInt(age_key, 0);
@@ -83,6 +85,10 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
         mSharedPrefs.getString(gender_key, "Male");
         mSharedPrefs.getString(actLevelKey, "");
         mSharedPrefs.getInt(levelint, 0);
+        int p = mSharedPrefs.getInt(weightUnits, 0);
+        if(p == 1){
+            unit = (TextView)findViewById(weight1);
+        unit.setText("lbs");}
 
         //set listeners
         age.setOnClickListener(view -> showAgeDialog());
@@ -96,7 +102,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
 
         //spinner
         spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(this);
+
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -104,18 +110,32 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new ActivityLevelSpinnerClass());
 
+        /** asdfasdfasdfasdfasdfasdfasdfasdfasdf */
+        //spinner units
+        spinnerUnits = (Spinner) findViewById(R.id.spinner2);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.weight_unit, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerUnits.setAdapter(adapter2);
+        spinnerUnits.setOnItemSelectedListener(new UnitsSpinnerClass());
 
     }
+
+
+
 
     //===========================
     // SPINNER METHODS
     //===========================
 
-    @Override
+    /*@Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
@@ -127,7 +147,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
-    }
+    }*/
 
     //===========================
     // NUMBERPICKER METHOD
@@ -141,9 +161,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
 
     }
 
-    public int getPosition() {
-        return position;
-    }
+
 
     public void showAgeDialog()
     {
@@ -270,11 +288,6 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
             genderEditor.apply();
         }
 
-
-        SharedPreferences.Editor actLevelEditor = mSharedPrefs.edit();
-        actLevelEditor.putInt(levelint, getPosition());
-        actLevelEditor.apply();
-
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 
 
@@ -357,6 +370,9 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
         int mPosition = mSharedPrefs.getInt(levelint, 0);
         spinner.setSelection(mPosition);
 
+        int units = mSharedPrefs.getInt("weightUnits", 0);
+        spinnerUnits.setSelection(units);
+
 
     }
 
@@ -380,4 +396,52 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
         String mGender = mSharedPrefs.getString(gender_key,"Male");
         gender.setText(String.valueOf(mGender));
     }
+
+
+    //SPINNER CLASSES
+    private class ActivityLevelSpinnerClass implements AdapterView.OnItemSelectedListener
+    {
+        public void onItemSelected(AdapterView<?> parent, View v, int position, long id)
+        {
+            String selection = parent.getItemAtPosition(position).toString();
+            System.out.println(selection);
+
+            SharedPreferences.Editor actLevelEditor = mSharedPrefs.edit();
+            actLevelEditor.putInt(levelint, position);
+            actLevelEditor.apply();
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+
+    }
+
+    private class UnitsSpinnerClass implements AdapterView.OnItemSelectedListener
+    {
+        public void onItemSelected(AdapterView<?> parent, View v, int position, long id)
+        {
+            String selection = parent.getItemAtPosition(position).toString();
+            SharedPreferences.Editor actLevelEditor = mSharedPrefs.edit();
+            actLevelEditor.putInt(weightUnits, position);
+            actLevelEditor.apply();
+            System.out.println(selection);
+
+            TextView unitasd = (TextView)findViewById(weight1);
+            String value = (String) parent.getItemAtPosition(position);
+            unitasd.setText(value);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+
+    }
+
+
 }
+
+

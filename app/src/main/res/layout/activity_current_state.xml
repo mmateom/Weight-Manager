@@ -84,7 +84,7 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:id="@+id/Today"
-        android:textSize="27sp"
+        android:textSize="25sp"
 
         android:background="@color/ToolbarTextColor"
         android:textColor="@color/HeaderColor"
@@ -111,7 +111,7 @@
             android:layout_marginBottom="39dp"
             android:text="Steps"
             android:textColor="@color/ToolbarTextColor"
-            android:textSize="25sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:text=""
@@ -186,7 +186,7 @@
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:id="@+id/c"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textColor="@color/ToolbarTextColor"
             android:layout_marginBottom="39dp"
             android:layout_weight="0.44" />
@@ -309,8 +309,8 @@
         android:textSize="20sp"
         android:gravity="right"
         android:layout_below="@+id/textView21"
-        android:layout_alignLeft="@+id/feedback"
-        android:layout_alignStart="@+id/feedback" />
+        android:layout_toRightOf="@+id/current_weight"
+        android:layout_toEndOf="@+id/current_weight" />
 
 
 </RelativeLayout>

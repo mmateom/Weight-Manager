@@ -13,4 +13,9 @@
         <item>Very active (6–7 days)</item>
     </string-array>
 
+    <string-array name="weight_unit">
+        <item>Kg</item>
+        <item>Lbs</item>
+    </string-array>
+
 </resources>

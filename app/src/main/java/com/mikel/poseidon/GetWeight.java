@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -39,11 +40,14 @@ import java.util.Date;
 import static android.R.attr.y;
 import static android.widget.Toast.makeText;
 import static com.mikel.poseidon.R.id.ok_button;
+import static com.mikel.poseidon.R.id.unit_get_weight;
 import static com.mikel.poseidon.R.id.yourdate;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class GetWeight extends AppCompatActivity {
 
 
+    SharedPreferences mPrefs;
     Button okbtn, date_button;
     EditText inputWeight;
     TextView yourDate;
@@ -83,6 +87,14 @@ public class GetWeight extends AppCompatActivity {
 
         //create db
         myDB = new DBHelper(this);
+
+        //Find weight unit
+        mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        TextView unit = (TextView)findViewById(unit_get_weight);
+        int units = mPrefs.getInt("weightUnits", 0);
+        if (units == 1){
+            unit.setText("lbs");
+        }
 
         //create view objects
         yourDate = (TextView)findViewById(yourdate);
@@ -197,6 +209,8 @@ public class GetWeight extends AppCompatActivity {
             makeText(this, "Something went wrong :(.", Toast.LENGTH_LONG).show();
         }
     }
+
+
 
 
     //===============================================
@@ -379,9 +393,13 @@ public class GetWeight extends AppCompatActivity {
 
         }
 
-        double lastWeight = yVals.get(yVals.size() - 1);
-
-        return lastWeight;
+        if(yVals.size() == 0){
+            double lastWeight = 0;
+            return lastWeight;
+        }else{
+            double lastWeight = yVals.get(yVals.size() - 1);
+            return lastWeight;
+        }
 
     }
 

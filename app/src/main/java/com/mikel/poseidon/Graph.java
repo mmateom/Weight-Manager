@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -25,12 +26,16 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.mikel.poseidon.R.id.currentWeightUnit;
+import static com.mikel.poseidon.R.id.yourwieightinkilos;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Graph extends AppCompatActivity {
 
     DBHelper myDB;
     Cursor alldata_a;
+    SharedPreferences mPrefs;
+
 
     private LineChart chart;
     ArrayList<String> xVals;
@@ -71,6 +76,13 @@ public class Graph extends AppCompatActivity {
                 startActivity(home_intent);
             }
         });
+
+        mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        TextView unit = (TextView)findViewById(yourwieightinkilos);
+        int units = mPrefs.getInt("weightUnits", 0);
+        if (units == 1){
+            unit.setText("     Your weight in pounds");
+        }
 
         //full screen mode
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -163,7 +175,7 @@ public class Graph extends AppCompatActivity {
         }
     }
 
-    SharedPreferences mPrefs;
+
     private void setLimitLines() {
 
         //===================================================================

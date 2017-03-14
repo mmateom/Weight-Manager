@@ -1,6 +1,7 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,16 +12,21 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import static android.R.attr.data;
+import static com.mikel.poseidon.R.id.currentWeightUnit;
+import static com.mikel.poseidon.R.id.summary_unit;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 
 public class ViewSummary extends AppCompatActivity {
 
     DBHelper myDB;
+    SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +35,21 @@ public class ViewSummary extends AppCompatActivity {
 
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
-        home_button.setOnClickListener(new View.OnClickListener() {
+        home_button.setOnClickListener(view -> {
 
-            // The code in this method will be executed when the preferences button is clicked on.
-            @Override
-            public void onClick(View view) {
-
-                Intent home_intent = new Intent(ViewSummary.this, MainActivity.class);
-                startActivity(home_intent);
-            }
+            Intent home_intent = new Intent(ViewSummary.this, MainActivity.class);
+            startActivity(home_intent);
         });
 
+        //set unit
+        mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        TextView unit = (TextView)findViewById(summary_unit);
+        int units = mPrefs.getInt("weightUnits", 0);
+        if (units == 1){
+            unit.setText("Weight (lbs)");
+        }
+
+        //create db instance
         myDB = new DBHelper(this);
 
         //populate an ArrayList<String> from the database and then view it

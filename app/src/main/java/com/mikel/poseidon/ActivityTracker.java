@@ -29,8 +29,8 @@ public class ActivityTracker extends AppCompatActivity {
         setContentView(R.layout.activity_tracker);
 
         //callback to home button
-        ImageButton home_button4 = (ImageButton) findViewById(R.id.homebutton);
-        home_button4.setOnClickListener(view -> {
+        ImageButton home_butt = (ImageButton) findViewById(R.id.homebutton);
+        home_butt.setOnClickListener(view -> {
 
             Intent home_intent4 = new Intent(ActivityTracker.this, MainActivity.class);
             startActivity(home_intent4);

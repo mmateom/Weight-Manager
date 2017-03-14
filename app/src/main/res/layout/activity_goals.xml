@@ -116,4 +116,24 @@
         android:layout_alignBottom="@+id/calories_per_day"
         android:layout_toRightOf="@+id/calories_per_day"
         android:layout_toEndOf="@+id/calories_per_day" />
+
+    <TextView
+        android:id="@+id/bmr_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="BMR"
+        android:layout_below="@+id/textView24"
+        android:layout_alignLeft="@+id/textView24"
+        android:layout_alignStart="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Talk with your physican to know how many calories you should burn."
+        android:layout_below="@+id/set_calories_goal"
+        android:layout_alignLeft="@+id/textView1r"
+        android:layout_alignStart="@+id/textView1r" />
 </RelativeLayout>
