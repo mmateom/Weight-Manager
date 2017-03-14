@@ -1,6 +1,7 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.R.string.no;
+import static com.mikel.poseidon.R.id.currentWeightUnit;
 import static com.mikel.poseidon.R.id.displayWeight;
 import static com.mikel.poseidon.R.id.tv_profile;
 
@@ -35,6 +37,8 @@ public class GetWeightFitbit extends AppCompatActivity {
     double nowWeight;
     String nowDate;
     FitbitRepository repository;
+
+    SharedPreferences mPrefs;
 
 
     private PopupWindow popupWindow;
@@ -95,6 +99,10 @@ public class GetWeightFitbit extends AppCompatActivity {
                                 TextView profile = (TextView)findViewById(displayWeight);
                                 profile.setText(String.valueOf(nowWeight));
 
+                                int units = mPrefs.getInt("weightUnits", 0);
+                                if (units == 1){
+                                    nowWeight = nowWeight / 2.20462; //from kgs to lbs
+                                }
 
                                 //Add weight to DB
                                 myDB.addData(nowWeight, String.valueOf(nowDate));

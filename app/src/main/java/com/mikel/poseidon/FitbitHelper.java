@@ -43,8 +43,8 @@ public class FitbitHelper {
 
     OAuth20Service fitbitService() {
 
-        final String client_id = "2283NP";
-        final String client_secret = "140376d2db1c29f2e8e0bb4bda2d0714";
+        final String client_id = "";
+        final String client_secret = "";
         final String PROTECTED_RESOURCE_URL = "https://api.fitbit.com/1/user/[user-id]/body/log/weight/date/[date].json";
         final String ACCEPTED_LANGUAGE_AND_UNITS = "es_ES"; //spain
         final String redirect_uri = "http://example.com";

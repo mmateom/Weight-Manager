@@ -34,8 +34,7 @@ public class RootFitbitApplication extends Application {
 
 
 
-
-       /* NotificationManager nm = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 
         //Create notification
@@ -55,7 +54,7 @@ public class RootFitbitApplication extends Application {
         weightNotif.setContentIntent(contentIntent);
         Notification n = weightNotif.build();
 
-        nm.notify(1, n);*/
+        nm.notify(1, n);
 
     }
 
