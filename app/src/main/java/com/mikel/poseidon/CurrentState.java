@@ -330,7 +330,7 @@ public class CurrentState extends AppCompatActivity {
         //get dates and weight from the database and populate arrays
         for (int m = 0; m < count; m++) {
             alldata.moveToNext();
-            weights[m] = alldata.getDouble(2);
+            weights[m] = alldata.getDouble(4);
 
             yVals.add(weights[m]);
 
@@ -376,4 +376,6 @@ public class CurrentState extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+
 }

@@ -7,9 +7,11 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".RootFitbitApplication"
+        android:icon="@drawable/android"
         android:label="POSEIDON"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:label">
@@ -92,10 +94,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Goals"
+        <activity
+            android:name=".Goals"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.Goals" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SendDatabase">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.SendDatabase" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -104,6 +114,7 @@
         <service
             android:name=".StepService"
             android:screenOrientation="portrait" />
+        <service android:name=".utility.ExerciseNotifService" />
 
         <receiver
             android:name=".WeightNotifBootReceiver"
@@ -117,12 +128,18 @@
             android:name=".WeightNotifReceiver"
             android:process=":remote" />
 
-        <activity android:name=".GetWeightFitbit" />
-        <activity android:name=".ChooseManAuto" />
-        <activity android:name=".CurrentState" />
-        <activity android:name=".ActivityTracker" />
-
-
+        <activity
+            android:name=".GetWeightFitbit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChooseManAuto"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CurrentState"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityTracker"
+            android:screenOrientation="portrait" />
 
     </application>
 

@@ -34,28 +34,6 @@ public class RootFitbitApplication extends Application {
 
 
 
-        NotificationManager nm = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-
-        //Create notification
-        NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(this)
-                .setContentTitle("POSEIDON")
-                .setContentText("Healthy Living")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setAutoCancel(false)
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setOngoing(true);
-                //This sets the sound to play
-
-
-
-        Intent myIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, myIntent, 0);
-        weightNotif.setContentIntent(contentIntent);
-        Notification n = weightNotif.build();
-
-        nm.notify(1, n);
-
     }
 
 

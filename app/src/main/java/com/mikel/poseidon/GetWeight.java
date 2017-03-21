@@ -56,6 +56,8 @@ public class GetWeight extends AppCompatActivity {
     //DatePicker variables
     static final int DIALOG_ID = 0;
     int year_x, month_x, day_x;
+    int mAge;
+    String mGender;
     String date, year, month, day, date_final, newDate;
     double newWeight;
 
@@ -90,6 +92,11 @@ public class GetWeight extends AppCompatActivity {
 
         //Find weight unit
         mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+
+        //Get age and gender
+        mAge = mPrefs.getInt("age_key",0);
+        mGender = mPrefs.getString("gender_key","Male");
+
         TextView unit = (TextView)findViewById(unit_get_weight);
         int units = mPrefs.getInt("weightUnits", 0);
         if (units == 1){
@@ -200,7 +207,7 @@ public class GetWeight extends AppCompatActivity {
 
     public void AddData(double newWeight, String newDate) {
 
-        boolean insertData = myDB.addData(newWeight,newDate);
+        boolean insertData = myDB.addData(String.valueOf(mAge), mGender,newWeight,newDate);
         sendReasonerData(newWeight);
 
         if(insertData==true){

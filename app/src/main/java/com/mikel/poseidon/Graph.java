@@ -117,8 +117,8 @@ public class Graph extends AppCompatActivity {
         //get dates and weight from the database and populate arrays
         for (int m = 0; m < count; m++) {
             alldata.moveToNext();
-            dates[m] = alldata.getString(1);
-            weights[m] = alldata.getDouble(2);
+            dates[m] = alldata.getString(3);
+            weights[m] = alldata.getDouble(4);
 
             yVals.add(new Entry(m, (float) weights[m]));
             xVals.add(dates[m]);

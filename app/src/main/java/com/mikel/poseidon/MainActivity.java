@@ -1,13 +1,17 @@
 package com.mikel.poseidon;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mikel.poseidon.utility.ExerciseNotifService;
 import com.mikel.poseidon.utility.FitbitApi20;
 
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
@@ -32,12 +37,19 @@ import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class MainActivity extends AppCompatActivity {
     int mMin, mHour, mMilis, mSeconds;
+    DBHelper myDB;
+    SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //
+        myDB = new DBHelper(this);
+        mPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+
+        //
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -155,10 +167,11 @@ public class MainActivity extends AppCompatActivity {
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
 
         //WeightNotification.setRepeating(getApplicationContext());
-        SharedPreferences mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         int mmin = mPrefs.getInt("minutes_key",-1);
         int mhour = mPrefs.getInt("hours_key",-1);
 
+        permanentNotification();
         timeToWeightNotif(); //only show when it has not default value
 
 
@@ -167,7 +180,21 @@ public class MainActivity extends AppCompatActivity {
     @Override protected void onResume() {
 
         super.onResume();
+        int goal = mPrefs.getInt("steps_goal", 0);
 
+        if(goal > 0) {
+            int stepProgress = (int) ((100 * todaySteps()) / goal);
+
+            if (stepProgress < 50) {
+                // Create an Explicit Intent
+                Intent intent = new Intent(this, ExerciseNotifService.class);
+                // Set some data that the Service might require/use
+                //intent.putExtra("key", "val");
+                // Start the Service
+                startService(intent);
+
+            }
+        }
 
         timeToWeightNotif();//only show when it has not default value
 
@@ -201,11 +228,11 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.MINUTE, min);
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             //calendar.add(Calendar.DAY_OF_YEAR, 1); //para que salga al día siguiente
-            int interval = 1000*60*frequency;
+            //int interval = 1000*60*frequency;
 
 
             //Alarm fires pendingIntent to BroadcastReceiver
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval , pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY*frequency , pendingIntent);
 
         }
     }
@@ -214,6 +241,45 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    public void permanentNotification(){
+        NotificationManager nm = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        //Create notification
+        NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(this)
+                .setContentTitle("Let's get active!")
+                .setContentText("WeightManger")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(false)
+                .setDefaults(Notification.DEFAULT_VIBRATE);
+                //.setOngoing(true);
+
+
+
+        Intent myIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, myIntent, 0);
+        weightNotif.setContentIntent(contentIntent);
+        Notification n = weightNotif.build();
+        n.flags|= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+
+        nm.notify(1, n);
+    }
+    public long todaySteps(){
+        Cursor alldata = myDB.getTodaySumSteps();
+        long todaySteps = 0;
+
+        if(alldata.getCount() > 0) { //if count equals zero (no record today), textView automatically displays 0
+
+            alldata.moveToFirst();
+            todaySteps = alldata.getLong(1);
+        }
+        //previous: see COMMENTED CODE below
+        return todaySteps;
+    }
+}
+
+
 
     /* private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -234,9 +300,3 @@ public class MainActivity extends AppCompatActivity {
             mBound = false;
         }
     };*/
-
-
-}
-
-
-

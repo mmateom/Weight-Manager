@@ -39,11 +39,11 @@ public class GetWeightFitbit extends AppCompatActivity {
     FitbitRepository repository;
 
     SharedPreferences mPrefs;
+    int mAge;
+    String mGender;
 
 
     private PopupWindow popupWindow;
-    private LayoutInflater layoutInflater;
-    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,20 @@ public class GetWeightFitbit extends AppCompatActivity {
         repository = new FitbitRepository();
 
         getWeightFromFitbit();
+
+        //Get age and gender
+        if(mPrefs != null) {
+            if (mPrefs.getInt("age_key", 0) == 0 || mPrefs.getString("gender_key", "Male").equals("")) {
+
+
+                mAge = 0;
+                mGender = "Undefined";
+
+                mAge = mPrefs.getInt("age_key", 0);
+                mGender = mPrefs.getString("gender_key", "");
+            }
+        }
+
 
 
     }
@@ -105,7 +119,7 @@ public class GetWeightFitbit extends AppCompatActivity {
                                 }
 
                                 //Add weight to DB
-                                myDB.addData(nowWeight, String.valueOf(nowDate));
+                                myDB.addData(String.valueOf(mAge), mGender,nowWeight, String.valueOf(nowDate));
 
 
                                 // Find last weight entered to compare to the new one
@@ -171,6 +185,8 @@ public class GetWeightFitbit extends AppCompatActivity {
     //===============================================
     public void weightFeedback(double substraction){
 
+        LayoutInflater layoutInflater;
+        RelativeLayout relativeLayout;
         if (substraction > -1 && substraction <1){
 
             //more or less the same pop up window

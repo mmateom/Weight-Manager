@@ -308,7 +308,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
             //if yourWeight is not empty (has not default value), save to DB
             if (yourWeight != 0.0d) {
 
-                myDB.addData(yourWeight, getCurrentDate());
+                myDB.addData(age.getText().toString(), gender.getText().toString(),yourWeight, getCurrentDate());
             }
             else { Log.e(LOG_TAG, String.valueOf(yourWeight));}
 

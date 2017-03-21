@@ -36,14 +36,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'uk.ac.mdx.cs.ie:acontextlib:0.9.8'
-    testCompile 'junit:junit:4.12'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.github.VictorAlbertos.RxSocialConnect-Android:core:1.0.0'
-    compile "io.reactivex:rxjava:1.2.6"
+    compile 'io.reactivex:rxjava:1.2.6'
     compile 'com.github.VictorAlbertos.Jolyglot:gson:0.0.3'
     compile 'com.github.VictorAlbertos.RxSocialConnect-Android:okhttp_interceptors:1.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
+    compile 'com.android.support.constraint:constraint-layout:+'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/opencsv-3.9.jar')
 }

@@ -27,6 +27,7 @@ import retrofit2.Response;
 
 import static com.mikel.poseidon.R.id.save;
 import static com.mikel.poseidon.R.id.tv_profile;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 import static com.mikel.poseidon.Steps.CHRONO_WAS_RUNNING;
 import static com.mikel.poseidon.Steps.START_TIME;
 import static com.mikel.poseidon.Steps.TV_TIMER_TEXT;
@@ -37,6 +38,9 @@ public class FitbitBtnActivity extends AppCompatActivity {
     DBHelper myDB;
     double nowWeight;
     String nowDate;
+    SharedPreferences mPrefs;
+    int mAge;
+    String mGender;
 
     private FitbitRepository repository;
 
@@ -57,6 +61,11 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
             //create Fitbit repository
             repository = new FitbitRepository();
+
+            mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+            //Get age and gender
+            mAge = mPrefs.getInt("age_key",0);
+            mGender = mPrefs.getString("gender_key","Male");
 
 
 
@@ -107,7 +116,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
                                TextView profile = (TextView)findViewById(tv_profile);
                                profile.setText(String.valueOf(nowWeight));
 
-                               myDB.addData(nowWeight, String.valueOf(nowDate));
+                               myDB.addData(String.valueOf(mAge), mGender, nowWeight, String.valueOf(nowDate));
 
                            }
 
