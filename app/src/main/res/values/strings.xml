@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">POSEIDON</string>
+    <string name="app_name">Weight Manager</string>
     <string name="title_activity_view_summary">ViewSummary</string>
     <string name="Good"><b>Good!</b></string>
     <string name="BeCareful"><b>Be careful</b></string>

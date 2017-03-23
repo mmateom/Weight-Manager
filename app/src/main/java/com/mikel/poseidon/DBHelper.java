@@ -90,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE);
         db.execSQL(CREATE_TABLE_STEPS);
-        insertExampleData(db); /** inserts example data. Comment this method in the future */
+        //insertExampleData(db); /** inserts example data. Comment this method in the future */
 
 
     }

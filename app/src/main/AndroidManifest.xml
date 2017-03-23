@@ -7,22 +7,19 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".RootFitbitApplication"
-        android:icon="@drawable/android"
-        android:label="POSEIDON"
+        android:icon="@drawable/b"
+        android:label="Weight Manager"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <intent-filter>
                 <action android:name="com.mikel.poseidon.MainActivity" />
 
@@ -140,7 +137,14 @@
         <activity
             android:name=".ActivityTracker"
             android:screenOrientation="portrait" />
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".IntroActivity"/>
     </application>
 
 </manifest>

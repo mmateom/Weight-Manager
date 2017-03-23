@@ -321,6 +321,7 @@ public class CurrentState extends AppCompatActivity {
         Cursor alldata;
         ArrayList<Double> yVals;
         alldata= myDB.getListContents();
+        double lastWeight = 0;
 
         int count = alldata.getCount();
         double[] weights = new double[count];
@@ -336,7 +337,11 @@ public class CurrentState extends AppCompatActivity {
 
         }
 
-        double lastWeight = yVals.get(yVals.size() - 1);
+        if(yVals.size() == 0){
+
+            lastWeight = 0;
+
+        }else lastWeight = yVals.get(yVals.size() - 1);
 
         return lastWeight;
     }

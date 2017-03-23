@@ -169,6 +169,7 @@ public class Goals extends AppCompatActivity {
         Cursor alldata;
         ArrayList<Double> yVals;
         alldata= myDB.getListContents();
+        double lastWeight = 0;
 
         int count = alldata.getCount();
         double[] weights = new double[count];
@@ -178,13 +179,17 @@ public class Goals extends AppCompatActivity {
         //get dates and weight from the database and populate arrays
         for (int m = 0; m < count; m++) {
             alldata.moveToNext();
-            weights[m] = alldata.getDouble(2);
+            weights[m] = alldata.getDouble(4);
 
             yVals.add(weights[m]);
 
         }
 
-        double lastWeight = yVals.get(yVals.size() - 1);
+        if(yVals.size() == 0){
+
+            lastWeight = 0;
+
+        }else lastWeight = yVals.get(yVals.size() - 1);
 
         return lastWeight;
     }

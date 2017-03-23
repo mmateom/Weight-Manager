@@ -42,7 +42,7 @@ public class SendDatabase extends AppCompatActivity {
         setContentView(R.layout.activity_send_database);
 
         myDB = new DBHelper(this);
-        verifyStoragePermissions(this);
+        //verifyStoragePermissions(this);
 
         Button send = (Button) findViewById(R.id.send_data);
         send.setOnClickListener(v -> exportDB());
@@ -120,12 +120,12 @@ public class SendDatabase extends AppCompatActivity {
         }
     }
 
-    // Storage Permissions
+    /*// Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+    };*/
 
     /**
      * Checks if the app has permission to write to device storage
@@ -134,7 +134,7 @@ public class SendDatabase extends AppCompatActivity {
      *
      * @param activity
      */
-    public static void verifyStoragePermissions(Activity activity) {
+    /*public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
@@ -146,5 +146,5 @@ public class SendDatabase extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
-    }
+    }*/
 }

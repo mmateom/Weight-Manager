@@ -162,7 +162,7 @@ public class Steps extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupBReceiver();
-        Toast.makeText(this, "ON RESUME", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "ON RESUME", Toast.LENGTH_SHORT).show();
         if(mChrono == null){
             tvChron.setText("00:00:00");
             caloriesText.setText("0");
@@ -178,7 +178,7 @@ public class Steps extends AppCompatActivity {
         super.onPause();
         unbindService(mConnection);
         mContext.unregisterReceiver(mStepsReceiver);
-        Toast.makeText(this, "ON PAUSE", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "ON PAUSE", Toast.LENGTH_SHORT).show();
         saveInstance(); //save chrono instance
 
     }
@@ -225,6 +225,27 @@ public class Steps extends AppCompatActivity {
         createNotification();
         //start chronometer
         startChrono();
+        Thread t = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                double calories = getCalories(getLastWeight(), activity);
+                                caloriesText.setText(String.valueOf(calories));
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        t.start();
 
 
         Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
@@ -243,12 +264,13 @@ public class Steps extends AppCompatActivity {
             cancelNotification();
             //stop chronometer
             stopChrono();
-            myDB.addDataSteps(tvChron.getText().toString(), getCalories(getLastWeight(), activity),  ko);
+            //myDB.addDataSteps(tvChron.getText().toString(), getCalories(getLastWeight(), activity),  ko);
+            myDB.addDataSteps(tvChron.getText().toString(), Double.parseDouble(caloriesText.getText().toString()),  ko);
             myDB.close();
 
 
             /**Maybe create another button with: tvChron.setText("00:00:00");**/
-            caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
+            //caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
 
             Toast.makeText(this, "Step counter STOPPED", Toast.LENGTH_LONG).show();
         } else {
@@ -257,33 +279,6 @@ public class Steps extends AppCompatActivity {
         }
 
     }
-
-    /*public void pauseCounting(View v){
-
-        // Unbind from the service
-        if (mBound) {
-            isPaused = true;
-            //String currentStartTime = getCurrentStartTime();
-            //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
-            myDB.addDataSteps(ko);
-            //mContext.unregisterReceiver(mStepsReceiver);
-            mService.stopCounting();
-
-            //stop chronometer
-            mChrono.stop();
-            saveInstance();
-            ///Maybe create another button with: tvChron.setText("00:00:00");
-            caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
-
-            Toast.makeText(this, "PAUSE", Toast.LENGTH_LONG).show();
-        } else {
-
-            Toast.makeText(this, "Currently stopped", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }*/
-
 
 
     /**
@@ -345,6 +340,7 @@ public class Steps extends AppCompatActivity {
         Cursor alldata;
         ArrayList<Double> yVals;
         alldata= myDB.getListContents();
+        double lastWeight = 0;
 
         int count = alldata.getCount();
         double[] weights = new double[count];
@@ -354,14 +350,21 @@ public class Steps extends AppCompatActivity {
         //get dates and weight from the database and populate arrays
         for (int m = 0; m < count; m++) {
             alldata.moveToNext();
-            weights[m] = alldata.getDouble(2);
+            weights[m] = alldata.getDouble(4);
 
             yVals.add(weights[m]);
 
 
         }
 
-        double lastWeight = yVals.get(yVals.size() - 1);
+
+        if(yVals.size() == 0){
+
+            lastWeight = 0;
+
+        }else lastWeight = yVals.get(yVals.size() - 1);
+
+        lastWeight = yVals.get(yVals.size() - 1);
 
         return lastWeight;
 
@@ -563,6 +566,33 @@ public class Steps extends AppCompatActivity {
 
 
 }
+
+
+    /**public void pauseCounting(View v){
+
+        // Unbind from the service
+        if (mBound) {
+            isPaused = true;
+            //String currentStartTime = getCurrentStartTime();
+            //CON LA DATE EN TIPO STRING METIÉNDOLO DESDE getCurrentTime(); myDB.addDataSteps(currentStartTime, number);
+            myDB.addDataSteps(ko);
+            //mContext.unregisterReceiver(mStepsReceiver);
+            mService.stopCounting();
+
+            //stop chronometer
+            mChrono.stop();
+            saveInstance();
+            ///Maybe create another button with: tvChron.setText("00:00:00");
+            caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
+
+            Toast.makeText(this, "PAUSE", Toast.LENGTH_LONG).show();
+        } else {
+
+            Toast.makeText(this, "Currently stopped", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }*/
 
 
 
