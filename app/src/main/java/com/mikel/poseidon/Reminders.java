@@ -130,21 +130,60 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
             int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
             int minute = mcurrentTime.get(Calendar.MINUTE);
             TimePickerDialog mTimePicker;
-            mTimePicker = new TimePickerDialog(Reminders.this, (timePicker, selectedHour, selectedMinute) -> {
 
-                //set on textview
-                String output = String.format("%02d:%02d", selectedHour, selectedMinute); //this does zero padding on minutes
-                remindTime.setText(output);
+
+            mTimePicker = new TimePickerDialog(Reminders.this, (view, hourOfDay, minute1) -> {
+
+                //String format = "";
 
                 //save on sharepreferences
                 SharedPreferences.Editor timeEditor = mSharedPrefs.edit();
-                timeEditor.putInt(minutes_key, selectedMinute);
-                timeEditor.putInt(hours_key, selectedHour);
+                timeEditor.putInt(minutes_key, hourOfDay);
+                timeEditor.putInt(hours_key, minute1);
                 timeEditor.apply();
 
-            }, hour, minute, true);
+          /*  if (selectedHour == 0) {
+                selectedHour += 12;
+                format = "AM";
+            } else if (selectedHour == 12) {
+                format = "PM";
+            } else if (selectedHour > 12) {
+                selectedHour -= 12;
+                format = "PM";
+            } else {
+                format = "AM";
+            }*/
+
+                String am_pm = checkHourFormat(hourOfDay);
+
+                //set on textview
+                String output = String.format("%02d:%02d " + am_pm /*format*/, hourOfDay, minute1); //this does zero padding on minutes
+                remindTime.setText(output);
+                //remindTime.setText(new StringBuilder().append(selectedHour).append(" : ").append(selectedMinute)
+                // .append(" ").append(format));
+
+            }, hour, minute, false);//24 hour time disabled
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
+
+
+    }
+
+    public String checkHourFormat(int pickerHour){
+
+        String format = "";
+
+        if ( pickerHour == 0) {
+            pickerHour += 12;
+            return format = "AM";
+        } else if (pickerHour == 12) {
+            return format = "PM";
+        } else if (pickerHour> 12) {
+            pickerHour -= 12;
+            return format = "PM";
+        } else {
+            return format = "AM";
+        }
 
     }
 
@@ -158,9 +197,12 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
         int mMinute= mSharedPrefs.getInt(minutes_key,0);
         int mHour = mSharedPrefs.getInt(hours_key,0);
         int frequency = mSharedPrefs.getInt(frequency_key,0);
+        String amORpm = "";
 
-        String output = String.format("%02d:%02d", mHour, mMinute); //this does zero padding on minutes
+        checkHourFormat(mHour);
 
+        //set on textview
+        String output = String.format("%02d:%02d " + amORpm /*format*/, mHour, mMinute); //this does zero padding on minutes
         remindTime.setText(output);
         mFrequency.setText(String.valueOf(frequency));
 

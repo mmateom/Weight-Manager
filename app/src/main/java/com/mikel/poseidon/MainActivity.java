@@ -222,8 +222,10 @@ public class MainActivity extends AppCompatActivity {
                 .setContentText("WeightManger")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(false)
-                .setDefaults(Notification.DEFAULT_VIBRATE);
-                //.setOngoing(true);
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
+                .setVibrate(new long[]{0L});
+        //.setOngoing(true);
 
 
 

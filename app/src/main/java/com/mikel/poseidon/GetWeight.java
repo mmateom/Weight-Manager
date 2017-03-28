@@ -133,7 +133,7 @@ public class GetWeight extends AppCompatActivity {
                     newDate = date_final;
 
                     //If date is not entered, show a message and DO NOT add data to DB
-                    if(newDate != null && newWeight > 0) {
+                    if(newDate != null && newWeight > 0 && !isSameDate(year_x, month_x, day_x, getLastDate())) {
 
                         // Find last weight entered to compare to the new one
                         double theLastWeight = getLastWeight();
@@ -410,6 +410,39 @@ public class GetWeight extends AppCompatActivity {
 
     }
 
+    //===============================================
+    //                  Get last date
+    //===============================================
+    private String getLastDate() {
+
+        Cursor alldata;
+        ArrayList<String> yVals;
+        alldata= myDB.getListContents();
+
+        int count = alldata.getCount();
+        String[] dates = new String[count];
+
+        yVals = new ArrayList<String>();
+
+        //get dates and weight from the database and populate arrays
+        for (int m = 0; m < count; m++) {
+            alldata.moveToNext();
+            dates[m] = alldata.getString(3);
+
+            yVals.add(dates[m]);
+
+
+        }
+
+        if(yVals.size() == 0){
+            String lastDate = "";
+            return lastDate;
+        }else{
+            String lastDate = yVals.get(yVals.size() - 1);
+            return lastDate;
+        }
+
+    }
 
     //======================================================
     //             Show error if date is not entered
@@ -418,20 +451,35 @@ public class GetWeight extends AppCompatActivity {
     public void showDateErrorMessage(){
 
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.dateerror, null);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
+        if(isSameDate(year_x, month_x, day_x,newDate)){
+            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.same_date_error, null);
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
 
-        popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
-        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
+            //shut popup outside window
+            container.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return false;
+                }
+            });
 
-        //shut popup outside window
-        container.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                popupWindow.dismiss();
-                return false;
-            }
-        });
+        }else {
+            ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.dateerror, null);
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
+
+            //shut popup outside window
+            container.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popupWindow.dismiss();
+                    return false;
+                }
+            });
+        }
 
     }
 
@@ -455,6 +503,31 @@ public class GetWeight extends AppCompatActivity {
         });
 
     }
+
+    public boolean isSameDate(int mYear, int mMonth, int mDay, String userDate){
+
+        String sNowDate = "";
+        String sYear = String.valueOf(mYear);
+        String sMonth = String.valueOf(mMonth);
+        String sDay = String.valueOf(mDay);
+
+        String nowDate = sYear + "-" + sMonth + "-"+ sDay;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date fNowDate = formatter.parse(nowDate);
+            sNowDate = formatter.format(fNowDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //if the date is the same as the previous, return true
+        return userDate.equals(sNowDate);
+
+    }
+
+
 
     @Override
     protected void onStop() {

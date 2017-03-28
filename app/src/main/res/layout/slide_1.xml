@@ -21,7 +21,7 @@
         android:layout_width="300dp"
         android:layout_height="110dp"
         android:text="We will guide you on the first steps on this app.
-Click next!"
+Click on the arrow (>) to continue!"
         android:gravity="center"
         android:textColor="@color/HeaderColor"
         android:textSize="22dp"

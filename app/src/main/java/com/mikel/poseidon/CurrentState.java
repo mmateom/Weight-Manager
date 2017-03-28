@@ -294,10 +294,9 @@ public class CurrentState extends AppCompatActivity {
         if (bmi < 16) {
             return "You are Severely Underweight";
         } else if (bmi < 18.5) {
-
             return "You are Underweight";
         } else if (bmi < 25) {
-            return "You are Normal";
+            return "You are on a Good weight";
         }else if (bmi < 30) {
             return "You are Overweight";
         }else if (bmi < 40) {

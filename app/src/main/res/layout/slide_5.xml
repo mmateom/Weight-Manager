@@ -20,7 +20,7 @@
         android:id="@+id/textView29"
         android:layout_width="300dp"
         android:layout_height="110dp"
-        android:text="Find new features and tell us what your think"
+        android:text="Find new features and tell us what you think"
         android:gravity="center"
         android:textColor="@color/HeaderColor"
         android:textSize="22dp"

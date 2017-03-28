@@ -56,6 +56,7 @@ public class Steps extends AppCompatActivity {
 
     StepService mService = new StepService();
     DBHelper myDB;
+    SharedPreferences mPrefs;
 
 
     boolean mBound = false;
@@ -101,6 +102,7 @@ public class Steps extends AppCompatActivity {
     public static final String TV_TIMER_TEXT = "TV_TIMER_TEXT";
 
     public static final String STEPS = "STEPS";
+    private int mHeight;
 
     //
     String activity;
@@ -112,6 +114,10 @@ public class Steps extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps);
+
+        mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+
+
         mContext = getApplicationContext();
         context = this;
 
@@ -140,7 +146,7 @@ public class Steps extends AppCompatActivity {
 
         mStepsTextView = (TextView) findViewById(steps_counting);
 
-        caloriesText = (TextView) findViewById(calories);
+        caloriesText = (TextView) findViewById(R.id.calories);
 
         tvChron = (TextView)findViewById(tv_chr);
 
@@ -220,6 +226,7 @@ public class Steps extends AppCompatActivity {
 
     public void onStartService(View v) {
         super.onStart();
+
         // Bind to LocalService
         mService.getSteps();
         createNotification();
@@ -235,7 +242,15 @@ public class Steps extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                double calories = getCalories(getLastWeight(), activity);
+                                /*if (activity.equals("walk")){
+                                    calories = getWalkingCalories(getLastWeight(), ko);
+                                    Log.e(LOG_TAG, "Walking");
+                                    caloriesText.setText(String.valueOf(calories));
+                                }else {
+                                calories = getCalories(getLastWeight(), activity);
+                                }*/
+                                double calories;
+                                calories = getCalories(getLastWeight(), activity);
                                 caloriesText.setText(String.valueOf(calories));
                             }
                         });
@@ -307,6 +322,41 @@ public class Steps extends AppCompatActivity {
     //==============================
     // Calories calculation methods
     //==============================
+
+    private double getWalkingCalories(double weight, long stepsCount){
+
+        mHeight = mPrefs.getInt("height",0);
+
+        double walkingFactor = 0.57;
+        double CaloriesBurnedPerMile;
+        double strip;
+        double stepCountMile; // step/mile
+        double conversationFactor;
+        double CaloriesBurned;
+
+        int units = mPrefs.getInt("weightUnits", 0);
+
+        if (units == 1){
+            weight = weight * 0.453592; //from lbs to kg
+        }
+         CaloriesBurnedPerMile = walkingFactor * (weight * 2.2);
+         strip = mHeight * 0.415;
+         stepCountMile = 160934.4 / strip;
+         conversationFactor = CaloriesBurnedPerMile / stepCountMile;
+         CaloriesBurned = stepsCount * conversationFactor;
+
+        return CaloriesBurned;
+        /*1.) Calories burned per mile = 0.57 x 175 lbs.(your weight) = 99.75 calories per mile.
+
+            2.)Your_strip = height * 0,415.
+
+            3.) steps_in_1_mile = 160934.4(mile in cm) / strip.
+
+            4.) "conversationFactor" = stepsCount (what the pedometer provides) / step_in_1_mile;
+
+            5.) CaloriesBurned = stepsCount * conversationFactor;*/
+
+    }
 
     //private double getCalories (int walkTime, double weight){
     private double getCalories (double weight, String activity){

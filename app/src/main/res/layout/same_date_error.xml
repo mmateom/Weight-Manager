@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup">
+
+    <TextView
+        android:text="Weight already entered today"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAllCaps="false"
+        android:textSize="27dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        tools:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/calen"
+        android:layout_marginTop="6dp"
+        android:id="@+id/imageView3"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Tap to exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAllCaps="true"
+        android:textSize="20dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#58857e"
+        android:gravity="center"
+        tools:textStyle="bold"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true">
+
+    </TextView>
+</RelativeLayout>

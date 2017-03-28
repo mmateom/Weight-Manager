@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="userProfile"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.UserProfile"/>
     </Preference>
@@ -34,6 +35,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="userProfile"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.Goals"/>
     </Preference>
@@ -44,6 +46,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="limitLines"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.SetGraphLimits"/>
     </Preference>
@@ -53,6 +56,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="reminders"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.Reminders"/>
     </Preference>
@@ -61,6 +65,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="connectToFitbit"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.FitbitBtnActivity"/>
     </Preference>
@@ -69,6 +74,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="sendData"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.SendDatabase"/>
     </Preference>
@@ -77,6 +83,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="deleteData"
+        android:layout="@layout/preference_layout"
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.DeleteData"/>
     </Preference>
