@@ -22,15 +22,15 @@ import java.util.Calendar;
 import static android.R.attr.value;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
-public class Reminders extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
+public class Reminders extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
 
     TextView remindTime, mFrequency;
     Button saveBtn;
     SharedPreferences mSharedPrefs;
 
     String time_key = "time_key";
-    static String minutes_key ="minutes_key";
-    static String hours_key ="hours_key";
+    static String minutes_key = "minutes_key";
+    static String hours_key = "hours_key";
     String frequency_key = "frequency_key";
 
 
@@ -43,15 +43,15 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
         home_button.setOnClickListener(view -> {
             Intent home_intent = new Intent(Reminders.this, MainActivity.class);
+            home_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(home_intent);
         });
 
 
-
-        remindTime = (TextView)findViewById(R.id.remind_time);
+        remindTime = (TextView) findViewById(R.id.remind_time);
         remindTime.setOnClickListener(view -> showTimePicker());
 
-        mFrequency = (TextView)findViewById(R.id.frequency);
+        mFrequency = (TextView) findViewById(R.id.frequency);
         mFrequency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,7 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
             }
         });
 
-        saveBtn = (Button)findViewById(R.id.save2);
+        saveBtn = (Button) findViewById(R.id.save2);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,15 +69,12 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
 
         mSharedPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         mSharedPrefs.getString(time_key, "");
-        mSharedPrefs.getInt(frequency_key,-1);
-        mSharedPrefs.getInt(minutes_key,-1);
-        mSharedPrefs.getInt(hours_key,-1);
-
-
+        mSharedPrefs.getInt(frequency_key, -1);
+        mSharedPrefs.getInt(minutes_key, -1);
+        mSharedPrefs.getInt(hours_key, -1);
 
 
     }
-
 
 
     private void showFrequency() {
@@ -118,74 +115,56 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-        Log.i("value is",""+newVal);
+        Log.i("value is", "" + newVal);
 //       age.setText(newVal);
 
     }
 
 
     //
-    public void showTimePicker(){
-            Calendar mcurrentTime = Calendar.getInstance();
-            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = mcurrentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker;
+    public void showTimePicker() {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
 
 
-            mTimePicker = new TimePickerDialog(Reminders.this, (view, hourOfDay, minute1) -> {
+        mTimePicker = new TimePickerDialog(Reminders.this, (view, hourOfDay, minute1) -> {
 
-                //String format = "";
+            String format = "";
 
-                //save on sharepreferences
-                SharedPreferences.Editor timeEditor = mSharedPrefs.edit();
-                timeEditor.putInt(minutes_key, hourOfDay);
-                timeEditor.putInt(hours_key, minute1);
-                timeEditor.apply();
+            //save on sharepreferences
+            SharedPreferences.Editor timeEditor = mSharedPrefs.edit();
+            timeEditor.putInt(minutes_key, hourOfDay);
+            timeEditor.putInt(hours_key, minute1);
+            timeEditor.apply();
 
-          /*  if (selectedHour == 0) {
-                selectedHour += 12;
+            if (hourOfDay == 0) {
+                hourOfDay += 12;
                 format = "AM";
-            } else if (selectedHour == 12) {
+            } else if (hourOfDay == 12) {
                 format = "PM";
-            } else if (selectedHour > 12) {
-                selectedHour -= 12;
+            } else if (hourOfDay > 12) {
+                hourOfDay -= 12;
                 format = "PM";
             } else {
                 format = "AM";
-            }*/
-
-                String am_pm = checkHourFormat(hourOfDay);
-
-                //set on textview
-                String output = String.format("%02d:%02d " + am_pm /*format*/, hourOfDay, minute1); //this does zero padding on minutes
-                remindTime.setText(output);
-                //remindTime.setText(new StringBuilder().append(selectedHour).append(" : ").append(selectedMinute)
-                // .append(" ").append(format));
-
-            }, hour, minute, false);//24 hour time disabled
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
+            }
 
 
-    }
+            //set on textview
+            String output = String.format("%02d:%02d " + format, hourOfDay, minute1); //this does zero padding on minutes
+            remindTime.setText(output);
+            //remindTime.setText(new StringBuilder().append(selectedHour).append(" : ").append(selectedMinute)
+            // .append(" ").append(format));
 
-    public String checkHourFormat(int pickerHour){
+        }, hour, minute, false);//24 hour time disabled
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
 
-        String format = "";
-
-        if ( pickerHour == 0) {
-            pickerHour += 12;
-            return format = "AM";
-        } else if (pickerHour == 12) {
-            return format = "PM";
-        } else if (pickerHour> 12) {
-            pickerHour -= 12;
-            return format = "PM";
-        } else {
-            return format = "AM";
-        }
 
     }
+
 
     @Override
     protected void onResume() {
@@ -194,12 +173,23 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
         System.out.println("onResume!!!!!!!!!!!!!!!!!");
 
         mSharedPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
-        int mMinute= mSharedPrefs.getInt(minutes_key,0);
-        int mHour = mSharedPrefs.getInt(hours_key,0);
-        int frequency = mSharedPrefs.getInt(frequency_key,0);
-        String amORpm = "";
+        int mMinute = mSharedPrefs.getInt(minutes_key, 0);
+        int mHour = mSharedPrefs.getInt(hours_key, 0);
+        int frequency = mSharedPrefs.getInt(frequency_key, 0);
+        String amORpm;
 
-        checkHourFormat(mHour);
+
+        if (mHour == 0) {
+            mHour += 12;
+            amORpm = "AM";
+        } else if (mHour == 12) {
+            amORpm = "PM";
+        } else if (mHour > 12) {
+            mHour -= 12;
+            amORpm = "PM";
+        } else {
+            amORpm = "AM";
+        }
 
         //set on textview
         String output = String.format("%02d:%02d " + amORpm /*format*/, mHour, mMinute); //this does zero padding on minutes
@@ -207,10 +197,9 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
         mFrequency.setText(String.valueOf(frequency));
 
 
-
     }
 
-    public void save(){
+    public void save() {
 
         Intent mainIntent = new Intent(Reminders.this, MainActivity.class);
         startActivity(mainIntent);

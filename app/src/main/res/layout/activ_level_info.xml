@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup">
+
+    <TextView
+        android:text="Activity Level"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAllCaps="false"
+        android:textSize="27dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        tools:textStyle="bold" />
+    <TextView
+        android:text="This sets how active you are during the week. This is used to calculate an approximate calorie intake."
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView50"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+        android:textColor="#58857e"
+        android:gravity="left"
+        tools:textStyle="bold"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:text="Sedentary = little or no exercise, desk job\nLightly active = light exercise or sports 1-3 days per week\nModerately active = moderate exercise or sports 3-5 days per week
+        \nVery active = hard exercise or sports 6-7 days per week"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView51"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="#58857e"
+        android:gravity="left"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView50"
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:text="Tap to exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAllCaps="true"
+        android:textSize="20dp"
+        android:textColor="#58857e"
+        android:gravity="center"
+        tools:textStyle="bold"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView51"
+        android:layout_centerHorizontal="true">
+
+    </TextView>
+</RelativeLayout>

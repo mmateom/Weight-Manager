@@ -44,6 +44,7 @@ public class Goals extends AppCompatActivity {
         home_button9.setOnClickListener(view -> {
 
             Intent home_intent9 = new Intent(Goals.this, MainActivity.class);
+            home_intent9.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(home_intent9);
         });
 

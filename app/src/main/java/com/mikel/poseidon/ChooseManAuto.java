@@ -24,6 +24,8 @@ public class ChooseManAuto extends AppCompatActivity {
         home_button25.setOnClickListener(view -> {
 
             Intent home_intent5 = new Intent(ChooseManAuto.this, MainActivity.class);
+            //home_intent5.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            home_intent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(home_intent5);
         });
 
@@ -32,6 +34,7 @@ public class ChooseManAuto extends AppCompatActivity {
 
         getManually.setOnClickListener((View view) -> {
             Intent stepsRecordIntent = new Intent(ChooseManAuto.this, GetWeight.class);
+            stepsRecordIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(stepsRecordIntent);
         });
 

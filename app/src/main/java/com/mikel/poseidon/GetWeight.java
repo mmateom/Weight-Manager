@@ -83,6 +83,8 @@ public class GetWeight extends AppCompatActivity {
         home_button.setOnClickListener(view -> {
 
             Intent home_intent = new Intent(GetWeight.this, MainActivity.class);
+            //home_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            home_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(home_intent);
         });
 
@@ -454,7 +456,7 @@ public class GetWeight extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
         if(isSameDate(year_x, month_x, day_x,newDate)){
             ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.same_date_error, null);
-            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+            popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(280), true); //true allows us to close window by tapping outside
             popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
 
             //shut popup outside window
@@ -537,7 +539,7 @@ public class GetWeight extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+      super.onBackPressed();
     }
 
 

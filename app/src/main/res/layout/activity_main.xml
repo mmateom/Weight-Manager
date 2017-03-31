@@ -12,7 +12,14 @@
     android:layout_alignParentStart="true"
     tools:context="com.mikel.poseidon.MainActivity">
 
-
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EXIT"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
     <include
         layout="@layout/toolbar"
@@ -25,15 +32,15 @@
         android:columnCount="3"
         android:orientation="vertical"
         android:id="@+id/gridLayout"
-        android:layout_marginBottom="64dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true">
 
         <Button
             android:text="Measure Weight"
             style="@style/ButtonText"
             android:background="@drawable/round_corner_button"
-            android:layout_width="125dp"
+            android:layout_width="145dp"
             android:layout_height="100dp"
             android:drawableTop="@drawable/weight1"
             android:paddingTop="10sp"
@@ -49,8 +56,8 @@
             android:text="Preferences"
             style="@style/ButtonText"
             android:background="@drawable/round_corner_button"
-            android:layout_width="125dp"
-            android:layout_height="100dp"
+            android:layout_width="145dp"
+            android:layout_height="110dp"
             android:id="@+id/preferences"
             android:drawableTop="@drawable/preferences"
             android:paddingTop="10sp"
@@ -143,6 +150,8 @@
         android:layout_alignStart="@+id/gridLayout"
         android:layout_alignRight="@+id/gridLayout"
         android:layout_alignEnd="@+id/gridLayout" />
+
+
 
 
 </RelativeLayout>

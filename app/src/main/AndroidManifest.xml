@@ -28,24 +28,31 @@
         </activity>
         <activity
             android:name=".GetWeight"
+            android:parentActivityName="com.mikel.poseidon.ChooseManAuto"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ViewSummary"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Graph"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Steps"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".StepsRecord"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PreferencesList"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SetGraphLimits"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
             android:label="@string/title_activity_set_graph_limits"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -57,6 +64,7 @@
         </activity>
         <activity
             android:name=".DeleteData"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.DeleteData" />
@@ -66,6 +74,7 @@
         </activity>
         <activity
             android:name=".FitbitBtnActivity"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.FitbitBtnActivity" />
@@ -75,6 +84,7 @@
         </activity>
         <activity
             android:name=".UserProfile"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.UserProfile" />
@@ -84,6 +94,7 @@
         </activity>
         <activity
             android:name=".Reminders"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.Reminders" />
@@ -93,6 +104,7 @@
         </activity>
         <activity
             android:name=".Goals"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.Goals" />
@@ -100,7 +112,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SendDatabase">
+        <activity android:name=".SendDatabase"
+            android:parentActivityName="com.mikel.poseidon.PreferencesList"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.SendDatabase" />
 
@@ -127,12 +141,15 @@
 
         <activity
             android:name=".GetWeightFitbit"
+            android:parentActivityName="com.mikel.poseidon.ChooseManAuto"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChooseManAuto"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CurrentState"
+            android:parentActivityName="com.mikel.poseidon.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ActivityTracker"

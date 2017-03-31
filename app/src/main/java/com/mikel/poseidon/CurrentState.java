@@ -70,8 +70,10 @@ public class CurrentState extends AppCompatActivity {
         //callback to home button
         ImageButton home_butto = (ImageButton) findViewById(R.id.homebutton);
         home_butto.setOnClickListener(view -> {
-            Intent home_intent5 = new Intent(CurrentState.this, MainActivity.class);
-            startActivity(home_intent5);
+            Intent home_intent55 = new Intent(CurrentState.this, MainActivity.class);
+            //home_intent5.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            home_intent55.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(home_intent55);
         });
 
         //create DB instance

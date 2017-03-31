@@ -3,16 +3,23 @@ package com.mikel.poseidon;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +72,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
         home_button.setOnClickListener(view -> {
             Intent home_intent = new Intent(UserProfile.this, MainActivity.class);
+            home_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(home_intent);
         });
 
@@ -417,6 +425,30 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
 
         }
 
+    }
+
+    public void showActivityInformation(View view){
+
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.activ_level_info, null);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_user_profile);
+
+        PopupWindow popupWindow = new PopupWindow(container, dpToPx(360), dpToPx(470), true); //true allows us to close window by tapping outside
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(0), dpToPx(120));
+
+        //shut popup outside window
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                popupWindow.dismiss();
+                return false;
+            }
+        });
+
+    }
+    public static int dpToPx(int dp)
+    {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     private class UnitsSpinnerClass implements AdapterView.OnItemSelectedListener

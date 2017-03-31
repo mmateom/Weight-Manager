@@ -53,6 +53,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
             home_button.setOnClickListener(view -> {
 
                 Intent home_intent = new Intent(FitbitBtnActivity.this, MainActivity.class);
+                home_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home_intent);
             });
 

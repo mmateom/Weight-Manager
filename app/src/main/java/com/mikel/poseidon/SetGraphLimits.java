@@ -61,6 +61,7 @@ public class SetGraphLimits extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent home_intent = new Intent(SetGraphLimits.this, MainActivity.class);
+                home_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home_intent);
             }
         });

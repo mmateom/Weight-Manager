@@ -273,6 +273,17 @@
         android:layout_alignStart="@+id/linearLayout2"
         android:layout_marginTop="19dp" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_toEndOf="@+id/spinner"
+        android:layout_toRightOf="@+id/spinner"
+        android:text="info"
+        android:onClick="showActivityInformation"
+        android:textAllCaps="false" />
+
     <!--<TextView
         android:text="TextView"
         android:layout_width="wrap_content"

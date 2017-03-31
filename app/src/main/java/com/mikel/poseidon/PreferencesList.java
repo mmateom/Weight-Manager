@@ -38,8 +38,9 @@ public class PreferencesList extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                Intent home_intent = new Intent(PreferencesList.this, MainActivity.class);
-                startActivity(home_intent);
+                Intent home_intent100 = new Intent(PreferencesList.this, MainActivity.class);
+                home_intent100.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(home_intent100);
             }
         });
 

@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+        Button btn1 = (Button) findViewById(R.id.button2);
+        btn1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         //  Declare a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
@@ -151,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //if((goal > 0 && date_final.equals("13:00:00")) || (goal > 0 && date_final.equals("17:00:00"))) {
-        if((goal > 0 && mHour == 17) || (goal > 0 && mHour == 13)) {
+        if((goal > 0 && mHour >= 17 && mHour <= 18)){// || (goal > 0 && mHour >= 12 && mHour <= 13)) {
                 int stepProgress = (int) ((100 * todaySteps()) / goal);
 
                 if (stepProgress < 50) {
@@ -262,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Create a new intent to open the {@link GetWeight}
                 Intent weightIntent = new Intent(MainActivity.this, ChooseManAuto.class);
-
+                //weightIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 // Start the new activity
                 startActivity(weightIntent);
             }
@@ -277,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent viewSummaryIntent = new Intent(MainActivity.this, CurrentState.class);
+                //viewSummaryIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(viewSummaryIntent);
             }
         });
