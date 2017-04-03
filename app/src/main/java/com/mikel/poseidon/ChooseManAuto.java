@@ -39,7 +39,7 @@ public class ChooseManAuto extends AppCompatActivity {
 
         getManually.setOnClickListener((View view) -> {
             Intent stepsRecordIntent = new Intent(ChooseManAuto.this, GetWeight.class);
-            stepsRecordIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //stepsRecordIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(stepsRecordIntent);
         });
 

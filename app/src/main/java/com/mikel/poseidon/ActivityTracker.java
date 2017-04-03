@@ -59,30 +59,45 @@ public class ActivityTracker extends AppCompatActivity {
 
         // RUN
         TextView runText = (TextView) findViewById(R.id.run);
-        runText.setOnClickListener(view -> {
-            Intent runIntent = new Intent(ActivityTracker.this, Steps.class);
-            editor.putString(ACTIVITY, "run");
-            editor.commit();
-            startActivity(runIntent);
-        });
+        runText.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           Intent runIntent = new Intent(ActivityTracker.this, Steps.class);
+                                           editor.putString(ACTIVITY, "run");
+                                           editor.commit();
+                                           startActivity(runIntent);
+                                       }
+                                   }
+
+        );
 
         // SWIM
         TextView swimText = (TextView) findViewById(R.id.swim);
-        swimText.setOnClickListener(view -> {
-            Intent swimIntent = new Intent(ActivityTracker.this, Steps.class);
-            editor.putString(ACTIVITY, "swim");
-            editor.commit();
-            startActivity(swimIntent);
-        });
+        swimText.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent swimIntent = new Intent(ActivityTracker.this, Steps.class);
+                                            editor.putString(ACTIVITY, "swim");
+                                            editor.commit();
+                                            startActivity(swimIntent);
+                                        }
+                                    }
+
+        );
 
         // DANCE
         TextView danceText = (TextView) findViewById(R.id.dance);
-        danceText.setOnClickListener(view -> {
-            Intent danceIntent = new Intent(ActivityTracker.this, Steps.class);
-            editor.putString(ACTIVITY, "dance");
-            editor.commit();
-            startActivity(danceIntent);
-        });
+        danceText.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View v) {
+                                             Intent danceIntent = new Intent(ActivityTracker.this, Steps.class);
+                                             editor.putString(ACTIVITY, "dance");
+                                             editor.commit();
+                                             startActivity(danceIntent);
+                                         }
+                                     }
+
+        );
 
         // D
 
