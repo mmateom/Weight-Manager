@@ -35,7 +35,7 @@ public class ExerciseNotifService extends Service {
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(this)
                 .setContentTitle("Have you exercised today?")
-                .setContentText("WeightManager")
+                .setContentText("Weight Manager")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_VIBRATE)

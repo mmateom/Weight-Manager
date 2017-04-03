@@ -20,14 +20,19 @@ public class ChooseManAuto extends AppCompatActivity {
         setContentView(R.layout.activity_choose_man_auto);
 
         //callback to home button
-        ImageButton home_button25 = (ImageButton) findViewById(R.id.homebutton);
-        home_button25.setOnClickListener(view -> {
+        ImageButton home_butto = (ImageButton) findViewById(R.id.homebutton);
+        home_butto.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+                                              Intent home_intent5 = new Intent(ChooseManAuto.this, MainActivity.class);
+                                              //home_intent5.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                              home_intent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                              startActivity(home_intent5);
+                                          }
+                                      }
 
-            Intent home_intent5 = new Intent(ChooseManAuto.this, MainActivity.class);
-            //home_intent5.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            home_intent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(home_intent5);
-        });
+
+        );
 
         // Manually
         Button getManually = (Button) findViewById(R.id.manually);

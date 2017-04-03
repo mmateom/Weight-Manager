@@ -195,9 +195,17 @@ public class Graph extends AppCompatActivity {
         min_limit_good= mPrefs.getFloat("min_good", 84);
         max_limit_good = mPrefs.getFloat("max_good", 88);
 
+        float weightGoal = mPrefs.getFloat("weight_goal", 0);
+
         //risk
 
         //getResources().getColor(R.color.LightRed, null);
+
+        //Weight Goal
+        LimitLine w = new LimitLine(weightGoal);
+        w.setLineColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+        w.setLineWidth(8f);
+        yAxis.addLimitLine(w);
 
         //where is the limit line
         LimitLine z0 = new LimitLine(min_limit_risk);

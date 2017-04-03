@@ -106,6 +106,7 @@ public class Steps extends AppCompatActivity {
 
     //
     String activity;
+    int units;
 
     SharedPreferences preferences;
     NotificationManager nm;
@@ -116,7 +117,7 @@ public class Steps extends AppCompatActivity {
         setContentView(R.layout.activity_steps);
 
         mPrefs= this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
-
+        units = mPrefs.getInt("weightUnits", 0);
 
         mContext = getApplicationContext();
         context = this;
@@ -171,6 +172,7 @@ public class Steps extends AppCompatActivity {
         //Toast.makeText(this, "ON RESUME", Toast.LENGTH_SHORT).show();
         if(mChrono == null){
             tvChron.setText("00:00:00");
+            ko = number = 0;
             caloriesText.setText("0");
             mStepsTextView.setText("0");
         }
@@ -237,7 +239,7 @@ public class Steps extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    while (!isInterrupted()) {
+                    //while (!isInterrupted()) {
                         Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -254,8 +256,9 @@ public class Steps extends AppCompatActivity {
                                 caloriesText.setText(String.valueOf(calories));
                             }
                         });
-                    }
+                    //}
                 } catch (InterruptedException e) {
+                    Log.e(LOG_TAG, String.valueOf(e));
                 }
             }
         };
@@ -361,6 +364,10 @@ public class Steps extends AppCompatActivity {
     //private double getCalories (int walkTime, double weight){
     private double getCalories (double weight, String activity){
 
+        if (units == 1){
+            weight = weight * 0.453592; //from lbs to kg
+        }
+
         double walkTime = getMinutes(tvChron.getText().toString());
 
         double met = 0;
@@ -390,7 +397,7 @@ public class Steps extends AppCompatActivity {
         Cursor alldata;
         ArrayList<Double> yVals;
         alldata= myDB.getListContents();
-        double lastWeight = 0;
+        double lastWeight;
 
         int count = alldata.getCount();
         double[] weights = new double[count];
@@ -414,7 +421,7 @@ public class Steps extends AppCompatActivity {
 
         }else lastWeight = yVals.get(yVals.size() - 1);
 
-        lastWeight = yVals.get(yVals.size() - 1);
+        //lastWeight = yVals.get(yVals.size() - 1);
 
         return lastWeight;
 

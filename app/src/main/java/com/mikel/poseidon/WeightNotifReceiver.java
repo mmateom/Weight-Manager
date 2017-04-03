@@ -32,8 +32,8 @@ public class WeightNotifReceiver extends BroadcastReceiver {
 
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(context)
-                .setContentTitle("POSEIDON")
-                .setContentText("Time to weight!")
+                .setContentTitle("Time to Weight!")
+                .setContentText("Weight Manager")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_VIBRATE)

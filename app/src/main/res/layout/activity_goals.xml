@@ -121,8 +121,9 @@
         android:id="@+id/bmr_text"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="21dp"
         android:text="BMR"
+        android:textSize="18sp"
         android:layout_below="@+id/textView24"
         android:layout_alignLeft="@+id/textView24"
         android:layout_alignStart="@+id/textView24" />
@@ -130,10 +131,65 @@
     <TextView
         android:id="@+id/textView24"
         android:layout_width="300dp"
+        android:textSize="18sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Talk with your physican to know how many calories you should burn."
-        android:layout_below="@+id/set_calories_goal"
+        android:layout_below="@+id/uni"
         android:layout_alignLeft="@+id/textView1r"
         android:layout_alignStart="@+id/textView1r" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:gravity="left"
+        android:textColor="@color/ToolbarTextColor"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Weight goal"
+        android:layout_below="@+id/set_calories_goal"
+        android:layout_alignRight="@+id/textView1r"
+        android:layout_alignEnd="@+id/textView1r" />
+
+    <EditText
+        android:text=""
+        android:hint=""
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/weightGoal"
+        android:inputType="number"
+        android:background="@drawable/enter_weight"
+        android:gravity="center"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/textView31"
+        android:layout_alignBottom="@+id/textView31"
+        android:layout_toLeftOf="@+id/set_calories_goal"
+        android:layout_toStartOf="@+id/set_calories_goal" />
+    <Button
+        android:text="Set"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_weight_goal"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:layout_alignBaseline="@+id/weightGoal"
+        android:layout_alignBottom="@+id/weightGoal"
+        android:layout_toRightOf="@+id/weightGoal"
+        android:layout_toEndOf="@+id/weightGoal" />
+
+    <TextView
+        android:id="@+id/uni"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:text="kg"
+        android:textSize="15sp"
+        android:layout_below="@+id/weightGoal"
+        android:layout_toLeftOf="@+id/set_weight_goal"
+        android:layout_toStartOf="@+id/set_weight_goal" />
 </RelativeLayout>

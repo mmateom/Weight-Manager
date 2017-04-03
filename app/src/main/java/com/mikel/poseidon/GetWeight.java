@@ -62,6 +62,7 @@ public class GetWeight extends AppCompatActivity {
     double newWeight;
 
     Date date_f;
+    int units;
 
     private PopupWindow popupWindow;
     private LayoutInflater layoutInflater;
@@ -100,7 +101,7 @@ public class GetWeight extends AppCompatActivity {
         mGender = mPrefs.getString("gender_key","Male");
 
         TextView unit = (TextView)findViewById(unit_get_weight);
-        int units = mPrefs.getInt("weightUnits", 0);
+        units = mPrefs.getInt("weightUnits", 0);
         if (units == 1){
             unit.setText("lbs");
         }
@@ -227,7 +228,14 @@ public class GetWeight extends AppCompatActivity {
     //===============================================
     public void weightFeedback(double substraction){
 
-        if (substraction > -1 && substraction <1){
+        double samelimit = 1;
+        double increased = 2;
+        if (units == 1){
+            samelimit = 2.20462;
+            increased = samelimit * 2;
+        }
+
+        if (substraction > -samelimit && substraction <samelimit){
 
             //more or less the same pop up window
             layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -247,7 +255,7 @@ public class GetWeight extends AppCompatActivity {
 
             //System.out.println("more or less the same pop up window");
 
-        }else if (substraction >= 1 && substraction < 2 ){
+        }else if (substraction >= samelimit && substraction < increased ){
 
             //increased between 1 and 2Kg
             layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -267,7 +275,7 @@ public class GetWeight extends AppCompatActivity {
             });
             //System.out.println("increased between 1 and 2Kg");
 
-        }else if (substraction >= 2){
+        }else if (substraction >= increased){
 
             //increased in more than 2Kg
             layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -275,6 +283,10 @@ public class GetWeight extends AppCompatActivity {
             relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
 
             popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(250), true); //true allows us to close window by tapping outside
+
+            if (units == 1) {
+                ((TextView) popupWindow.getContentView().findViewById(R.id.morethan2kilos)).setText("Weight increased on more than 4.4 lbs");
+            }
             popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
             //popupWindow = new PopupWindow(container, 500, 500, true); //true allows us to close window by tapping outside
             //popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, 125, 300);
@@ -289,7 +301,7 @@ public class GetWeight extends AppCompatActivity {
             });
             //System.out.println("increased in more than 2Kg");
 
-        }else if (substraction < -1){
+        }else if (substraction < -samelimit){
 
             //reduced in more than 1Kg -- Good
             layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);

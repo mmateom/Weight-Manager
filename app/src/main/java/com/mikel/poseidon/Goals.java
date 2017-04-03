@@ -18,12 +18,13 @@ import static com.mikel.poseidon.R.id.a;
 import static com.mikel.poseidon.R.id.bmr_text;
 import static com.mikel.poseidon.R.id.currentWeightUnit;
 import static com.mikel.poseidon.R.id.set_calories_goal;
+import static com.mikel.poseidon.R.id.uni;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Goals extends AppCompatActivity {
 
     SharedPreferences preferences;
-    EditText goaltxt, caloriesGoaltxt;
+    EditText goaltxt, caloriesGoaltxt, weightGoaltxt;
 
     int mAge, mPosition, units;
     double mHeight, mWeight, mBmr, mDailyCalories;
@@ -33,6 +34,7 @@ public class Goals extends AppCompatActivity {
 
     public String STEPS_GOAL = "steps_goal";
     public String CALORIES_GOAL = "calories_goal";
+    public String WEIGHT_GOAL = "weight_goal";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +74,21 @@ public class Goals extends AppCompatActivity {
 
         goaltxt = (EditText)findViewById(R.id.steps_per_day);
         caloriesGoaltxt= (EditText)findViewById(R.id.calories_per_day);
+        weightGoaltxt= (EditText)findViewById(R.id.weightGoal);
         //get values from sharedprefs
         units = preferences.getInt("weightUnits", 0);
 
 
         setStepsGoal();
         setCaloriesGoal();
+        setWeightGoal();
+
+        TextView unitstxt = (TextView)findViewById(uni);
+
+        if(units == 1){
+
+            unitstxt.setText("lbs");
+        }
 
 
 
@@ -112,6 +123,23 @@ public class Goals extends AppCompatActivity {
                 int caloriesGoal = Integer.parseInt(caloriesGoaltxt.getText().toString());
                 SharedPreferences.Editor goalEditor = preferences.edit();
                 goalEditor.putInt(CALORIES_GOAL, caloriesGoal);
+                goalEditor.commit();
+
+                Toast.makeText(this, "GOAL SET", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+    }
+
+    private void setWeightGoal(){
+        Button setWeightGoal = (Button)findViewById(R.id.set_weight_goal);
+        setWeightGoal.setOnClickListener(view -> {
+            if (!"".equals(weightGoaltxt.getText().toString())) {
+
+                float weightGoal = Integer.parseInt(weightGoaltxt.getText().toString());
+                SharedPreferences.Editor goalEditor = preferences.edit();
+                goalEditor.putFloat(WEIGHT_GOAL, weightGoal);
                 goalEditor.commit();
 
                 Toast.makeText(this, "GOAL SET", Toast.LENGTH_SHORT).show();
@@ -159,7 +187,7 @@ public class Goals extends AppCompatActivity {
 
         //set value on textview
         TextView bmrtxt = (TextView)findViewById(bmr_text);
-        bmrtxt.setText(String.format( "Recommended calorie intake: \n %.2f calories per day" , dailyCalories )); //"Recomended calorie intake: " + String.valueOf(dailyCalories) + " calories per day");
+        bmrtxt.setText(String.format( "Recommended calorie intake:\n%.2f calories per day" , dailyCalories )); //"Recomended calorie intake: " + String.valueOf(dailyCalories) + " calories per day");
 
 
         return dailyCalories;
@@ -203,6 +231,7 @@ public class Goals extends AppCompatActivity {
         preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         goaltxt.setText(String.valueOf(preferences.getInt(STEPS_GOAL, 0)));
         caloriesGoaltxt.setText(String.valueOf(preferences.getInt(CALORIES_GOAL, 0)));
+        weightGoaltxt.setText(String.valueOf(preferences.getFloat(WEIGHT_GOAL, 0)));
 
 
 

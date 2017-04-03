@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/popup2plus">
+    android:background="@drawable/popup">
 
     <TextView
         android:text="Weight increased on more than 2 kgs!"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/morethan2kilos"
         android:textAllCaps="false"
         android:textSize="23dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/LightRed"
+        android:textColor="@color/StatusBarColor"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         tools:textStyle="bold" />
@@ -21,10 +21,10 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/redsmiley"
+        android:src="@drawable/up1"
         android:layout_marginTop="10dp"
         android:id="@+id/imageView3"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/morethan2kilos"
         android:layout_centerHorizontal="true" />
 
     <TextView

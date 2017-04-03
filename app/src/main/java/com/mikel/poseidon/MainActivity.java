@@ -51,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-        }
         Button btn1 = (Button) findViewById(R.id.button2);
         btn1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onResume();
         int goal = mPrefs.getInt("steps_goal", 0);
+        int caloriesGoal = mPrefs.getInt("calories_goal", 0);
 
         Calendar calendar = Calendar.getInstance();
         mMilis = calendar.get(Calendar.MILLISECOND);
@@ -165,10 +167,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //if((goal > 0 && date_final.equals("13:00:00")) || (goal > 0 && date_final.equals("17:00:00"))) {
-        if((goal > 0 && mHour >= 17 && mHour <= 18)){// || (goal > 0 && mHour >= 12 && mHour <= 13)) {
+        if((goal > 0 && mHour >= 11 && mHour < 12)){// || (goal > 0 && mHour >= 12 && mHour <= 13)) {
                 int stepProgress = (int) ((100 * todaySteps()) / goal);
+                int caloriesProgress = (int) ((100 * todayCalories()) / caloriesGoal);
 
-                if (stepProgress < 50) {
+                if (stepProgress < 50 || caloriesProgress < 50) {
                     // Create an Explicit Intent
                     Intent intent = new Intent(this, ExerciseNotifService.class);
                     // Set some data that the Service might require/use
@@ -233,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(this)
                 .setContentTitle("Let's get active!")
-                .setContentText("WeightManger")
+                .setContentText("Weight Manger")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(false)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
@@ -262,6 +265,19 @@ public class MainActivity extends AppCompatActivity {
         }
         //previous: see COMMENTED CODE below
         return todaySteps;
+    }
+
+    public double todayCalories(){
+        Cursor alldata = myDB.getCalories();
+        double todayCalories = 0;
+
+        if(alldata.getCount() > 0) { //if count equals zero (no record today), textView automatically displays 0
+
+            alldata.moveToFirst();
+            todayCalories = alldata.getDouble(3);
+        }
+        //previous: see COMMENTED CODE below
+        return todayCalories;
     }
 
     public void initialiseIntents(){

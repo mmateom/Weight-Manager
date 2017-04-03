@@ -45,12 +45,17 @@ public class ActivityTracker extends AppCompatActivity {
 
         // WALK
         TextView walkText = (TextView) findViewById(R.id.walk);
-        walkText.setOnClickListener(view -> {
-            Intent walkIntent = new Intent(ActivityTracker.this, Steps.class);
-            editor.putString(ACTIVITY, "walk");
-            editor.apply();
-            startActivity(walkIntent);
-        });
+        walkText.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent walkIntent = new Intent(ActivityTracker.this, Steps.class);
+                                            editor.putString(ACTIVITY, "walk");
+                                            editor.apply();
+                                            startActivity(walkIntent);
+                                        }
+                                    });
+
+
 
         // RUN
         TextView runText = (TextView) findViewById(R.id.run);

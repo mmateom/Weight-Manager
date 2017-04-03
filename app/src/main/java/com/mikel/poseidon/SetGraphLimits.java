@@ -2,22 +2,41 @@ package com.mikel.poseidon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import static com.mikel.poseidon.R.id.all;
+import static com.mikel.poseidon.R.id.allthelimits;
 import static com.mikel.poseidon.R.id.delete_2;
 import static com.mikel.poseidon.R.id.delete_steps;
+import static com.mikel.poseidon.R.id.goodlimits;
+import static com.mikel.poseidon.R.id.info;
+import static com.mikel.poseidon.R.id.obese;
+import static com.mikel.poseidon.R.id.overweight;
 import static com.mikel.poseidon.R.id.setbtn_becareful;
 import static com.mikel.poseidon.R.id.setbtn_good;
 import static com.mikel.poseidon.R.id.setbtn_risk;
+import static java.lang.Math.pow;
 
 public class SetGraphLimits extends AppCompatActivity {
 
@@ -26,6 +45,7 @@ public class SetGraphLimits extends AppCompatActivity {
     EditText min_risk_edit, max_risk_edit;
     EditText min_becareful_edit, max_becareful_edit;
     EditText min_good_edit, max_good_edit;
+    TextView ob, ov, g;
 
     float new_Risk_Min, new_Risk_Max, riskMin, riskMax;
     float new_Becareful_Min, new_Becareful_Max, becarefulMin, becarefulMax;
@@ -40,6 +60,9 @@ public class SetGraphLimits extends AppCompatActivity {
 
     public String min_key_good = "min_good";
     public String max_key_good = "max_good";
+    int height;
+    int p;
+    DBHelper myDB;
 
 
     private SharedPreferences mSharedPrefs;
@@ -51,6 +74,7 @@ public class SetGraphLimits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_graph_limits);
 
+        myDB = new DBHelper(this);
 
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
@@ -67,8 +91,6 @@ public class SetGraphLimits extends AppCompatActivity {
         });
 
 
-
-
         min_risk_edit = (EditText) findViewById(R.id.min_risk);
         max_risk_edit = (EditText) findViewById(R.id.max_risk);
 
@@ -81,6 +103,10 @@ public class SetGraphLimits extends AppCompatActivity {
         ////initialize limit sharedpreferences instances
 
         mSharedPrefs = this.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        p = mSharedPrefs.getInt("weightUnits", 0);
+
+        height = mSharedPrefs.getInt("height_key", 0);
+
 
         //Risk
 
@@ -170,13 +196,91 @@ public class SetGraphLimits extends AppCompatActivity {
         });
 
 
+        ob = (TextView) findViewById(obese);
+        ov = (TextView) findViewById(overweight);
+        g = (TextView) findViewById(goodlimits);
+
+
+        double obeseLimitUpper = 40d * pow((height / 100d), 2);
+        double obeseLimitLower = 30.1d * pow((height / 100d), 2);
+        double overweightLimitUpper = 30d * pow((height / 100d), 2);
+        double overweightLimitLower = 25.1d * pow((height / 100d), 2);
+        double goodLimitUpper = 25d * pow((height / 100d), 2);
+        double goodLimitLower = 18.5d * pow((height / 100d), 2);
+
+        String units = "kg";
+
+        if(p == 1){
+            obeseLimitUpper = obeseLimitUpper * 2.20462;
+            obeseLimitLower = obeseLimitLower * 2.20462;
+            overweightLimitUpper = overweightLimitUpper * 2.20462;
+            overweightLimitLower = overweightLimitLower * 2.20462;
+            goodLimitUpper = goodLimitUpper * 2.20462;
+            goodLimitLower = goodLimitLower * 2.20462;
+
+            units = "lbs";
+
+        }
 
 
 
 
+        ob.setText("Recommended - " + "Max: " + new DecimalFormat("##").format(obeseLimitUpper)+ units + " - Min: " + new DecimalFormat("##").format(obeseLimitLower) + units);
+        ov.setText("Recommended - " + "Max: " + new DecimalFormat("##").format(overweightLimitUpper) + units + " - Min: " + new DecimalFormat("##").format(overweightLimitLower) + units);
+        g.setText("Recommended - " + "Max: " + new DecimalFormat("##").format(goodLimitUpper) + units + " - Min: " + new DecimalFormat("##").format(goodLimitLower) + units);
 
+        Button information = (Button) findViewById(info);
+        double finalOverweightLimitUpper = overweightLimitUpper;
+        double finalObeseLimitUpper = obeseLimitUpper;
+        double finalGoodLimitUpper = goodLimitUpper;
+        double finalOverweightLimitLower = overweightLimitLower;
+        double finalObeseLimitLower = obeseLimitLower;
+        double finalGoodLimitLower = goodLimitLower;
+        String finalUnits = units;
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //showLimitsInformation(obeseLimitUpper, obeseLimitLower, overweightLimitUpper, overweightLimitLower, goodLimitUpper, goodLimitLower);
+                LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.limit_level_info, null);
+                RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_set_limits);
+                /*TextView allLimits = (TextView)findViewById(R.id.allthelimits);
+                allLimits.setText("Obese - " + "Max: " + new DecimalFormat("##").format(obeseLimitUpper)+ " - Min: " + new DecimalFormat("##").format(obeseLimitLower) + "\n"
+                        + "Overweight - " + "Max: " + new DecimalFormat("##").format(overweightLimitUpper) + " - Min: " + new DecimalFormat("##").format(overweightLimitLower) + "\n"
+                        +"Good weight - " + "Max: " + new DecimalFormat("##").format(goodLimitUpper) + " - Min: " + new DecimalFormat("##").format(goodLimitLower));*/
 
+                PopupWindow popupWindow = new PopupWindow(container, dpToPx(360), dpToPx(470), true); //true allows us to close window by tapping outside
+                ((TextView)popupWindow.getContentView().findViewById(R.id.allthelimits))
+                        .setText("Obese - " + "Max: " + new DecimalFormat("##").format(finalObeseLimitUpper)+ finalUnits +  " - Min: " + new DecimalFormat("##").format(finalObeseLimitLower) + finalUnits + "\n"
+                        + "Overweight - " + "Max: " + new DecimalFormat("##").format(finalOverweightLimitUpper) + finalUnits + " - Min: " + new DecimalFormat("##").format(finalOverweightLimitLower) + finalUnits + "\n"
+                        +"Good weight - " + "Max: " + new DecimalFormat("##").format(finalGoodLimitUpper) + finalUnits + " - Min: " + new DecimalFormat("##").format(finalGoodLimitLower) + finalUnits);
+                popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(0), dpToPx(120));
+
+                //shut popup outside window
+                container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return false;
+                    }
+                });
+            }
+        });
     }
+
+
+    /*public void showLimitsInformation(double obeseLimitUpper, double obeseLimitLower, double overweightLimitUpper, double overweightLimitLower, double goodLimitUpper, double goodLimitLower){
+
+
+
+    }*/
+
+    public static int dpToPx(int dp)
+    {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+
 
 
     //============================

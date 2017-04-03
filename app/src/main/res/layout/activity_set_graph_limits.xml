@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_preferences"
+    android:id="@+id/activity_set_limits"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
@@ -17,24 +17,24 @@
     <Button
         android:layout_width="70dp"
         android:layout_height="30dp"
-        android:text = "@string/Risk"
+        android:text = "Obese"
         android:id="@+id/risk"
         android:background="@drawable/risk"
         android:textColor="@color/HeaderColor"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/textView4"
         android:layout_alignLeft="@+id/linearminmax"
-        android:layout_alignStart="@+id/linearminmax"
-        android:layout_marginTop="30dp" />
+        android:layout_alignStart="@+id/linearminmax" />
 
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/linearminmax"
-        android:layout_below="@+id/risk"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/obese"
         android:layout_alignLeft="@+id/be_careful"
-        android:layout_alignStart="@+id/be_careful"
-        android:layout_marginTop="16dp">
+        android:layout_alignStart="@+id/be_careful">
 
 
         <TextView
@@ -99,10 +99,10 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/linearminmax_becareful"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/be_careful"
         android:layout_alignLeft="@+id/good_pref"
-        android:layout_alignStart="@+id/good_pref"
-        android:layout_marginTop="20dp">
+        android:layout_alignStart="@+id/good_pref">
 
 
         <TextView
@@ -166,12 +166,9 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/linearminmax_good"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_below="@+id/good_pref"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp">
+        android:layout_above="@+id/info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp">
 
 
         <TextView
@@ -238,22 +235,22 @@
         android:id="@+id/good_pref"
         android:background="@drawable/good"
         android:textColor="@color/HeaderColor"
-        android:layout_alignTop="@+id/linearminmax_becareful"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/linearminmax_becareful"
         android:layout_alignLeft="@+id/linearminmax_good"
-        android:layout_alignStart="@+id/linearminmax_good"
-        android:layout_marginTop="58dp" />
+        android:layout_alignStart="@+id/linearminmax_good" />
 
     <Button
-        android:layout_width="70dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:text = "@string/BeCareful"
+        android:text = "Overweight"
         android:id="@+id/be_careful"
         android:background="@drawable/becareful"
         android:textColor="@color/HeaderColor"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/linearminmax"
-        android:layout_alignLeft="@+id/linearminmax_becareful"
-        android:layout_alignStart="@+id/linearminmax_becareful"
-        android:layout_marginTop="10dp" />
+        android:layout_alignLeft="@+id/overweight"
+        android:layout_alignStart="@+id/overweight" />
 
     <TextView
         android:text="      Weight limit lines"
@@ -269,14 +266,44 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="300dp"
+    <Button
+        android:id="@+id/info"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Information"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/be_careful"
+        android:layout_toEndOf="@+id/be_careful"/>
+
+    <TextView
+        android:id="@+id/obese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/risk"
+        android:layout_alignLeft="@+id/linearminmax"
+        android:layout_alignStart="@+id/linearminmax" />
+
+    <TextView
+        android:id="@+id/overweight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/be_careful"
+        android:layout_alignLeft="@+id/linearminmax_becareful"
+        android:layout_alignStart="@+id/linearminmax_becareful"
+        android:layout_marginTop="9dp" />
+
+    <TextView
+        android:id="@+id/goodlimits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/good_pref"
         android:layout_alignLeft="@+id/linearminmax_good"
         android:layout_alignStart="@+id/linearminmax_good"
-        android:layout_below="@+id/linearminmax_good"
-        android:layout_marginTop="25dp"
-        android:text="This limits will appear on the weight graph. They will help to visualise in which zone your weight is." />
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>
