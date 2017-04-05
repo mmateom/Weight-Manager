@@ -577,6 +577,10 @@ public class Steps extends AppCompatActivity {
         //stopChrono();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
     //=======================================================
     //        CREATE NOTIFICATION - when start is pushed

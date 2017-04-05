@@ -45,7 +45,14 @@ public class SendDatabase extends AppCompatActivity {
         //verifyStoragePermissions(this);
 
         Button send = (Button) findViewById(R.id.send_data);
-        send.setOnClickListener(v -> exportDB());
+        send.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        exportDB();
+                                    }
+                                }
+
+        );
 
 
     }
