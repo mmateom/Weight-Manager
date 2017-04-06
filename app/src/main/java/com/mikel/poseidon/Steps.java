@@ -239,7 +239,7 @@ public class Steps extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    //while (!isInterrupted()) {
+                    while (!isInterrupted()) {
                         Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -256,7 +256,7 @@ public class Steps extends AppCompatActivity {
                                 caloriesText.setText(String.valueOf(calories));
                             }
                         });
-                    //}
+                    }
                 } catch (InterruptedException e) {
                     Log.e(LOG_TAG, String.valueOf(e));
                 }

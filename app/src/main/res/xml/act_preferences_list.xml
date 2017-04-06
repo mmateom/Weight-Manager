@@ -60,6 +60,15 @@
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.Reminders"/>
     </Preference>
+    <Preference android:title="Add Heartrate Monitor"
+        android:summary="Add a bluetooth heartrate wristband to improve calorie counting"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:key="bluetooth"
+        android:layout="@layout/preference_layout"
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.BluetoothDeviceActivity"/>
+    </Preference>
     <Preference android:title="Connect to Fitbit"
         android:summary="This will retrive your weight data from your scale"
         android:layout_height="match_parent"
