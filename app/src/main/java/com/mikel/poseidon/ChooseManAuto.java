@@ -37,10 +37,15 @@ public class ChooseManAuto extends AppCompatActivity {
         // Manually
         Button getManually = (Button) findViewById(R.id.manually);
 
-        getManually.setOnClickListener((View view) -> {
-            Intent stepsRecordIntent = new Intent(ChooseManAuto.this, GetWeight.class);
-            //stepsRecordIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(stepsRecordIntent);
+        getManually.setOnClickListener(new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View v) {
+                                               Intent stepsRecordIntent = new Intent(ChooseManAuto.this, GetWeight.class);
+                                               //stepsRecordIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                               startActivity(stepsRecordIntent);
+                                           }
+
+
         });
 
         // Automatically

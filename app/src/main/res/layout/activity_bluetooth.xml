@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.mikel.poseidon.BluetoothDeviceActivity">
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/include"/>
+
+    <TextView
+        android:text="    Choose hear rate monitor"
+        android:layout_marginTop="45dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/t"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+ />
+
+<ListView
+    android:layout_marginTop="95dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/listView"/>
+
+</RelativeLayout>

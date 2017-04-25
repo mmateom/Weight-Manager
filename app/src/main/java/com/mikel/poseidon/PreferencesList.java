@@ -1,6 +1,7 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -19,6 +20,9 @@ import static com.mikel.poseidon.R.layout.toolbar;
 
 public class PreferencesList extends AppCompatActivity{
 
+    private static final String STRESS_PREFS = "StressPrefs";
+    public boolean mIsPaired = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,13 @@ public class PreferencesList extends AppCompatActivity{
         getSupportActionBar().setTitle(null);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 
+        /*SharedPreferences mSettings = this.getSharedPreferences(STRESS_PREFS, 0);
+
+        String device = mSettings.getString("macaddress", "");
+
+        if (device.isEmpty()) {
+            mIsPaired = false;
+        }*/
         //callback to home button
         ImageButton home_button = (ImageButton) findViewById(R.id.homebutton);
         home_button.setOnClickListener(new View.OnClickListener() {
