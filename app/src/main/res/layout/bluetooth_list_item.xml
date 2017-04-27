@@ -20,7 +20,7 @@
     <ImageView
         android:layout_marginLeft="80dp"
         android:visibility="invisible"
-        android:id="@+id/clicked"
+        android:id="@+id/clickedxxx"
         android:layout_width="50dp"
         android:layout_height="61dp"
         android:src="@drawable/checked" />

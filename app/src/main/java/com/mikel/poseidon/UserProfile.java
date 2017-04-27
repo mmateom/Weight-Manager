@@ -1,6 +1,7 @@
 package com.mikel.poseidon;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -38,7 +39,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
     private TextView age,height,gender;
     private EditText weight;
     private Button savebtn;
-
+    Context mContext;
     Spinner spinner, spinnerUnits;
 
     SharedPreferences mSharedPrefs;
@@ -76,7 +77,7 @@ public class UserProfile extends AppCompatActivity  implements NumberPicker.OnVa
             startActivity(home_intent);
         });
 
-
+        //mContext = getApplicationContext();
 
         //text views
         age = (TextView)findViewById(R.id.profile_age);

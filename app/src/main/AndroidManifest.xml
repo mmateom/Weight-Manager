@@ -127,21 +127,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".BluetoothDeviceActivity"
-            android:parentActivityName=".PreferencesList"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.mikel.poseidon.BluetoothDeviceActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".StepService"
             android:screenOrientation="portrait" />
         <service android:name=".utility.ExerciseNotifService" />
+        <service android:name=".BluetoothLeService" />
 
         <receiver
             android:name=".WeightNotifBootReceiver"
@@ -178,6 +169,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".IntroActivity" />
+        <activity android:name=".DeviceScanActivity">
+        <intent-filter>
+            <action android:name="com.mikel.poseidon.DeviceScanActivity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".DeviceControlActivity"/>
+
     </application>
 
 </manifest>
