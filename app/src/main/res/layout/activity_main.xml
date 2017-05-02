@@ -152,8 +152,6 @@
         android:layout_alignEnd="@+id/gridLayout" />
 
 
-
-
 </RelativeLayout>
 
 

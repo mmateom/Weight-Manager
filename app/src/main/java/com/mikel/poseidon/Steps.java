@@ -32,6 +32,7 @@ import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -310,6 +311,7 @@ public class Steps extends AppCompatActivity {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             StepService.LocalBinder binder = (StepService.LocalBinder) service;
             mService = binder.getService();
+
             mBound = true;
 
 
@@ -626,7 +628,16 @@ public class Steps extends AppCompatActivity {
     }
 
 
+
 }
+
+
+
+
+
+
+
+
 
 
     /**public void pauseCounting(View v){

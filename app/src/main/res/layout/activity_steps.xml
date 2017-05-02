@@ -189,6 +189,15 @@
         android:layout_alignStart="@+id/tv_chr"
         android:layout_marginTop="20dp" />
 
+    <TextView
+        android:id="@+id/heart_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
 
     <!-- <Button
          android:id="@+id/pause"

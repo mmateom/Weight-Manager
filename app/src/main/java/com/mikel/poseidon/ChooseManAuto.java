@@ -1,6 +1,7 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class ChooseManAuto extends AppCompatActivity {
 

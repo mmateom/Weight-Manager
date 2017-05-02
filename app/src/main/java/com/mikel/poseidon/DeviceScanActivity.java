@@ -29,6 +29,7 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +52,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
+
 /**
  * Activity for scanning and displaying available Bluetooth LE devices.
  */
@@ -63,6 +66,7 @@ public class DeviceScanActivity extends ListActivity {
     private ScanSettings settings;
     private List<ScanFilter> filters;
     private BluetoothLeScanner mLEScanner;
+    private SharedPreferences mPrefs;
 
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
@@ -73,6 +77,8 @@ public class DeviceScanActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         //getActionBar().setTitle(R.string.title_devices);
         setContentView(R.layout.scan_activity);
+
+        mPrefs = getApplicationContext().getSharedPreferences(sharedPrefs, MODE_PRIVATE);
 
         mHandler = new Handler();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -201,6 +207,12 @@ public class DeviceScanActivity extends ListActivity {
         final Intent intent = new Intent(this, DeviceControlActivity.class);
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
+
+        SharedPreferences.Editor ageEditor = mPrefs.edit();
+        ageEditor.putString("address", device.getAddress());
+        ageEditor.apply();
+
+
 
         //When paired stops scanning
         if (mScanning) {

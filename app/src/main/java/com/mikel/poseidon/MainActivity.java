@@ -27,6 +27,7 @@ import com.mikel.poseidon.utility.ExerciseNotifService;
 import com.mikel.poseidon.utility.FitbitApi20;
 
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     int mMin, mHour, mMilis, mSeconds;
     DBHelper myDB;
     SharedPreferences mPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         //Remind user to weight every x days
         //TODO: CUANDO HAGA LA PANTALLA PARA EDITAR LA HORA, PASAR ESOS VALORES A LOS IF
         //TODO: EN timeToWeightNotif (abajo) Y EN EL RECEIVER
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         permanentNotification();
         timeToWeightNotif(); //only show when it has not default value
+
 
 
     }
