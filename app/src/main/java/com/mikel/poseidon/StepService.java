@@ -5,9 +5,11 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
@@ -20,9 +22,12 @@ import com.mikel.poseidon.utility.ExplicitIntentGenerator;
 import org.poseidon_project.context.IContextReasoner;
 
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import uk.ac.mdx.cs.ie.acontextlib.IContextReceiver;
 import uk.ac.mdx.cs.ie.acontextlib.hardware.StepCounter;
+import uk.ac.mdx.cs.ie.acontextlib.personal.HeartRateMonitor;
 
 import static com.mikel.poseidon.ActivityTracker.ACTIVITY;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
@@ -38,13 +43,31 @@ public class StepService extends Service {
     StepCounter sCounter;
     private boolean mBound;
     private boolean mCollecting = false;
+    private boolean mCollectingHeartRate = false;
 
     //TextView textViewSteps;
-    public static final String BROADCAST_INTENT = "com.mikel.poseidon.TOTAL_STEPS";
+    public static final String BROADCAST_INTENT_STEPS = "com.mikel.poseidon.TOTAL_STEPS";
+    public static final String BROADCAST_INTENT_HEART_RATE = "com.mikel.poseidon.HEART_RATE";
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
     private IContextReasoner mContextService;
 
+
+    //Heart rate variables
+    private HeartRateMonitor mHeartrateMonitor;
+    private int heart_rate;
+    private static final int INTERVAL = 60000;
+    private boolean mHeartMonitorBonded = false;
+    private SharedPreferences mSettings;
+    private static final int HR_INTERVAL = 20000;
+    long step;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        step = 0;
+    }
 
     @Nullable
     @Override
@@ -65,7 +88,7 @@ public class StepService extends Service {
         }
     }
 
-    long step;
+
 
     public long getSteps(){
 
@@ -134,6 +157,91 @@ public class StepService extends Service {
         return 0;
 
     }
+
+    public void getHR() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
+            mHeartrateMonitor = new HeartRateMonitor(mContext);
+            startCollecting();
+            mHeartrateMonitor.addContextReceiver(new IContextReceiver() {
+                @Override
+                public void newContextValue(String name, long value) {
+                    heart_rate = ((int) value);
+                    broadcastHeartRate();
+                }
+
+                @Override
+                public void newContextValue(String name, double value) {
+
+                }
+
+                @Override
+                public void newContextValue(String name, boolean value) {
+                    if (value == false) {
+                        Log.e("StepService", "not getting data");
+                    }
+                }
+
+                @Override
+                public void newContextValue(String name, String value) {
+
+                }
+
+                @Override
+                public void newContextValue(String name, Object value) {
+
+                }
+
+                @Override
+                public void newContextValues(Map<String, String> values) {
+
+                }
+            });
+        }
+    }
+
+
+
+    public void startCollecting() {
+
+        int interval = INTERVAL;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
+            mSettings = mContext.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+            String device = mSettings.getString("macaddress", "");
+
+            if (!device.equals("")) {
+                mHeartMonitorBonded = true;
+                mHeartrateMonitor.setDeviceID(device);
+                mHeartrateMonitor.setConnectRetry(true);
+                mHeartrateMonitor.start();
+                interval = HR_INTERVAL;
+            }
+
+        }
+
+        mCollectingHeartRate = true;
+
+    }
+
+    public void stopCollection() {
+        if (mCollectingHeartRate) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (mHeartMonitorBonded) {
+                    mHeartrateMonitor.stop();
+                }
+            }
+
+            mCollectingHeartRate = false;
+
+        }
+    }
+
+
+
+
     /** method for clients */
 
 
@@ -141,9 +249,21 @@ public class StepService extends Service {
 
         Intent intent = new Intent();
         try {
-            intent.setAction(BROADCAST_INTENT);
+            intent.setAction(BROADCAST_INTENT_STEPS);
             intent.putExtra("steps",step);
             mContext.sendBroadcast(intent);
+        } catch (Exception e) {
+            Log.e("StopService", e.getMessage());
+        }
+
+    }
+
+    public void broadcastHeartRate(){
+        Intent intent_hr = new Intent();
+        try {
+            intent_hr.setAction(BROADCAST_INTENT_HEART_RATE);
+            intent_hr.putExtra("heartrate", heart_rate);
+            mContext.sendBroadcast(intent_hr);
         } catch (Exception e) {
             Log.e("StopService", e.getMessage());
         }

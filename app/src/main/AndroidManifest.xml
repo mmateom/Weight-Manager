@@ -132,7 +132,6 @@
             android:name=".StepService"
             android:screenOrientation="portrait" />
         <service android:name=".utility.ExerciseNotifService" />
-        <service android:name=".BluetoothLeService" />
 
         <receiver
             android:name=".WeightNotifBootReceiver"
@@ -160,6 +159,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ActivityTracker"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -169,14 +169,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".IntroActivity" />
-        <activity android:name=".DeviceScanActivity">
+        <activity android:name=".BluetoothDeviceActivity"
+            android:parentActivityName=".PreferencesList"
+            android:screenOrientation="portrait">
         <intent-filter>
-            <action android:name="com.mikel.poseidon.DeviceScanActivity" />
+            <action android:name="com.mikel.poseidon.BluetoothDeviceActivity" />
 
             <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
         </activity>
-        <activity android:name=".DeviceControlActivity"/>
 
     </application>
 

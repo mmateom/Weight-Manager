@@ -67,7 +67,7 @@
         android:key="bluetooth"
         android:layout="@layout/preference_layout"
         android:defaultValue="1">
-        <intent android:action="com.mikel.poseidon.DeviceScanActivity"/>
+        <intent android:action="com.mikel.poseidon.BluetoothDeviceActivity"/>
     </Preference>
     <Preference android:title="Connect to Fitbit"
         android:summary="This will retrive your weight data from your scale"

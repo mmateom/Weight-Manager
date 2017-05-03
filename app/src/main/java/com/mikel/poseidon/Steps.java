@@ -66,7 +66,7 @@ public class Steps extends AppCompatActivity {
 
     ArrayList<Long> stepArray;
     Cursor allsteps;
-    private TextView mStepsTextView, caloriesText, tvChron;
+    private TextView mStepsTextView, caloriesText, tvChron, mHeartRateTv;
 
     long number;
     private BroadcastReceiver mStepsReceiver;
@@ -111,6 +111,7 @@ public class Steps extends AppCompatActivity {
 
     SharedPreferences preferences;
     NotificationManager nm;
+    Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +153,8 @@ public class Steps extends AppCompatActivity {
 
         tvChron = (TextView)findViewById(tv_chr);
 
+        mHeartRateTv =  (TextView) findViewById(R.id.heart_rate);
+
 
 
 
@@ -178,6 +181,7 @@ public class Steps extends AppCompatActivity {
             mStepsTextView.setText("0");
         }
 
+//        t.start();
         Intent intent = new Intent(this, StepService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
@@ -200,25 +204,41 @@ public class Steps extends AppCompatActivity {
         mStepsReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                final long steps = intent.getLongExtra("steps", 0);
-                number = steps;
+                final String action = intent.getAction();
 
-                ko = number - ko;
+                if (StepService.BROADCAST_INTENT_STEPS.equals(action) ) {
+                    final long steps = intent.getLongExtra("steps", 0);
+                    number = steps;
 
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mStepsTextView.setText(String.valueOf(steps));
+                    ko = number - ko;
 
 
-                    }
-                });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mStepsTextView.setText(String.valueOf(steps));
+
+
+                        }
+                    });
+                } else if (StepService.BROADCAST_INTENT_HEART_RATE.equals(action)) {
+                    final long hr = intent.getIntExtra("heartrate", 0);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mHeartRateTv.setText(String.valueOf(hr));
+
+
+                        }
+                    });
+                }
+
             }
         };
 
-        mContext.registerReceiver(mStepsReceiver, new IntentFilter(StepService.BROADCAST_INTENT));
-
+        mContext.registerReceiver(mStepsReceiver, makeStepServiceIntentFilter());
+        //mContext.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
     }
 
 
@@ -232,10 +252,13 @@ public class Steps extends AppCompatActivity {
 
         // Bind to LocalService
         mService.getSteps();
+        mService.getHR();
         createNotification();
         //start chronometer
         startChrono();
-        Thread t = new Thread() {
+
+        //TODO: POR QUÉ CREO UN NUEVO THREAD???
+        t = new Thread() {
 
             @Override
             public void run() {
@@ -267,7 +290,7 @@ public class Steps extends AppCompatActivity {
         t.start();
 
 
-        Toast.makeText(this, "COUNTING YOUR STEPS", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "TRACKING ACTIVITY", Toast.LENGTH_LONG).show();
     }
 
 
@@ -280,8 +303,10 @@ public class Steps extends AppCompatActivity {
 
             //mContext.unregisterReceiver(mStepsReceiver);
             mService.stopCounting();
+            mService.stopCollection();
             cancelNotification();
             //stop chronometer
+  //          t.interrupt();
             stopChrono();
             //myDB.addDataSteps(tvChron.getText().toString(), getCalories(getLastWeight(), activity),  ko);
             myDB.addDataSteps(tvChron.getText().toString(), Double.parseDouble(caloriesText.getText().toString()),  ko);
@@ -291,7 +316,7 @@ public class Steps extends AppCompatActivity {
             /**Maybe create another button with: tvChron.setText("00:00:00");**/
             //caloriesText.setText(String.valueOf(getCalories(getLastWeight(), activity)));
 
-            Toast.makeText(this, "Step counter STOPPED", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "TRACKING STOPPED", Toast.LENGTH_LONG).show();
         } else {
 
             Toast.makeText(this, "Currently stopped", Toast.LENGTH_SHORT).show();
@@ -628,6 +653,14 @@ public class Steps extends AppCompatActivity {
     }
 
 
+    //// Intent filter for StepService broadcast intents
+
+    private static IntentFilter makeStepServiceIntentFilter() {
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(StepService.BROADCAST_INTENT_STEPS);
+        intentFilter.addAction(StepService.BROADCAST_INTENT_HEART_RATE);
+        return intentFilter;
+    }
 
 }
 

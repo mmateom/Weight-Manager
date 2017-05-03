@@ -196,7 +196,7 @@
         android:layout_below="@+id/linearLayout9"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="HEART RATE" />
 
 
     <!-- <Button
