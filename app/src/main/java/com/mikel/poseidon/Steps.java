@@ -12,6 +12,8 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -75,6 +77,8 @@ public class Steps extends AppCompatActivity {
     private Context context;
 
     private String LOG_TAG = "Which activity";
+    private boolean isConnected;
+    private int hr;
 
 
 
@@ -104,6 +108,8 @@ public class Steps extends AppCompatActivity {
 
     public static final String STEPS = "STEPS";
     private int mHeight;
+    private String mGender;
+    private int mAge;
 
     //
     String activity;
@@ -126,6 +132,9 @@ public class Steps extends AppCompatActivity {
 
         preferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE);
         activity = preferences.getString(ACTIVITY, "");
+        mGender = preferences.getString("gender_key", "");
+        mAge = preferences.getInt("age_key", 0);
+
 
         nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -222,7 +231,13 @@ public class Steps extends AppCompatActivity {
                         }
                     });
                 } else if (StepService.BROADCAST_INTENT_HEART_RATE.equals(action)) {
-                    final long hr = intent.getIntExtra("heartrate", 0);
+                    hr = intent.getIntExtra("heartrate", 0);
+
+                    //check heart rate
+                    detectHighHR(activity, hr);
+
+                    //get boolean, check if HR monitor connected
+                    isConnected = intent.getBooleanExtra("isConnected", true);
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -276,8 +291,15 @@ public class Steps extends AppCompatActivity {
                                 calories = getCalories(getLastWeight(), activity);
                                 }*/
                                 double calories;
-                                calories = getCalories(getLastWeight(), activity);
-                                caloriesText.setText(String.valueOf(calories));
+                                if (!isConnected){
+                                    calories = getCalories(getLastWeight(), activity);
+                                    caloriesText.setText(String.valueOf(calories));
+                                    Log.e("BLE monitor ON", String.valueOf(isConnected));
+                                }else {
+                                    calories = getCaloriesHR(getLastWeight(), mAge, hr, mGender);
+                                    caloriesText.setText(String.valueOf(calories));
+                                    Log.e("BLE monitor ON", String.valueOf(isConnected));
+                                }
                             }
                         });
                     }
@@ -399,18 +421,23 @@ public class Steps extends AppCompatActivity {
 
         double met = 0;
 
-        if (activity.equals("walk")){
-            met = 3.5;
-            Log.e(LOG_TAG, "Walking");
-        }else if(activity.equals("run")){
-            met = 7;
-            Log.e(LOG_TAG, "Running");
-        }else if(activity.equals("swim")){
-            met = 5.8;
-            Log.e(LOG_TAG, "Swimming");
-        }else if (activity.equals("dance")){
-            met = 5;
-            Log.e(LOG_TAG, "Dancing");
+        switch (activity) {
+            case "walk":
+                met = 3.5;
+                Log.e(LOG_TAG, "Walking");
+                break;
+            case "run":
+                met = 7;
+                Log.e(LOG_TAG, "Running");
+                break;
+            case "swim":
+                met = 5.8;
+                Log.e(LOG_TAG, "Swimming");
+                break;
+            case "dance":
+                met = 5;
+                Log.e(LOG_TAG, "Dancing");
+                break;
         }
 
         double caloriesMin = (met * 3.5 * weight)/200;  //[(MET value) x 3.5 x (weight in kg)]/200
@@ -418,6 +445,35 @@ public class Steps extends AppCompatActivity {
         return round(caloriesMin * walkTime, 0);
     }
 
+    private double getCaloriesHR (double W, int A, int HR, String gender){
+
+        //W = weight
+        //A = age
+        //T = time in HOURS
+        //HR = heart rate =  beats/minute
+
+        double caloriesHR = 0;
+        if (units == 1){
+            W = W * 0.453592; //from lbs to kg
+        }
+
+        double T = getMinutes(tvChron.getText().toString());
+
+        switch (gender){
+            case "Male":
+                caloriesHR = ((-55.0969 + (0.6309 * HR) + (0.1988 * W) + (0.2017 * A))/4.184) * T;
+                return round(caloriesHR, 0);
+
+            case "Female":
+                caloriesHR += ((-20.4022 + (0.4472 * HR) - (0.1263 * W) + (0.074 * A))/4.184) * 60 * T;
+                return round(caloriesHR, 0);
+
+            default: return -1;
+
+        }
+
+
+    }
 
     private double getLastWeight() {
 
@@ -597,6 +653,26 @@ public class Steps extends AppCompatActivity {
 
     }
 
+    public static double getHours(String hourFormat) {
+
+        double hours = 0;
+        String[] split = hourFormat.split(":");
+
+        try {
+
+            hours += Double.parseDouble(split[0]);
+            hours += Double.parseDouble(split[1])/60;
+            hours += Double.parseDouble(split[2])/3600;
+
+            Log.e("MINUTES", String.valueOf(hours));
+            return hours;
+
+        } catch (Exception e) {
+            return -1;
+        }
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -646,6 +722,57 @@ public class Steps extends AppCompatActivity {
 
         nm.cancel(1);
     }
+
+
+    //=======================================================
+    //                CREATE WARNING NOTIFICATION
+    //=======================================================
+    public void warningNotification() {
+
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setContentTitle("BE CAREFUL! - HIGH HEART RATE")
+                .setContentText("STOP OR REDUCE SPEED")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setOngoing(false)
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setSound(soundUri);
+
+        Intent resultIntent = new Intent(this, Steps.class);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, 0);
+        builder.setContentIntent(resultPendingIntent);
+
+        //startForeground(1, builder.build());
+
+        builder.setContentIntent(resultPendingIntent);
+        Notification n = builder.build();
+
+        nm.notify(1, n);
+
+    }
+
+    private void detectHighHR(String activity, int bpm){
+        switch (activity) {
+            case "walk":
+                if(bpm > 120){
+                    warningNotification();
+                }
+                break;
+            case "run":
+                if(bpm > 140){
+                    warningNotification();
+                }
+                break;
+
+        }
+
+    }
+
+
+
 
     @Override
     public void onBackPressed() {

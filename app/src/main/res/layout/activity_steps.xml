@@ -27,17 +27,16 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Calories"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp"
         android:layout_alignBaseline="@+id/textView5"
         android:layout_alignBottom="@+id/textView5"
-        android:layout_alignRight="@+id/tv_chr"
-        android:layout_alignEnd="@+id/tv_chr" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="30dp"
+        android:drawableBottom="@drawable/calorie"
+        android:text="Calories"
+        android:textColor="@color/colorPrimaryDark" />
 
     <LinearLayout
         android:layout_width="230dp"
@@ -94,12 +93,12 @@
         android:layout_width="300dp"
         android:layout_height="35dp"
         android:id="@+id/linearLayout9"
-        android:layout_below="@+id/p"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true">
         <TextView
             android:text="0"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:id="@+id/steps_counting"
             android:textSize="30sp"
@@ -112,8 +111,19 @@
             android:id="@+id/calories"
             android:textSize="30sp"
             android:gravity="center"
+            android:textColor="@color/ToolbarTextColor"/>
+        <TextView
+            android:id="@+id/heart_rate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout9"
+            android:layout_centerHorizontal="true"
+            android:textSize="30sp"
+            android:gravity="center"
             android:textColor="@color/ToolbarTextColor"
-   />
+            android:text="0" />
+
+
 
     </LinearLayout>
 
@@ -127,19 +137,18 @@
         android:background="@color/ToolbarTextColor"
         android:textColor="@color/HeaderColor"
         android:textStyle="bold"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/linearLayout9"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="36dp" />
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="105dp"
+        android:layout_height="98dp"
         android:weightSum="2"
         android:id="@+id/linearLayout8"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="11dp">
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/q"
+        android:layout_centerHorizontal="true">
 
         <Button
             android:text=""
@@ -157,10 +166,10 @@
         <Button
             android:text=""
             android:drawableTop="@drawable/stop"
-            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/stop"
+            android:background="@android:color/transparent"
             android:onClick="onStopService"
             android:layout_marginLeft="50dp"
             android:layout_marginStart="50dp"
@@ -175,28 +184,54 @@
         android:id="@+id/tv_chr"
         android:textSize="50sp"
         android:textColor="@color/ToolbarTextColor"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/a"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Steps"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView5"
+        android:layout_alignStart="@+id/linearLayout8"
         android:layout_below="@+id/p"
-        android:layout_alignLeft="@+id/tv_chr"
-        android:layout_alignStart="@+id/tv_chr"
-        android:layout_marginTop="20dp" />
+        android:drawableBottom="@drawable/stp"
+        android:paddingTop="10dp"
+        android:text="Steps"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/heart_rate"
+        android:id="@+id/textView900"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout9"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="HEART RATE" />
+        android:layout_below="@+id/p"
+        android:layout_marginStart="9dp"
+        android:layout_toEndOf="@+id/textView6"
+        android:drawableBottom="@drawable/heart"
+        android:paddingTop="10dp"
+        android:text="Heart Rate"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tv_chr"
+        android:text="Start"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView6"
+        android:text="Stop"
+        android:textColor="@color/Risk"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 
     <!-- <Button

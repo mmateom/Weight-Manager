@@ -215,6 +215,7 @@ public class StepService extends Service {
                 mHeartMonitorBonded = true;
                 mHeartrateMonitor.setDeviceID(device);
                 mHeartrateMonitor.setConnectRetry(true);
+
                 mHeartrateMonitor.start();
                 interval = HR_INTERVAL;
             }
@@ -263,6 +264,7 @@ public class StepService extends Service {
         try {
             intent_hr.setAction(BROADCAST_INTENT_HEART_RATE);
             intent_hr.putExtra("heartrate", heart_rate);
+            intent_hr.putExtra("isConnected", mHeartMonitorBonded);
             mContext.sendBroadcast(intent_hr);
         } catch (Exception e) {
             Log.e("StopService", e.getMessage());
