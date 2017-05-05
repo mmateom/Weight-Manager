@@ -169,16 +169,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".IntroActivity" />
-        <activity android:name=".BluetoothDeviceActivity"
+        <activity
+            android:name=".BluetoothDeviceActivity"
             android:parentActivityName=".PreferencesList"
             android:screenOrientation="portrait">
-        <intent-filter>
-            <action android:name="com.mikel.poseidon.BluetoothDeviceActivity" />
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.BluetoothDeviceActivity" />
 
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

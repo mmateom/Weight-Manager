@@ -230,6 +230,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("delete from " + TABLE_NAME);
     }
 
+    public void deleteSingleWeight(String position){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String table = "Weight_Summary";
+        String whereClause = "_id=?";
+        String[] whereArgs = new String[] { position };
+        db.delete(table, whereClause, whereArgs);
+
+    }
+
 
 
     //method to get contents from the database

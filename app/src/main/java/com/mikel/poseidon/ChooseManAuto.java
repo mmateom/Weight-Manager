@@ -1,18 +1,22 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
+import static com.mikel.poseidon.UserProfile.dpToPx;
 
 public class ChooseManAuto extends AppCompatActivity {
 
@@ -68,6 +72,26 @@ public class ChooseManAuto extends AppCompatActivity {
 
 
 
+
+    }
+
+    public void showGetAutomaticallyInfo(View view){
+
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.get_auto_info, null);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_choose_man_auto);
+
+        PopupWindow popupWindow = new PopupWindow(container, dpToPx(360), dpToPx(400), true); //true allows us to close window by tapping outside
+        popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(0), dpToPx(120));
+
+        //shut popup outside window
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                popupWindow.dismiss();
+                return false;
+            }
+        });
 
     }
 

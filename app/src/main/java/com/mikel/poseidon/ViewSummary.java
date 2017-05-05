@@ -1,12 +1,15 @@
 package com.mikel.poseidon;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -84,7 +87,51 @@ public class ViewSummary extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCursorAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ViewSummary.this);
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage("Delete item?");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Delete entry from
+                        myDB.deleteSingleWeight(String.valueOf(id));
+
+
+                        // Refresh activity
+                        Intent intent = getIntent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        startActivity(intent);
+
+                        Toast.makeText(getApplicationContext(), "Weight entry deleted", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
+
+            }
+
+        });
+
+
+        myCursorAdapter.notifyDataSetChanged();
+
+
+
+
     }
+
+
 
 
 

@@ -25,6 +25,8 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
@@ -55,6 +57,20 @@ public class BluetoothDeviceActivity extends AppCompatActivity {
         mFragManager = getSupportFragmentManager();
         setContentView(R.layout.activity_bluetooth);
 
+        //callback to home button
+        ImageButton home_buttod = (ImageButton) findViewById(R.id.homebutton);
+        home_buttod.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+                                              Intent home_inten = new Intent(BluetoothDeviceActivity.this, MainActivity.class);
+                                              //home_intent5.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                              home_inten.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                              startActivity(home_inten);
+                                          }
+                                      }
+
+
+        );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)

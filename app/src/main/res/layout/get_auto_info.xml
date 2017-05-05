@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="355dp"
+    android:background="@drawable/popup">
+
+    <TextView
+        android:text="Get Automatically"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAllCaps="false"
+        android:textSize="27dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        tools:textStyle="bold" />
+    <TextView
+        android:text="You can get weight data automatically if you have a Fitbit Aria Scale. \n\nIf so, you can sign in your Fitbit account going to:\n\nPreferences --> Connect to Fitbit"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView50"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+        android:textColor="#58857e"
+        android:gravity="left"
+        tools:textStyle="bold"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <TextView
+        android:text="Tap to exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAllCaps="true"
+        android:textSize="20dp"
+        android:textColor="#58857e"
+        android:gravity="center"
+        tools:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/textView50"
+        android:layout_centerHorizontal="true">
+
+    </TextView>
+</RelativeLayout>
