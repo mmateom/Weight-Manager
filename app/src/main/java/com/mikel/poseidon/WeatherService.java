@@ -128,7 +128,7 @@ public class WeatherService extends Service {
                         String w = stringBuilder.toString();
 
                         if(weathenNotifOn) {
-                            if ((hour == 23) || (hour == 12) || (hour == 18)) {
+                            if ((hour == 9) || (hour == 12) || (hour == 18)) {
                                 if ((w.equals("Cloudy") || w.equals("Clear")) && temp > minT ) {
                                     goodWeatherNotif(w, temp, unit);
                                 } else if ((w.equals("Cloudy") || w.equals("Clear") && temp < minT)){

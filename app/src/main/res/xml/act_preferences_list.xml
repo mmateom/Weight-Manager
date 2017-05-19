@@ -52,7 +52,7 @@
     </Preference>
 
     <Preference android:title="Reminders"
-        android:summary="Set specific date and time for weighting"
+        android:summary="Set specific date and time for weighing"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="reminders"
