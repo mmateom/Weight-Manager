@@ -155,20 +155,7 @@ public class MainActivity extends AppCompatActivity {
         mSeconds = calendar.get(Calendar.SECOND);
         mMin = calendar.get(Calendar.MINUTE);
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
-        String hour = String.valueOf(mHour);
-        String minutes = String.valueOf(mMin);
-        String seconds = String.valueOf(mSeconds);
-        String time = hour + ":" + minutes + ":" + seconds;
 
-
-        SimpleDateFormat formatter= new SimpleDateFormat("HH:mm:ss");
-        Date date_f = null;
-        try {
-            date_f = formatter.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String date_final = formatter.format(date_f);
 
         //Log.e("TIIIIMEEEEE", date_final);
 

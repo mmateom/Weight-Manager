@@ -33,7 +33,8 @@ public class WeatherReceiver extends BroadcastReceiver {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             int h = 1;
-            long frequency = h * 60 * 60 * 1000; // in ms
+            int m = 60;
+            long frequency = h * m * 60 * 1000; // in ms
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), frequency, pendingIntent);
 
 

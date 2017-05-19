@@ -108,12 +108,15 @@ public class WeatherService extends Service {
 
 
                         float temp = 0;
+                        String unit = "";
                         switch (tempUnit){
                             case "celsius":
                                 temp = weather.getTemperature(Weather.CELSIUS);
+                                unit = "ºC";
                                 break;
                             case "faren":
                                 temp = weather.getTemperature(Weather.FAHRENHEIT);
+                                unit = "ºF";
                                 break;
                         }
 
@@ -125,19 +128,19 @@ public class WeatherService extends Service {
                         String w = stringBuilder.toString();
 
                         if(weathenNotifOn) {
-                            if ((hour == 12 && min == 0) || (hour == 18 && min == 0)) {
+                            if ((hour == 23) || (hour == 12) || (hour == 18)) {
                                 if ((w.equals("Cloudy") || w.equals("Clear")) && temp > minT ) {
-                                    goodWeatherNotif();
+                                    goodWeatherNotif(w, temp, unit);
                                 } else if ((w.equals("Cloudy") || w.equals("Clear") && temp < minT)){
-                                    badWeatherNotif();
+                                    badWeatherNotif(w, temp, unit);
 
                                 }else if ((w.equals("Cloudy") || w.equals("Clear")) && temp < maxT ){
-                                    hotWeatherNotif();
+                                    hotWeatherNotif(w, temp, unit);
                                 }
 
                                 } else if (w.equals("Icy") || w.equals("Stormy") || w.equals("Snowy") || w.equals("Rainy") || w.equals("Windy")) {
                                     Log.e(TAG + "NO", String.valueOf(stringBuilder));
-                                    badWeatherNotif();
+                                    badWeatherNotif(w, temp, unit);
                                 } else if (w.equals("Hazy") || w.equals("Foggy")) {
                                     foggyNotif();
 
@@ -186,7 +189,7 @@ public class WeatherService extends Service {
         nm.notify(5, n);
     }
 
-    private void badWeatherNotif() {
+    private void badWeatherNotif(String w, float temp, String unit) {
         NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //Define sound URI
@@ -195,7 +198,7 @@ public class WeatherService extends Service {
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(context)
                 .setContentTitle("Bad weather today to exercise")
-                .setContentText("Weight Manager")
+                .setContentText(w + " -" + String.format("%.0f", temp) + unit)
                 .setLargeIcon(bitmapIcon())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
@@ -237,7 +240,7 @@ public class WeatherService extends Service {
                 return "Unknown";
         }
     }
-    private void goodWeatherNotif(){
+    private void goodWeatherNotif(String w, float temp, String unit){
 
         NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -247,7 +250,7 @@ public class WeatherService extends Service {
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(context)
                 .setContentTitle("Good weather today to exercise!")
-                .setContentText("Weight Manager")
+                .setContentText(w + " -" + String.format("%.0f", temp) + unit)
                 .setLargeIcon(bitmapIcon())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
@@ -264,7 +267,7 @@ public class WeatherService extends Service {
         nm.notify(3, n);
     }
 
-    private void hotWeatherNotif() {
+    private void hotWeatherNotif(String w, float temp, String unit) {
         NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //Define sound URI
@@ -273,7 +276,7 @@ public class WeatherService extends Service {
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(context)
                 .setContentTitle("Very hot today to exercise")
-                .setContentText("Weight Manager")
+                .setContentText(w + " -" + String.format("%.0f", temp) + unit)
                 .setLargeIcon(bitmapIcon())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
