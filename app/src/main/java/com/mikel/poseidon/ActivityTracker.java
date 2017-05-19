@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.mikel.poseidon.utility.Chronometer;
 
-import static com.mikel.poseidon.R.id.measure_weight;
+
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
-import static com.mikel.poseidon.Steps.CHRONO_WAS_RUNNING;
 
 public class ActivityTracker extends AppCompatActivity {
 

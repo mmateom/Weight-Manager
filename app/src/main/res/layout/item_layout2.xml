@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="35dp">
+    android:layout_height="40dp">
 
     <TextView
         android:text="TextView"
@@ -21,8 +22,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/weight_item"
         android:layout_marginRight="54dp"
-        android:layout_marginEnd="54dp"
         android:layout_alignBaseline="@+id/date_item"
         android:layout_alignBottom="@+id/date_item"
-        android:layout_alignParentEnd="true" />
+        android:layout_toStartOf="@+id/imageView4"
+        android:layout_marginEnd="17dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="13dp"
+        app:srcCompat="@drawable/delete" />
+
+
 </RelativeLayout>

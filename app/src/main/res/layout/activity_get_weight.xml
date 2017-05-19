@@ -27,91 +27,42 @@
 
 
     <LinearLayout
-        android:layout_width="150dp"
-        android:layout_height="135dp"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout6"
-        android:weightSum="1"
-        android:layout_marginLeft="31dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="30dp"
-        android:layout_alignTop="@+id/linearLayout5"
-        android:layout_toRightOf="@+id/linearLayout5"
-        android:layout_toEndOf="@+id/linearLayout5">
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:textColor="@color/Good"
-            android:layout_height="40dp"
-            android:inputType="numberDecimal"
-            android:hint="Enter weight"
-            android:id="@+id/editTextWeight"
-            android:background="@drawable/enter_weight"
-            android:layout_weight="0.01"
-            android:gravity="center"
-
-
-            android:textStyle="normal|bold"
-            android:textSize="20sp" />
-
-        <TextView
-            android:hint="Enter date"
-            android:gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.00"
-            android:background="@drawable/enter_weight"
-            android:layout_marginTop="55dp"
-            android:id="@+id/yourdate"
-            android:layout_gravity="center"
-            android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
-            android:textColor="@color/Good"
-            android:textStyle="normal|bold"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="200dp"
+        android:layout_width="155dp"
+        android:layout_height="150dp"
         android:orientation="vertical"
         android:weightSum="1"
         android:id="@+id/linearLayout5"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="67dp"
         android:layout_below="@+id/textView4"
-        android:layout_toLeftOf="@+id/ok_button"
-        android:layout_toStartOf="@+id/ok_button">
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:text="Weight"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:id="@+id/textView10"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:gravity="center"
-            android:layout_weight="0.50"
+            android:layout_weight="0.10"
             android:textStyle="normal|bold"
             android:textColor="@color/ToolbarTextColor"
             android:layout_marginRight="36dp"
             android:layout_marginEnd="36dp"
              />
 
-        <TextView
-            android:text="Date"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center"
-            android:id="@+id/t"
-            android:layout_weight="0.5"
-            android:textSize="18sp"
+        <EditText
+            android:id="@+id/editTextWeight"
+            android:layout_width="155dp"
+            android:layout_marginTop="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/enter_weight"
             android:gravity="center"
-            android:textStyle="normal|bold"
-            android:textColor="@color/ToolbarTextColor"
-
-            />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:hint="Enter weight"
+            android:inputType="numberDecimal"
+            android:textColor="@color/Good" />
 
 
     </LinearLayout>
@@ -131,14 +82,13 @@
         android:text="Kg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:id="@+id/unit_get_weight"
-        android:layout_alignTop="@+id/linearLayout6"
-        android:layout_toRightOf="@+id/linearLayout6"
-        android:layout_toEndOf="@+id/linearLayout6"
         android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:textSize="16sp" />
+        android:layout_marginStart="19dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="25dp"
+        android:layout_alignBottom="@+id/linearLayout5"
+        android:layout_toEndOf="@+id/linearLayout5" />
 
     <!--<TextView
         android:layout_width="200dp"

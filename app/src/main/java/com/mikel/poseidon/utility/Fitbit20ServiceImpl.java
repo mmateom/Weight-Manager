@@ -3,7 +3,6 @@ package com.mikel.poseidon.utility;
 import com.github.scribejava.core.builder.api.DefaultApi20;
 import com.github.scribejava.core.model.AbstractRequest;
 import com.github.scribejava.core.model.OAuthConfig;
-import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.github.scribejava.core.services.Base64Encoder;
 

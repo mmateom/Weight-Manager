@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup">
+
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="27dp"
+        android:textColor="@color/textColor"
+        android:gravity="center"
+        android:layout_marginTop="48dp"
+        android:textStyle="bold"
+        android:text="What are  CALORIES?"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:layout_marginTop="12dp"
+        android:textSize="20sp"
+        android:text="When you eat something, \nit gives you energy.\n\nThis energy is measured in 'CALORIES'.
+      \n\nWhen you exercise you use calories. You store the calories you don't use as fat.\n\nYou can measure calories more accurately with a heart rate monitor."
+        android:layout_below="@+id/textView37"
+        android:layout_alignStart="@+id/textView37"
+        android:layout_marginBottom="20dp"/>
+
+
+
+</RelativeLayout>

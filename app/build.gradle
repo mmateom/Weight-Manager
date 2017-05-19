@@ -5,16 +5,32 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
+
+    productFlavors {
+        // Define separate dev and prod product flavors.
+        dev {
+            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+            // to pre-dex each module and produce an APK that can be tested on
+            // Android Lollipop without time consuming dex merging processes.
+            minSdkVersion 21
+        }
+        prod {
+            // The actual minSdkVersion for the application.
+            minSdkVersion 18
+        }
+    }
+
     defaultConfig {
         applicationId "com.mikel.poseidon"
-        minSdkVersion 18
+        //minSdkVersion 18
         targetSdkVersion 25
-        versionCode 7
-        versionName "1.1.6"
+        versionCode 8
+        versionName "1.1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         jackOptions {
             enabled true
         }
+        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -50,5 +66,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.paolorotolo:appintro:4.1.0'
+    compile 'com.google.android.gms:play-services-awareness:10.2.4'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
 }

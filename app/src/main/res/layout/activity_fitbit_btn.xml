@@ -13,36 +13,23 @@
 
     <Button
         android:text="CONNECT TO FITBIT"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
-        android:id="@+id/fitbitbtn"/>
-
-    <Button
-        android:text="Retrieve data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fitbitbtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:id="@+id/retrievebtn" />
-
-    <TextView
-        android:id="@+id/tv_profile"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="108dp"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:id="@+id/fitbitbtn"
+        android:layout_below="@+id/include"
+        android:layout_alignStart="@+id/disconnect" />
 
     <Button
         android:text="disconnect"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/retrievebtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:id="@+id/disconnect" />
+        android:layout_marginTop="102dp"
+        android:background="@drawable/enter_weight_header"
+        android:textColor="@color/HeaderColor"
+        android:id="@+id/disconnect"
+        android:layout_below="@+id/fitbitbtn"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

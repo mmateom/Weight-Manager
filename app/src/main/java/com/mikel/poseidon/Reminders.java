@@ -1,11 +1,13 @@
 package com.mikel.poseidon;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +21,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import static android.R.attr.value;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class Reminders extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
@@ -33,6 +34,7 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
     static String hours_key = "hours_key";
     String frequency_key = "frequency_key";
 
+    private final static String TAG = Reminders.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,41 +131,45 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
         TimePickerDialog mTimePicker;
 
 
-        mTimePicker = new TimePickerDialog(Reminders.this, (view, hourOfDay, minute1) -> {
+        mTimePicker = new TimePickerDialog(Reminders.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String format = "";
 
-            String format = "";
+                //save on sharepreferences
+                SharedPreferences.Editor timeEditor = mSharedPrefs.edit();
+                timeEditor.putInt(minutes_key, minute);
+                timeEditor.putInt(hours_key, hourOfDay);
+                timeEditor.apply();
 
-            //save on sharepreferences
-            SharedPreferences.Editor timeEditor = mSharedPrefs.edit();
-            timeEditor.putInt(minutes_key, hourOfDay);
-            timeEditor.putInt(hours_key, minute1);
-            timeEditor.apply();
+                if (hourOfDay == 0) {
+                    hourOfDay += 12;
+                    format = "AM";
+                } else if (hourOfDay == 12) {
+                    format = "PM";
+                } else if (hourOfDay > 12) {
+                    hourOfDay -= 12;
+                    format = "PM";
+                } else {
+                    format = "AM";
+                }
 
-            if (hourOfDay == 0) {
-                hourOfDay += 12;
-                format = "AM";
-            } else if (hourOfDay == 12) {
-                format = "PM";
-            } else if (hourOfDay > 12) {
-                hourOfDay -= 12;
-                format = "PM";
-            } else {
-                format = "AM";
+
+                //set on textview
+                String output = String.format("%02d:%02d " + format, hourOfDay, minute); //this does zero padding on minutes
+                remindTime.setText(output);
+                //remindTime.setText(new StringBuilder().append(selectedHour).append(" : ").append(selectedMinute)
+                // .append(" ").append(format));
+
             }
-
-
-            //set on textview
-            String output = String.format("%02d:%02d " + format, hourOfDay, minute1); //this does zero padding on minutes
-            remindTime.setText(output);
-            //remindTime.setText(new StringBuilder().append(selectedHour).append(" : ").append(selectedMinute)
-            // .append(" ").append(format));
-
         }, hour, minute, false);//24 hour time disabled
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
 
 
     }
+
+
 
 
     @Override
@@ -201,9 +207,40 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
 
     public void save() {
 
-        Intent mainIntent = new Intent(Reminders.this, MainActivity.class);
-        startActivity(mainIntent);
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        Context context = getApplicationContext();
+
+        SharedPreferences mPrefs = context.getSharedPreferences(sharedPrefs, MODE_PRIVATE);
+        int min = mPrefs.getInt("minutes_key", -1);
+        int hour = mPrefs.getInt("hours_key", -1);
+        int frequency = mPrefs.getInt("frequency_key", -1);
+
+
+        if (min != -1) {
+
+            Log.e(TAG, hour + ":" + min);
+            Intent myIntent = new Intent(context, WeightNotifReceiver.class); //intent to BroadcastReveicer
+
+            //bindService(myIntent, mConnection, Context.BIND_AUTO_CREATE);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0); //wrap intent in a PendingIntent
+
+
+            //Schedule alarm
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MINUTE, min);
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            //calendar.add(Calendar.DAY_OF_YEAR, 1); //para que salga al día siguiente
+            //int interval = 1000*60*frequency;
+
+
+            //Alarm fires pendingIntent to BroadcastReceiver
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * frequency, pendingIntent);
+
+            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

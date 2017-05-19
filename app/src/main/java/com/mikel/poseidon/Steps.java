@@ -6,52 +6,44 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.PorterDuff;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.SystemClock;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
-import static android.R.attr.value;
-import static android.R.attr.x;
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
-import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 import static com.mikel.poseidon.ActivityTracker.ACTIVITY;
-import static com.mikel.poseidon.R.id.calories;
-import static com.mikel.poseidon.R.id.k;
-import static com.mikel.poseidon.R.id.start;
+
 import static com.mikel.poseidon.R.id.steps_counting;
-import static com.mikel.poseidon.R.id.stop;
 import static com.mikel.poseidon.R.id.tv_chr;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
+import static com.mikel.poseidon.UserProfile.dpToPx;
 
 public class Steps extends AppCompatActivity {
 
@@ -64,9 +56,7 @@ public class Steps extends AppCompatActivity {
 
     boolean mBound = false;
 
-    Calendar cal;
 
-    ArrayList<Long> stepArray;
     Cursor allsteps;
     private TextView mStepsTextView, caloriesText, tvChron, mHeartRateTv;
 
@@ -164,6 +154,32 @@ public class Steps extends AppCompatActivity {
 
         mHeartRateTv =  (TextView) findViewById(R.id.heart_rate);
 
+        FloatingActionButton infobtn = (FloatingActionButton) findViewById(R.id.fab);
+        infobtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.get_steps_info, null);
+                    RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_steps);
+
+                    PopupWindow popupWindow = new PopupWindow(container, dpToPx(360), dpToPx(450), true); //true allows us to close window by tapping outside
+                    popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(0), dpToPx(120));
+
+                    //shut popup outside window
+                    container.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            popupWindow.dismiss();
+                            return false;
+                        }
+                    });
+
+
+            }
+        });
+
 
 
 
@@ -190,9 +206,14 @@ public class Steps extends AppCompatActivity {
             mStepsTextView.setText("0");
         }
 
+
 //        t.start();
         Intent intent = new Intent(this, StepService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
+        if(!isConnected || !mBound){
+            hrmonitorDialog();
+        }//todo fix this
     }
 
     @Override
@@ -203,7 +224,10 @@ public class Steps extends AppCompatActivity {
         //Toast.makeText(this, "ON PAUSE", Toast.LENGTH_SHORT).show();
         saveInstance(); //save chrono instance
 
+
+
     }
+
 
 
 
@@ -315,6 +339,29 @@ public class Steps extends AppCompatActivity {
         Toast.makeText(this, "TRACKING ACTIVITY", Toast.LENGTH_LONG).show();
     }
 
+    public void hrmonitorDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Steps.this);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Do you want to use a Hear Rate monitor?");
+        alertDialog.setIcon(R.drawable.android);
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Refresh activity
+                Intent intent = new Intent(getApplicationContext(), BluetoothDeviceActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+
+
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
 
     public void onStopService(View v) {
 
@@ -375,7 +422,7 @@ public class Steps extends AppCompatActivity {
     // Calories calculation methods
     //==============================
 
-    private double getWalkingCalories(double weight, long stepsCount){
+    /*private double getWalkingCalories(double weight, long stepsCount){
 
         mHeight = mPrefs.getInt("height",0);
 
@@ -406,9 +453,9 @@ public class Steps extends AppCompatActivity {
 
             4.) "conversationFactor" = stepsCount (what the pedometer provides) / step_in_1_mile;
 
-            5.) CaloriesBurned = stepsCount * conversationFactor;*/
+            5.) CaloriesBurned = stepsCount * conversationFactor;
 
-    }
+    }*/
 
     //private double getCalories (int walkTime, double weight){
     private double getCalories (double weight, String activity){

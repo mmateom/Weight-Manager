@@ -1,15 +1,11 @@
 package com.mikel.poseidon;
 
-import android.Manifest;
-import android.app.Activity;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.Parcelable;
-import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,16 +14,13 @@ import android.widget.Button;
 
 import com.opencsv.CSVWriter;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import static com.mikel.poseidon.DBHelper.TABLE_NAME_STEPS;
+import java.io.File;
+
+import java.io.FileWriter;
+
+import java.util.ArrayList;
+
 
 public class SendDatabase extends AppCompatActivity {
 

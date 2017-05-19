@@ -5,33 +5,24 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.scribejava.apis.FacebookApi;
 import com.github.scribejava.core.builder.api.BaseApi;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.mikel.poseidon.utility.FitbitApi20;
 
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
 
-import java.io.IOException;
+
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
-import static com.mikel.poseidon.R.id.save;
-import static com.mikel.poseidon.R.id.tv_profile;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
-import static com.mikel.poseidon.Steps.CHRONO_WAS_RUNNING;
-import static com.mikel.poseidon.Steps.START_TIME;
-import static com.mikel.poseidon.Steps.TV_TIMER_TEXT;
-import static java.security.AccessController.getContext;
+
 
 public class FitbitBtnActivity extends AppCompatActivity {
 
@@ -41,6 +32,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
     SharedPreferences mPrefs;
     int mAge;
     String mGender;
+    private static final String TAG = FitbitBtnActivity.class.getName();
 
     private FitbitRepository repository;
 
@@ -87,12 +79,12 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
         );
 
-        RxSocialConnect.getTokenOAuth2(FitbitApi20.class)
+       /*RxSocialConnect.getTokenOAuth2(FitbitApi20.class)
                 .subscribe(token -> showToken(token),
                         error -> showError(error));
 
 
-        findViewById(R.id.retrievebtn).setOnClickListener(v -> {
+       findViewById(R.id.retrievebtn).setOnClickListener(v -> {
         Call<WeightArray>call = repository.getFitbitApi().getData();
                    call.enqueue(new Callback<WeightArray>() {
                        @Override
@@ -117,7 +109,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
                                TextView profile = (TextView)findViewById(tv_profile);
                                profile.setText(String.valueOf(nowWeight));
 
-                               myDB.addData(String.valueOf(mAge), mGender, nowWeight, String.valueOf(nowDate));
+                               //myDB.addData(String.valueOf(mAge), mGender, nowWeight, String.valueOf(nowDate));
 
                            }
 
@@ -141,7 +133,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
                                        FitbitBtnActivity.this.showUserProfile(user.toString());
                                    }
                                },
-                            error -> FitbitBtnActivity.this.showError(error));*/
+                            error -> FitbitBtnActivity.this.showError(error));
 
 
 
@@ -151,17 +143,19 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
 
 
-        );
+        );*/
     }
 
 
 
     private void showToken(OAuth2AccessToken oAuth2AccessToken) {
-        Toast.makeText(this, oAuth2AccessToken.getExpiresIn().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, oAuth2AccessToken.getExpiresIn().toString(), Toast.LENGTH_SHORT).show();
+        Log.i(TAG, oAuth2AccessToken.getExpiresIn().toString());
     }
     private void showError(Throwable error) {
-        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
-        System.out.println(error);
+        //Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
+        //System.out.println(error);
+        Log.e(TAG, String.valueOf(error));
     }
 
     void closeConnection(Class<? extends BaseApi> clazz) {
@@ -182,7 +176,7 @@ public class FitbitBtnActivity extends AppCompatActivity {
 
         RxSocialConnect.getTokenOAuth2(FitbitApi20.class).subscribe(token -> showToken(token),
                 error -> showError(error));
-        Log.e("on Resume", "on resume");
+        Log.e(TAG, "on resume");
         //setUpFitbit();
 
     }

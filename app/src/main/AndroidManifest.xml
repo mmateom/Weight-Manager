@@ -22,6 +22,10 @@
         android:label="Weight Manager"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:label">
+        <meta-data
+            android:name="com.google.android.awareness.API_KEY"
+            android:value="AIzaSyDzB5pnGg302WV7r5uUQ_DIDKn5_MwDT14" />
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -127,23 +131,50 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".WeatherNotificationsPrefs"
+            android:parentActivityName=".PreferencesList"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.mikel.poseidon.WeatherNotificationsPrefs" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".StepService"
             android:screenOrientation="portrait" />
         <service android:name=".utility.ExerciseNotifService" />
-
-        <receiver
-            android:name=".WeightNotifBootReceiver"
-            android:enabled="true"
-            android:exported="true">
+        <service android:name=".PermanentNService" />
+        <service
+            android:name=".WeatherService"
+            android:enabled="true" />
+        <receiver android:name=".WeightNotifReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <!-- Will not be called unless the application explicitly enables it -->
         <receiver
-            android:name=".WeightNotifReceiver"
-            android:process=":remote" />
+            android:name=".WeightNotifBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".WeatherReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".GetWeightFitbit"

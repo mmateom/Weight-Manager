@@ -7,21 +7,18 @@ import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
+
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
-import static android.R.attr.data;
-import static com.mikel.poseidon.R.id.currentWeightUnit;
 import static com.mikel.poseidon.R.id.summary_unit;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
@@ -78,7 +75,7 @@ public class ViewSummary extends AppCompatActivity {
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(
 
                 this,                           //Context
-                R.layout.item_layout, //Row layout template
+                R.layout.item_layout2, //Row layout template
                 data,                           //Cursor named 'data' gets all the content on DB
                 fromFieldNames,                 //DB column names
                 toViewIDs);                     //view IDs to put information in

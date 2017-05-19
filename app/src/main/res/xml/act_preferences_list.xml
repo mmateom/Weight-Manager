@@ -78,6 +78,15 @@
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.FitbitBtnActivity"/>
     </Preference>
+    <Preference android:title="Weather notifications"
+        android:summary="Will advice user to do exercise or not depending on weather"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:key="weatherNotifications"
+        android:layout="@layout/preference_layout"
+        android:defaultValue="1">
+        <intent android:action="com.mikel.poseidon.WeatherNotificationsPrefs"/>
+    </Preference>
     <Preference android:title="Send data"
         android:summary="Send your data to the researcher"
         android:layout_height="match_parent"

@@ -49,7 +49,9 @@ public class ExerciseNotifService extends Service {
         Notification n = weightNotif.build();
 
         nm.notify(1, n);
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
+
+
     }
 
     @Override

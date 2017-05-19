@@ -3,12 +3,10 @@ package com.mikel.poseidon;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.Cursor;
+
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,12 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
-import static com.mikel.poseidon.R.id.all;
-import static com.mikel.poseidon.R.id.allthelimits;
-import static com.mikel.poseidon.R.id.delete_2;
-import static com.mikel.poseidon.R.id.delete_steps;
 import static com.mikel.poseidon.R.id.goodlimits;
 import static com.mikel.poseidon.R.id.info;
 import static com.mikel.poseidon.R.id.obese;

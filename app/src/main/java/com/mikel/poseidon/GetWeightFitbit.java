@@ -8,17 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
+
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mikel.poseidon.utility.FitbitApi20;
 
-import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +23,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static android.R.string.no;
-import static com.mikel.poseidon.R.id.currentWeightUnit;
 import static com.mikel.poseidon.R.id.displayWeight;
-import static com.mikel.poseidon.R.id.tv_profile;
+
 
 public class GetWeightFitbit extends AppCompatActivity {
 

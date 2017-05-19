@@ -1,18 +1,10 @@
 package com.mikel.poseidon;
 
 import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.mikel.poseidon.utility.FitbitApi20;
 
 import org.fuckboilerplate.rx_social_connect.RxSocialConnect;
 
@@ -23,7 +15,7 @@ import io.victoralbertos.jolyglot.GsonSpeaker;
  */
 
 
-public class RootFitbitApplication extends Application {
+public class RootFitbitApplication extends MultiDexApplication {
 
 
     @Override public void onCreate() {
@@ -36,6 +28,11 @@ public class RootFitbitApplication extends Application {
 
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
 }
 

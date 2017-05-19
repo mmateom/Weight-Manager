@@ -41,7 +41,6 @@ import static android.R.attr.y;
 import static android.widget.Toast.makeText;
 import static com.mikel.poseidon.R.id.ok_button;
 import static com.mikel.poseidon.R.id.unit_get_weight;
-import static com.mikel.poseidon.R.id.yourdate;
 import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
 
 public class GetWeight extends AppCompatActivity {
@@ -107,7 +106,6 @@ public class GetWeight extends AppCompatActivity {
         }
 
         //create view objects
-        yourDate = (TextView)findViewById(yourdate);
         okbtn = (Button) findViewById(ok_button);
         inputWeight = (EditText) findViewById(R.id.editTextWeight);
 
@@ -117,7 +115,8 @@ public class GetWeight extends AppCompatActivity {
         month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
 
-        showDialogOnSelectDateClick();
+        //SHOW DATE PICKER
+        //showDialogOnSelectDateClick();
 
         //When I press OK button get newWeight and newDate + show popup window
         okbtn.setOnClickListener(new View.OnClickListener() {
@@ -133,10 +132,12 @@ public class GetWeight extends AppCompatActivity {
                 }else{
 
                     newWeight = Double.parseDouble(inputWeight.getText().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    date_final = sdf.format(new Date());
                     newDate = date_final;
 
                     //If date is not entered, show a message and DO NOT add data to DB
-                    if(newDate != null && newWeight > 0 && !isSameDate(year_x, month_x, day_x, getLastDate())) {
+                    if(newDate != null && newWeight > 0 && !isSameDate(getLastDate(), newDate)) {
 
                         // Find last weight entered to compare to the new one
                         double theLastWeight = getLastWeight();
@@ -334,7 +335,7 @@ public class GetWeight extends AppCompatActivity {
     //                   Date Picker
     //===============================================
 
-    public void showDialogOnSelectDateClick(){
+    /*public void showDialogOnSelectDateClick(){
 
         yourDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,50 +343,15 @@ public class GetWeight extends AppCompatActivity {
                 showDialog(DIALOG_ID);
             }
         });
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected Dialog onCreateDialog(int id){
         if (id == DIALOG_ID)
         return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
         return null;
-    }
+    }*/
 
-    private DatePickerDialog.OnDateSetListener dpickerListener
-            = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-            year_x=i;
-            month_x=i1+1;
-            day_x=i2;
-
-            year = String.valueOf(year_x);
-            month = String.valueOf(month_x);
-            day = String.valueOf(day_x);
-
-            date = year + "-" + month + "-"+ day;
-
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                date_f = formatter.parse(date);
-                date_final = formatter.format(date_f);
-
-
-                System.out.println(date_f);
-                System.out.println(date_final);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            yourDate.setText(date_final);
-
-            /*Intent pass_date = new Intent(GetWeight.this, DBHelper.class);
-            pass_date.putExtra("Date", date_final);
-            startActivity(pass_date);*/
-
-            //Toast.makeText(GetWeight.this, (CharSequence) date_f, Toast.LENGTH_SHORT).show();
-        }
-    };
 
 
 
@@ -466,7 +432,7 @@ public class GetWeight extends AppCompatActivity {
 
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_get_weight);
-        if(isSameDate(year_x, month_x, day_x,newDate)){
+        if(isSameDate(getLastDate(),newDate)){
             ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.same_date_error, null);
             popupWindow = new PopupWindow(container, dpToPx(250), dpToPx(280), true); //true allows us to close window by tapping outside
             popupWindow.showAtLocation(relativeLayout, Gravity.NO_GRAVITY, dpToPx(60), dpToPx(120));
@@ -518,26 +484,9 @@ public class GetWeight extends AppCompatActivity {
 
     }
 
-    public boolean isSameDate(int mYear, int mMonth, int mDay, String userDate){
-
-        String sNowDate = "";
-        String sYear = String.valueOf(mYear);
-        String sMonth = String.valueOf(mMonth);
-        String sDay = String.valueOf(mDay);
-
-        String nowDate = sYear + "-" + sMonth + "-"+ sDay;
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date fNowDate = formatter.parse(nowDate);
-            sNowDate = formatter.format(fNowDate);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+    public boolean isSameDate(String lastDate, String userDate){
         //if the date is the same as the previous, return true
-        return userDate.equals(sNowDate);
+        return userDate.equals(lastDate);
 
     }
 
@@ -558,3 +507,36 @@ public class GetWeight extends AppCompatActivity {
 
 }
 
+    /*private DatePickerDialog.OnDateSetListener dpickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            year_x=i;
+            month_x=i1+1;
+            day_x=i2;
+
+            year = String.valueOf(year_x);
+            month = String.valueOf(month_x);
+            day = String.valueOf(day_x);
+
+            date = year + "-" + month + "-"+ day;
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date_f = formatter.parse(date);
+                date_final = formatter.format(date_f);
+
+
+                System.out.println(date_f);
+                System.out.println(date_final);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            yourDate.setText(date_final);
+
+            /*Intent pass_date = new Intent(GetWeight.this, DBHelper.class);
+            pass_date.putExtra("Date", date_final);
+            startActivity(pass_date);*/
+
+            //Toast.makeText(GetWeight.this, (CharSequence) date_f, Toast.LENGTH_SHORT).show();*/

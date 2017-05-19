@@ -1,17 +1,13 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
-import static com.mikel.poseidon.R.layout.toolbar;
 
 
 /**
@@ -20,8 +16,7 @@ import static com.mikel.poseidon.R.layout.toolbar;
 
 public class PreferencesList extends AppCompatActivity{
 
-    private static final String STRESS_PREFS = "StressPrefs";
-    public boolean mIsPaired = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
