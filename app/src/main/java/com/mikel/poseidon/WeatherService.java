@@ -89,10 +89,13 @@ public class WeatherService extends Service {
                     public void onResult(@NonNull WeatherResult weatherResult) {
                         if (!weatherResult.getStatus().isSuccess()) {
                             Log.e("WeatherActivity", "Could not get weather.");
+                            Log.e(TAG, String.valueOf(weatherResult.getStatus().getStatusCode()));
+                            //Error 7503: location services are disabled in your device
                             return;
                         }
                         Weather weather = weatherResult.getWeather();
                         Log.i("WeatherActivity", "Weather: " + weather);
+
 
                         conditions = weather.getConditions();
                         StringBuilder stringBuilder = new StringBuilder();

@@ -79,7 +79,7 @@
         <intent android:action="com.mikel.poseidon.FitbitBtnActivity"/>
     </Preference>
     <Preference android:title="Weather notifications"
-        android:summary="Will advice user to do exercise or not depending on weather"
+        android:summary="Will advise user to do exercise or not depending on weather"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="weatherNotifications"

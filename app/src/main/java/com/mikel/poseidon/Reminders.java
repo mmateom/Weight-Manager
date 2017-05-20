@@ -228,8 +228,7 @@ public class Reminders extends AppCompatActivity implements NumberPicker.OnValue
 
             //Schedule alarm
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.MILLISECOND, 0);
-            calendar.set(Calendar.SECOND, 0);
+            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.MINUTE, min);
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             //calendar.add(Calendar.DAY_OF_YEAR, 1); //para que salga al día siguiente

@@ -30,13 +30,14 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_centerHorizontal="true"
         android:layout_marginRight="30dp"
         android:drawableBottom="@drawable/calorie"
         android:text="Calories"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_toEndOf="@+id/textView35"
+        android:layout_marginStart="9dp" />
 
     <LinearLayout
         android:layout_width="230dp"
@@ -76,8 +77,8 @@
     </LinearLayout>
 
     <TextView
-        android:text="Your Progress"
-        android:layout_width="320dp"
+        android:text="    Your Progress"
+        android:layout_width="325dp"
         android:layout_height="50dp"
         android:id="@+id/p"
         android:textSize="18sp"
@@ -86,15 +87,13 @@
         android:textColor="@color/HeaderColor"
         android:textStyle="bold"
         android:layout_below="@+id/linearLayout11"
-        android:layout_alignEnd="@+id/textView900"
         android:layout_alignParentStart="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="51dp"
+        android:layout_height="52dp"
         app:srcCompat="@android:drawable/ic_dialog_info"
-        android:layout_alignTop="@+id/p"
         android:layout_alignBottom="@+id/p"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/linearLayout8" />
@@ -105,7 +104,8 @@
         android:id="@+id/linearLayout9"
         android:layout_marginTop="14dp"
         android:layout_below="@+id/textView6"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp">
         <TextView
             android:text="0"
             android:layout_width="100dp"
@@ -147,7 +147,7 @@
         android:background="@color/ToolbarTextColor"
         android:textColor="@color/HeaderColor"
         android:textStyle="bold"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         android:layout_below="@+id/linearLayout9"
         android:layout_alignParentStart="true" />
 
@@ -205,9 +205,10 @@
         android:drawableBottom="@drawable/stp"
         android:paddingTop="10dp"
         android:text="Steps"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/p"
-        android:layout_alignStart="@+id/linearLayout8"
-        android:layout_marginTop="9dp" />
+        android:layout_alignStart="@+id/linearLayout9"
+        android:layout_marginStart="23dp" />
 
     <TextView
         android:id="@+id/textView900"
@@ -228,8 +229,7 @@
         android:textColor="@android:color/holo_green_dark"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/linearLayout8"
+        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/tv_chr" />
 
     <TextView
@@ -240,8 +240,7 @@
         android:textColor="@color/Risk"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_alignBaseline="@+id/textView35"
-        android:layout_alignBottom="@+id/textView35"
+        android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/tv_chr" />
 
 

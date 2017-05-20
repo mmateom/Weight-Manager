@@ -24,7 +24,7 @@
         tools:replace="android:label">
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
-            android:value="AIzaSyDzB5pnGg302WV7r5uUQ_DIDKn5_MwDT14" />
+            android:value="AIzaSyDBvXf8DJg0gSia3oLi38hJcePHby3Cu6o" />
 
         <activity
             android:name=".MainActivity"
@@ -150,16 +150,11 @@
         <service
             android:name=".WeatherService"
             android:enabled="true" />
-        <receiver android:name=".WeightNotifReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".WeightNotifReceiver"/>
 
         <!-- Will not be called unless the application explicitly enables it -->
         <receiver
-            android:name=".WeightNotifBootReceiver"
-            android:enabled="false">
+            android:name=".WeightNotifBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

@@ -36,7 +36,7 @@ public class WeightNotifBootReceiver extends BroadcastReceiver {
             int frequency = mPrefs.getInt("frequency_key", -1);
 
 
-            if (min != -1) {
+
 
                 Log.e(TAG, hour + ":" + min);
                 Intent myIntent = new Intent(context, WeightNotifReceiver.class); //intent to BroadcastReveicer
@@ -44,13 +44,12 @@ public class WeightNotifBootReceiver extends BroadcastReceiver {
                 //bindService(myIntent, mConnection, Context.BIND_AUTO_CREATE);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-                PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, 0); //wrap intent in a PendingIntent
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0); //wrap intent in a PendingIntent
 
 
                 //Schedule alarm
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.MILLISECOND, 0);
-                calendar.set(Calendar.SECOND, 0);
+                calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.MINUTE, min);
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 //calendar.add(Calendar.DAY_OF_YEAR, 1); //para que salga al día siguiente
@@ -60,7 +59,7 @@ public class WeightNotifBootReceiver extends BroadcastReceiver {
                 //Alarm fires pendingIntent to BroadcastReceiver
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * frequency, pendingIntent);
 
-            }
+
 
 
         }

@@ -197,6 +197,12 @@ public class Steps extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Intent intent = new Intent(this, StepService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        //get boolean, check if HR monitor connected
+        isConnected = intent.getBooleanExtra("isConnected", true);
+
         setupBReceiver();
         //Toast.makeText(this, "ON RESUME", Toast.LENGTH_SHORT).show();
         if(mChrono == null){
@@ -208,12 +214,10 @@ public class Steps extends AppCompatActivity {
 
 
 //        t.start();
-        Intent intent = new Intent(this, StepService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 
-        if(!isConnected || !mBound){
-            hrmonitorDialog();
-        }//todo fix this
+
+
+
     }
 
     @Override
@@ -260,8 +264,7 @@ public class Steps extends AppCompatActivity {
                     //check heart rate
                     detectHighHR(activity, hr);
 
-                    //get boolean, check if HR monitor connected
-                    isConnected = intent.getBooleanExtra("isConnected", true);
+
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -315,7 +318,7 @@ public class Steps extends AppCompatActivity {
                                 calories = getCalories(getLastWeight(), activity);
                                 }*/
                                 double calories;
-                                if (!isConnected){
+                                if (isConnected){
                                     calories = getCalories(getLastWeight(), activity);
                                     caloriesText.setText(String.valueOf(calories));
                                     Log.e("BLE monitor ON", String.valueOf(isConnected));
@@ -337,30 +340,6 @@ public class Steps extends AppCompatActivity {
 
 
         Toast.makeText(this, "TRACKING ACTIVITY", Toast.LENGTH_LONG).show();
-    }
-
-    public void hrmonitorDialog(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Steps.this);
-        alertDialog.setCancelable(false);
-        alertDialog.setMessage("Do you want to use a Hear Rate monitor?");
-        alertDialog.setIcon(R.drawable.android);
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                // Refresh activity
-                Intent intent = new Intent(getApplicationContext(), BluetoothDeviceActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-
-
-            }
-        });
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.show();
     }
 
     public void onStopService(View v) {

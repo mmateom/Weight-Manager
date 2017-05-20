@@ -99,9 +99,18 @@ public class ActivityTracker extends AppCompatActivity {
 
         // D
 
-        TextView current = (TextView) findViewById(R.id.current_activity);
-        current.setVisibility(View.INVISIBLE);
 
+        // DANCE
+        TextView hr = (TextView) findViewById(R.id.monitor);
+        hr.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View v) {
+                                             Intent hrIntent = new Intent(ActivityTracker.this, BluetoothDeviceActivity.class);
+                                             startActivity(hrIntent);
+                                         }
+                                     }
+
+        );
 
 
 

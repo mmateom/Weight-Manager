@@ -34,13 +34,6 @@ public class WeightNotifReceiver extends BroadcastReceiver {
         //context.startService(new Intent(context, WeightNotifService.class));
 
 
-        PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
-                        | PowerManager.ON_AFTER_RELEASE,
-                "wakeup");
-
-        wl.acquire();
-
         NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //Define sound URI
@@ -75,9 +68,8 @@ public class WeightNotifReceiver extends BroadcastReceiver {
         weightNotif.setContentIntent(contentIntent);
         Notification n = weightNotif.build();
 
-        nm.notify(1, n);
+        nm.notify(101, n);
 
-        wl.release();
 
     }
 

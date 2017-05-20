@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //if((goal > 0 && date_final.equals("13:00:00")) || (goal > 0 && date_final.equals("17:00:00"))) {
-        if((goal > 0 && mHour >= 17 && mHour < 18)){// || (goal > 0 && mHour >= 12 && mHour <= 13)) {
+        if((goal > 0 && mHour >= 17 && mMin == 30)){// || (goal > 0 && mHour >= 12 && mHour <= 13)) {
                 int stepProgress = (int) ((100 * todaySteps()) / goal);
                 int caloriesProgress = (int) ((100 * todayCalories()) / caloriesGoal);
 
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-        }else if (goal == 0 && mHour >= 17 && mHour < 18){
+        }else if (goal == 0 && mHour >= 17 && mMin == 30){
                 // Create an Explicit Intent
                 Intent intent = new Intent(this, ExerciseNotifService.class);
                 // Set some data that the Service might require/use
