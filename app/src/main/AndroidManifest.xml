@@ -24,7 +24,7 @@
         tools:replace="android:label">
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
-            android:value="AIzaSyDBvXf8DJg0gSia3oLi38hJcePHby3Cu6o" />
+            android:value="AIzaSyDTde6LuN8QhYBrJ0juIHLBjEX0K0mXUks" />
 
         <activity
             android:name=".MainActivity"
