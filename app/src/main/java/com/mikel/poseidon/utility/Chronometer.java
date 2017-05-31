@@ -3,7 +3,7 @@ package com.mikel.poseidon.utility;
 import android.content.Context;
 
 
-import com.mikel.poseidon.Steps;
+import com.mikel.poseidon.activity.Tracker;
 
 /**
  * Created by mikel on 16/02/2017.
@@ -97,7 +97,7 @@ public class Chronometer implements Runnable {
             //int hours = (int) ((since / (MILLS_TO_HOURS)) % 24); //this resets to  0 after 24 hour!
             int hours = (int) ((since / (MILLS_TO_HOURS))); //this does not reset to 0!
 
-            ((Steps) mContext).updateTimerText(String.format("%02d:%02d:%02d"
+            ((Tracker) mContext).updateTimerText(String.format("%02d:%02d:%02d"
                     , hours, minutes, seconds));
 
             //Sleep the thread for a short amount, to prevent high CPU usage!

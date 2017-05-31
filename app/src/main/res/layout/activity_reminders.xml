@@ -4,7 +4,7 @@
     android:id="@+id/activity_reminders"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mikel.poseidon.Reminders">
+    tools:context="com.mikel.poseidon.preferences.Reminders">
 
     <include layout="@layout/toolbar"
         android:id="@+id/include4" />

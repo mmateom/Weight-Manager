@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mikel.poseidon.SendDatabase">
+    tools:context="com.mikel.poseidon.preferences.SendDatabase">
 
     <include layout="@layout/toolbar"
         android:id="@+id/include22" />

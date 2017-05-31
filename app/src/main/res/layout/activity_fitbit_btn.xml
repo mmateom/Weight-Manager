@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.mikel.poseidon.FitbitBtnActivity">
+    tools:context="com.mikel.poseidon.preferences.FitbitBtnActivity">
 
     <include
         layout="@layout/toolbar"

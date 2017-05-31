@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.mikel.poseidon.CurrentState">
+    tools:context="com.mikel.poseidon.statistical.CurrentState">
 
     <include
         layout="@layout/toolbar"

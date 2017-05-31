@@ -1,38 +1,36 @@
 package com.mikel.poseidon;
 
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.IBinder;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mikel.poseidon.utility.ExerciseNotifService;
+import com.mikel.poseidon.activity.ChooseActivity;
+import com.mikel.poseidon.intro.IntroActivity;
+import com.mikel.poseidon.notifications.WeatherReceiver;
+import com.mikel.poseidon.preferences.PreferencesList;
+import com.mikel.poseidon.recordweight.ChooseManAuto;
+import com.mikel.poseidon.notifications.ExerciseNotifService;
+import com.mikel.poseidon.statistical.CurrentState;
+import com.mikel.poseidon.statistical.Graph;
+import com.mikel.poseidon.statistical.StepsRecord;
+import com.mikel.poseidon.statistical.ViewSummary;
+import com.mikel.poseidon.models.DBHelper;
 
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
-import static com.mikel.poseidon.SetGraphLimits.sharedPrefs;
+import static com.mikel.poseidon.preferences.SetGraphLimits.sharedPrefs;
 
 public class MainActivity extends AppCompatActivity {
     int mMin, mHour, mMilis, mSeconds;
@@ -306,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the preferences button is clicked on.
             @Override
             public void onClick(View view) {
-                Intent stepsIntent = new Intent(MainActivity.this, ActivityTracker.class);
+                Intent stepsIntent = new Intent(MainActivity.this, ChooseActivity.class);
                 startActivity(stepsIntent);
             }
         });

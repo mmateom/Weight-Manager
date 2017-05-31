@@ -24,7 +24,7 @@
         tools:replace="android:label">
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
-            android:value="AIzaSyDTde6LuN8QhYBrJ0juIHLBjEX0K0mXUks" />
+            android:value="AIzaSyDBvXf8DJg0gSia3oLi38hJcePHby3Cu6o" />
 
         <activity
             android:name=".MainActivity"
@@ -36,33 +36,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GetWeight"
-            android:parentActivityName=".ChooseManAuto"
+            android:name=".recordweight.GetWeight"
+            android:parentActivityName=".recordweight.ChooseManAuto"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ViewSummary"
+            android:name=".statistical.ViewSummary"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Graph"
+            android:name=".statistical.Graph"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Steps"
+            android:name=".activity.Tracker"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StepsRecord"
+            android:name=".statistical.StepsRecord"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PreferencesList"
+            android:name=".preferences.PreferencesList"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SetGraphLimits"
+            android:name=".preferences.SetGraphLimits"
             android:label="@string/title_activity_set_graph_limits"
-            android:parentActivityName=".PreferencesList"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -72,8 +72,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DeleteData"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.DeleteData"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.DeleteData" />
@@ -82,8 +82,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FitbitBtnActivity"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.FitbitBtnActivity"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.FitbitBtnActivity" />
@@ -92,8 +92,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserProfile"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.UserProfile"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.UserProfile" />
@@ -102,8 +102,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Reminders"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.Reminders"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.Reminders" />
@@ -112,8 +112,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Goals"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.Goals"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.Goals" />
@@ -122,8 +122,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SendDatabase"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.SendDatabase"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.SendDatabase" />
@@ -132,8 +132,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WeatherNotificationsPrefs"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.WeatherNotificationsPrefs"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.WeatherNotificationsPrefs" />
@@ -143,25 +143,25 @@
         </activity>
 
         <service
-            android:name=".StepService"
+            android:name=".activity.TrackingService"
             android:screenOrientation="portrait" />
-        <service android:name=".utility.ExerciseNotifService" />
-        <service android:name=".PermanentNService" />
+        <service android:name=".notifications.ExerciseNotifService" />
+        <service android:name=".notifications.PermanentNService" />
         <service
-            android:name=".WeatherService"
+            android:name=".notifications.WeatherService"
             android:enabled="true" />
-        <receiver android:name=".WeightNotifReceiver"/>
+        <receiver android:name=".notifications.WeightNotifReceiver"/>
 
         <!-- Will not be called unless the application explicitly enables it -->
         <receiver
-            android:name=".WeightNotifBootReceiver">
+            android:name=".notifications.WeightNotifBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <receiver
-            android:name=".WeatherReceiver"
+            android:name=".notifications.WeatherReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -172,32 +172,32 @@
 
 
         <activity
-            android:name=".GetWeightFitbit"
-            android:parentActivityName=".ChooseManAuto"
+            android:name=".recordweight.GetWeightFitbit"
+            android:parentActivityName=".recordweight.ChooseManAuto"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChooseManAuto"
+            android:name=".recordweight.ChooseManAuto"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CurrentState"
+            android:name=".statistical.CurrentState"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityTracker"
+            android:name=".activity.ChooseActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".intro.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IntroActivity" />
+        <activity android:name=".intro.IntroActivity" />
         <activity
-            android:name=".BluetoothDeviceActivity"
-            android:parentActivityName=".PreferencesList"
+            android:name=".preferences.BluetoothDeviceActivity"
+            android:parentActivityName=".preferences.PreferencesList"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.mikel.poseidon.BluetoothDeviceActivity" />

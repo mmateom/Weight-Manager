@@ -5,7 +5,7 @@
     android:id="@+id/activity_choose_man_auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mikel.poseidon.ChooseManAuto">
+    tools:context="com.mikel.poseidon.recordweight.ChooseManAuto">
 
     <include layout="@layout/toolbar"
         android:id="@+id/include3" />
