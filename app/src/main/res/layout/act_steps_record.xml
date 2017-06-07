@@ -9,7 +9,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    tools:context="com.mikel.poseidon.MainActivity"
+    tools:context="com.mikel.poseidon.Activities.Menu"
     >
 
     <include
@@ -65,7 +65,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/my_toolbar"
         android:layout_marginTop="240dp"
-        tools:context="com.mikel.poseidon.statistical.StepsRecord">
+        tools:context=".Activities.viewstatistics.StepsRecord">
 
 
     </ListView>

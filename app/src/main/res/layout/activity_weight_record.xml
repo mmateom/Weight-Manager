@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rel_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    tools:context="com.mikel.poseidon.Activities.Menu">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/include"/>
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+
+
+        <TableRow
+            android:id="@+id/tableRow1_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="@color/ToolbarTextColor">
+            <TextView
+                android:text="Date"
+                android:textColor="@color/HeaderColor"
+                android:gravity="center"
+                android:layout_weight="1.5"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                />
+
+            <TextView
+                android:id="@+id/summary_unit"
+                android:text="Weight (Kg)"
+                android:textColor="@color/HeaderColor"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+    <ListView
+
+
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/listView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/my_toolbar"
+        android:layout_marginTop="90dp"
+        tools:context=".Activities.viewstatistics.WeightRecord">
+
+
+    </ListView>
+
+</RelativeLayout>

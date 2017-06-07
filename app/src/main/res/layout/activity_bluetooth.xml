@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".preferences.BluetoothDeviceActivity">
+    tools:context=".Activities.preferences.BluetoothDeviceActivity">
 
     <include
         layout="@layout/toolbar"

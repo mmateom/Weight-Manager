@@ -87,8 +87,8 @@
         android:defaultValue="1">
         <intent android:action="com.mikel.poseidon.WeatherNotificationsPrefs"/>
     </Preference>
-    <Preference android:title="Send data"
-        android:summary="Send your data to the researcher"
+    <Preference android:title="Export data"
+        android:summary="Here you can send your weight and activity data by email"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:key="sendData"

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_tracker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.activity.ChooseActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/include12" />
+
+    <TextView
+        android:text="     Choose Your Activity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/remindersHead"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:background="@color/ToolbarTextColor"
+        android:textColor="@color/HeaderColor"
+        android:textStyle="bold"
+        android:layout_below="@+id/include12"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="3"
+        android:columnCount="3"
+        android:orientation="vertical"
+        android:id="@+id/gridLayout"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:text="Run"
+            style="@style/ButtonText"
+            android:background="@drawable/round_corner_button"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:drawableTop="@drawable/run"
+            android:textSize="18sp"
+            android:paddingTop="10sp"
+            android:id="@+id/run"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_below="@+id/gridLayout"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="Swim"
+            style="@style/ButtonText"
+            android:drawableTop="@drawable/swim"
+            android:paddingTop="15sp"
+            android:background="@drawable/round_corner_button"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/swim"
+            android:layout_column="0"
+            android:textSize="18sp"
+            android:layout_row="1"
+            android:layout_gravity="fill"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"/>
+
+        <Button
+            android:text="Dance"
+            android:textSize="18sp"
+            style="@style/ButtonText"
+            android:background="@drawable/round_corner_button"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/dance"
+            android:drawableTop="@drawable/dance"
+            android:paddingTop="10sp"
+            android:layout_gravity="fill"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_below="@+id/gridLayout"
+            android:layout_alignRight="@+id/gridLayout"
+            android:layout_alignEnd="@+id/gridLayout"
+            android:layout_marginTop="12dp"/>
+
+        <Button
+            android:text="Walk"
+            style="@style/ButtonText"
+            android:background="@drawable/round_corner_button"
+            android:layout_width="155dp"
+            android:layout_height="150dp"
+            android:drawableTop="@drawable/walk"
+            android:paddingTop="12sp"
+            android:textSize="18dp"
+            android:id="@+id/walk"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_gravity="fill"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp" />
+
+
+    </GridLayout>
+
+    <Button
+        android:text=" Add heart rate monitor"
+        style="@style/ButtonText"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_corner_button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:drawableRight="@drawable/band"
+        android:drawableEnd="@drawable/band"
+        android:paddingRight="12sp"
+        android:paddingEnd="12sp"
+        android:textSize="18dp"
+        android:id="@+id/monitor"
+        android:layout_gravity="fill"
+        android:layout_below="@+id/gridLayout"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

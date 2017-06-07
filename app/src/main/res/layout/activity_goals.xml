@@ -4,7 +4,7 @@
     android:id="@+id/activity_goals"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mikel.poseidon.preferences.Goals">
+    tools:context=".Activities.preferences.Goals">
 
     <include
         layout="@layout/toolbar"

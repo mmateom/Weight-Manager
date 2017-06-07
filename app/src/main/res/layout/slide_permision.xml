@@ -18,34 +18,28 @@
 
     <TextView
         android:id="@+id/textView29"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="210dp"
-        android:text="We need your permission to access your storage.
-
-           Why?
-
-We need to gather your weight and activity records for the test."
+        android:text="We need your location permission to get weather data.\n\n     You'll get cool notifications based on weather!"
         android:gravity="center"
         android:textColor="@color/HeaderColor"
         android:textSize="22dp"
-        android:layout_below="@+id/textView27"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginTop="89dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/textView30" />
 
     <TextView
         android:id="@+id/textView30"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="36dp"
-        android:gravity="center"
-        android:text="See: Preferences - Send data"
+        android:layout_marginTop="54dp"
+        android:gravity="left"
+
+        android:text="See: Preferences - Weather notifications"
         android:textColor="@color/BeCareful"
         android:textSize="18dp"
         android:textStyle="bold"
         android:layout_below="@+id/textView29"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

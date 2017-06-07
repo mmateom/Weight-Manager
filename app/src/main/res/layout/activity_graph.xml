@@ -4,7 +4,7 @@
     android:id="@+id/activity_graph"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mikel.poseidon.statistical.Graph">
+    tools:context=".Activities.viewstatistics.Graph">
 
     <include layout="@layout/toolbar"
         android:id="@+id/include" />
