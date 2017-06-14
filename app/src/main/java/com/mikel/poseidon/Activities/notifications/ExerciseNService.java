@@ -75,9 +75,10 @@ public class ExerciseNService extends Service {
         //Define sound URI
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
+
         //Create notification
         NotificationCompat.Builder weightNotif = new NotificationCompat.Builder(this)
-                .setContentTitle("Have you exercised today?")
+                .setContentTitle("Remember to complete goals!")
                 .setContentText("Weight Manager")
                 .setLargeIcon(bitmapIcon())
                 .setSmallIcon(R.mipmap.ic_launcher)

@@ -493,7 +493,7 @@ public class Tracker extends AppCompatActivity {
                 return round(caloriesHR, 0);
 
             case "Female":
-                caloriesHR += ((-20.4022 + (0.4472 * HR) - (0.1263 * W) + (0.074 * A))/4.184) * 60 * T;
+                caloriesHR += ((-20.4022 + (0.4472 * HR) - (0.1263 * W) + (0.074 * A))/4.184) * T;
                 return round(caloriesHR, 0);
 
             default: return 0;

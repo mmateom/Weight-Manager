@@ -54,33 +54,26 @@ public class NotifReceiver extends BroadcastReceiver {
         int mMin = calendar.get(Calendar.MINUTE);
         int mHour = calendar.get(Calendar.HOUR_OF_DAY);
 
-
-        //Log.e("TIIIIMEEEEE", date_final);
-
         //encourage exercise based on goals
 
-        //if((goal > 0 && date_final.equals("13:00:00")) || (goal > 0 && date_final.equals("17:00:00"))) {
-        if((goal > 0 && mHour >= 17 && mMin == 30)){// || (goal > 0 && mHour >= 12 && mHour <= 13)) {
+        if(goal > 0 && (mHour == 17 && mMin == 30 || mHour == 10 && mMin == 30)){
             int stepProgress = (int) ((100 * todaySteps()) / goal);
             int caloriesProgress = (int) ((100 * todayCalories()) / caloriesGoal);
 
-            if (stepProgress < 50 || caloriesProgress < 50) {
+
+            if (stepProgress == 0 || stepProgress < 50 || caloriesProgress < 50) {
                 // Create an Explicit Intent
                 Intent intent2 = new Intent(context, ExerciseNService.class);
                 intent2.putExtra("hasGoal", true);
-                // Set some data that the Service might require/use
-                //intent.putExtra("key", "val");
                 // Start the Service
                 context.startService(intent2);
 
             }
 
-        }else if (goal == 0 && mHour >= 17 && mMin == 30){
+        }else if (goal == 0 && (mHour == 17 && mMin == 30 || mHour == 10 && mMin == 30)){
             // Create an Explicit Intent
             Intent intent3 = new Intent(context, ExerciseNService.class);
             intent3.putExtra("hasGoal", false);
-            // Set some data that the Service might require/use
-            //intent.putExtra("key", "val");
             // Start the Service
             context.startService(intent3);
 
